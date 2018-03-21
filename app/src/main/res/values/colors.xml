@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--- colors obtained from: https://material.io/color/#!/?view.left=0&view.right=0&primary.color=00bfa5&secondary.color=FFB74D - -->
+    <color name="colorPrimary">#00bfa5</color>
+    <color name="colorPrimaryLight">#5df2d6</color>
+    <color name="colorPrimaryDark">#008e76</color>
+
+    <color name="colorAccent">#ffb74d</color>
+    <color name="colorPrimaryText">#000000</color>
+    <color name="colorSecondary">#ffb74d</color>
+    <color name="colorSecondaryDark">#c88719</color>
+    <color name="colorSecondaryLight">#ffe97d</color>
+    <color name="colorSecondaryText">#000000</color>
+    <color name="colorDefaultText">#808080</color>
+
+
+    <!-- Colors Labyrinth -->
+    <color name="colorGridTarget">#9C27B0</color>
+    <color name="colorGridPassedUncertain">#FBC02D</color>
+    <color name="colorGridSolution">#009688</color>
+    <color name="colorGridDeadEnd">#C62828</color>
+    <color name="colorGridUnexplored">#BDBDBD</color>
+
+</resources>

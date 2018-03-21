@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/labyrinth_activity"
+    tools:context="com.example.guillermobrugarolas.metapp_andruino.view.activities.LabActivity">
+
+    <fragment
+        android:name="com.example.guillermobrugarolas.metapp_andruino.view.fragments.LabFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/lab_fragment" />
+
+</LinearLayout>

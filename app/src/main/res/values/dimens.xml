@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Resources for main menu -->
+    <dimen name="MainButtonHeight">150dp</dimen>
+    <dimen name="MainButtonWidth">75dp</dimen>
+    <!-- Resources for the remote control -->
+    <dimen name="ctrl_remoto_speed_height">150dp</dimen>
+    <dimen name="ctrl_remoto_speed_width">150dp</dimen>
+    <dimen name="ctrl_remoto_margin_left_lights">10dp</dimen>
+    <dimen name="ctrl_remoto_margin_top">15dp</dimen>
+    <dimen name="ctrl_remoto_margin_left_collision_indicators">15dp</dimen>
+    <dimen name="ctrl_remoto_termometer_height">80dp</dimen>
+    <dimen name="ctrl_remoto_termometer_width">90dp</dimen>
+    <dimen name="ctrl_remoto_padding_top_pattern">60dp</dimen>
+
+
+</resources>

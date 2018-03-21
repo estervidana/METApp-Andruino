@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Control Me</string>
+    <!-- Remote control section -->
+    <string name="ctrl_remoto_speed_text">Speed:</string>
+    <string name="ctrl_remoto_speed_number_text">--Km/h</string>
+    <string name="ctrl_remoto_lights_text">Lights:       </string>
+    <string name="ctrl_remoto_manual_mode_text">Manual mode:  </string>
+    <string name="ctrl_remoto_gear_text">Gear:  </string>
+    <string name="ctrl_remoto_number_gear_text">0</string>
+
+</resources>

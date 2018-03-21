@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.guillermobrugarolas.metapp_andruino.view.activities.MainActivity">
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/activity_main_container">
+
+        <LinearLayout
+            android:id="@+id/llMain"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical"
+            tools:layout_editor_absoluteX="25dp"
+            tools:layout_editor_absoluteY="95dp">
+
+            <Button
+                android:id="@+id/bCtrlRemoto"
+                android:layout_width="@dimen/MainButtonHeight"
+                android:layout_height="@dimen/MainButtonWidth"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@color/colorSecondary"
+                android:text="Control Remoto"
+                android:textColor="@color/colorSecondaryText"/>
+
+            <Button
+                android:id="@+id/bLaberinto"
+                android:layout_width="@dimen/MainButtonHeight"
+                android:layout_height="@dimen/MainButtonWidth"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@color/colorSecondary"
+                android:text="Solución Laberinto"
+                android:textColor="@color/colorSecondaryText" />
+
+            <Button
+                android:id="@+id/bAcelerometro"
+                android:layout_width="@dimen/MainButtonHeight"
+                android:layout_height="@dimen/MainButtonWidth"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@color/colorSecondary"
+                android:text="Reto Acelerómetro"
+                android:textColor="@color/colorSecondaryText"/>
+
+            <Button
+                android:id="@+id/bLogCom"
+                android:layout_width="@dimen/MainButtonHeight"
+                android:layout_height="@dimen/MainButtonWidth"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:background="@color/colorSecondary"
+                android:text="Log Comunicación"
+                android:textColor="@color/colorSecondaryText"/>
+        </LinearLayout>
+    </FrameLayout>
+</FrameLayout>
+
