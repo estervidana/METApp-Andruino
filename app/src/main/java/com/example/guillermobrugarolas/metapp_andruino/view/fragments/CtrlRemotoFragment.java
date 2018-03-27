@@ -7,6 +7,7 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -21,12 +22,14 @@ import android.widget.TextView;
 import com.example.guillermobrugarolas.metapp_andruino.R;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.CtrlRemotoViewModel;
+import com.example.guillermobrugarolas.metapp_andruino.viewModel.PaintView;
 
 
 public class CtrlRemotoFragment extends Fragment {
     private CtrlRemotoViewModel viewModel;
     private static ProgressBar pbSpeed, pbTemperature;
     private static TextView tvFrontalCollision, tvBackLeftCollision, tvBackRightCollision;
+    private PaintView pvDrawShape;
 
 
     public static CtrlRemotoFragment newInstance(){
@@ -59,6 +62,11 @@ public class CtrlRemotoFragment extends Fragment {
         tvBackLeftCollision = (TextView) v.findViewById(R.id.text_back_left_collision);
         tvFrontalCollision = (TextView) v.findViewById(R.id.text_frontal_collision);
         tvBackRightCollision = (TextView) v.findViewById(R.id.text_back_right_collision);
+        //THE PAINT VIEW
+        pvDrawShape = (PaintView) v.findViewById(R.id.paintView);
+        DisplayMetrics metrics = new DisplayMetrics();
+        this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        pvDrawShape.init(metrics);
         //LISTENING THE LIGHT'S SWITCH
         final Switch sLigths = (Switch)v.findViewById(R.id.switch_mode_lights);
         sLigths.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -112,7 +120,7 @@ public class CtrlRemotoFragment extends Fragment {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 //In order to adapt to different mobile resolutions we will check tye size of the lateral
-                //Layouts and let the user paint only betwenn them.
+                //Layouts and let the user paint only between them.
                 LinearLayout llLateralLeft = (LinearLayout) v.findViewById(R.id.linearLayout_lateralLeft);
                 LinearLayout llLateralRight = (LinearLayout) v.findViewById(R.id.linearLayout_lateralRight);
                 LinearLayout llVerticalColision = (LinearLayout) v.findViewById(R.id.linearLayout_verticalCollisionIndicator);
@@ -126,7 +134,7 @@ public class CtrlRemotoFragment extends Fragment {
                 return false;
             }
         });
-        //LISTENING TO THE GAS OR BRAKES BUTTON
+        //LISTENING TO THE GAS, BRAKE OR CLEAR BUTTON
         ImageButton ibGas = (ImageButton) v.findViewById(R.id.image_button_gas);
         ibGas.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -142,6 +150,20 @@ public class CtrlRemotoFragment extends Fragment {
             }
         });
 
+        ImageButton ibClear = (ImageButton) v.findViewById(R.id.image_button_clear);
+        ibClear.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if(event.getAction() == MotionEvent.ACTION_DOWN) {
+                    Debug.showLogError("Aprieto el CLEAR!");
+                    //pvDrawShape.clear();
+                } else if (event.getAction() == MotionEvent.ACTION_UP) {
+                    Debug.showLogError("Dejo ir el CLEAR!");
+                    pvDrawShape.clear();
+                }
+                return true;
+            }
+        });
 
         ImageButton ibBrake = (ImageButton) v.findViewById(R.id.image_button_brake);
         ibBrake.setOnTouchListener(new View.OnTouchListener() {
