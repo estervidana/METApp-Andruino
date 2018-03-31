@@ -5,7 +5,8 @@ import android.util.Log;
 
 
 public class Debug {
-    public Debug(){};
+    public Debug(){}
+
     private static final boolean debugEnable = true;
 
     public static void showLogError(String error){

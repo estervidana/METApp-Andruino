@@ -59,20 +59,20 @@ public class CtrlRemotoFragment extends Fragment {
     @SuppressLint("ClickableViewAccessibility")
     private void bindViews(View v){
         //THE CIRCULAR PROGRESS BAR FOR THE SPEED
-        pbSpeed = (ProgressBar) v.findViewById(R.id.progressbar_circular_progress);
+        pbSpeed = v.findViewById(R.id.progressbar_circular_progress);
         //THE TEMPERATURE PROGRESS BAR
-        pbTemperature = (ProgressBar) v.findViewById(R.id.progressbar_temperature);
+        pbTemperature = v.findViewById(R.id.progressbar_temperature);
         //THE COLLISION INDICATORS
-        tvBackLeftCollision = (TextView) v.findViewById(R.id.text_back_left_collision);
-        tvFrontalCollision = (TextView) v.findViewById(R.id.text_frontal_collision);
-        tvBackRightCollision = (TextView) v.findViewById(R.id.text_back_right_collision);
+        tvBackLeftCollision = v.findViewById(R.id.text_back_left_collision);
+        tvFrontalCollision = v.findViewById(R.id.text_frontal_collision);
+        tvBackRightCollision = v.findViewById(R.id.text_back_right_collision);
         //THE PAINT VIEW
-        pvDrawShape = (PaintView) v.findViewById(R.id.paintView);
+        pvDrawShape = v.findViewById(R.id.paintView);
         DisplayMetrics metrics = new DisplayMetrics();
         this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         pvDrawShape.init(metrics);
         //LISTENING THE LIGHT'S SWITCH
-        final Switch sLigths = (Switch)v.findViewById(R.id.switch_mode_lights);
+        final Switch sLigths = v.findViewById(R.id.switch_mode_lights);
         sLigths.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -87,7 +87,7 @@ public class CtrlRemotoFragment extends Fragment {
         });
 
         //LISTENING THE MANUAL MODE SWITCH
-        final Switch sManualMode = (Switch)v.findViewById(R.id.switch_manual_mode);
+        final Switch sManualMode = v.findViewById(R.id.switch_manual_mode);
         sManualMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
@@ -102,8 +102,8 @@ public class CtrlRemotoFragment extends Fragment {
         });
 
         //LISTENING TO GEAR BUTTONS
-        final TextView tvGearText = (TextView) v.findViewById(R.id.text_number_gear);
-        final ImageButton ibGearUp = (ImageButton)v.findViewById(R.id.image_button_gearup);
+        final TextView tvGearText = v.findViewById(R.id.text_number_gear);
+        final ImageButton ibGearUp = v.findViewById(R.id.image_button_gearup);
         ibGearUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,7 +111,7 @@ public class CtrlRemotoFragment extends Fragment {
                 Debug.showLogError("Gear Up pressed");
             }
         });
-        final ImageButton ibGearDown = (ImageButton)v.findViewById(R.id.image_button_geardown);
+        final ImageButton ibGearDown = v.findViewById(R.id.image_button_geardown);
         ibGearDown.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -125,9 +125,9 @@ public class CtrlRemotoFragment extends Fragment {
             public boolean onTouch(View v, MotionEvent event) {
                 //In order to adapt to different mobile resolutions we will check tye size of the lateral
                 //Layouts and let the user paint only between them.
-                LinearLayout llLateralLeft = (LinearLayout) v.findViewById(R.id.linearLayout_lateralLeft);
-                LinearLayout llLateralRight = (LinearLayout) v.findViewById(R.id.linearLayout_lateralRight);
-                LinearLayout llVerticalColision = (LinearLayout) v.findViewById(R.id.linearLayout_verticalCollisionIndicator);
+                LinearLayout llLateralLeft = v.findViewById(R.id.linearLayout_lateralLeft);
+                LinearLayout llLateralRight = v.findViewById(R.id.linearLayout_lateralRight);
+                LinearLayout llVerticalColision = v.findViewById(R.id.linearLayout_verticalCollisionIndicator);
 
                 if(event.getX() > llLateralLeft.getWidth() && event.getX() < (v.getWidth()-llLateralRight.getWidth()) && event.getY()> llVerticalColision.getMeasuredHeight()){
                     Debug.showLogError("Canvas Pressed!!!!!");
@@ -139,7 +139,7 @@ public class CtrlRemotoFragment extends Fragment {
             }
         });
         //LISTENING TO THE GAS, BRAKE OR CLEAR BUTTON
-        ImageButton ibGas = (ImageButton) v.findViewById(R.id.image_button_gas);
+        ImageButton ibGas = v.findViewById(R.id.image_button_gas);
         ibGas.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -154,7 +154,7 @@ public class CtrlRemotoFragment extends Fragment {
             }
         });
 
-        ImageButton ibClear = (ImageButton) v.findViewById(R.id.image_button_clear);
+        ImageButton ibClear = v.findViewById(R.id.image_button_clear);
         ibClear.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -169,7 +169,7 @@ public class CtrlRemotoFragment extends Fragment {
             }
         });
 
-        ImageButton ibBrake = (ImageButton) v.findViewById(R.id.image_button_brake);
+        ImageButton ibBrake = v.findViewById(R.id.image_button_brake);
         ibBrake.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -184,7 +184,7 @@ public class CtrlRemotoFragment extends Fragment {
             }
         });
 
-        ImageButton ibBack = (ImageButton) v.findViewById(R.id.image_button_back_ctrl_remoto);
+        ImageButton ibBack = v.findViewById(R.id.image_button_back_ctrl_remoto);
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -197,7 +197,7 @@ public class CtrlRemotoFragment extends Fragment {
 
 
         //OBSERVING THE TEMPERATURE OF THE ROBOT
-        final TextView tvTemperature = (TextView) v.findViewById(R.id.text_temperature_number);
+        final TextView tvTemperature = v.findViewById(R.id.text_temperature_number);
         final Observer<Integer> temperatureObserver = new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable final Integer newTemperature) {
@@ -210,7 +210,7 @@ public class CtrlRemotoFragment extends Fragment {
         viewModel.getTemperature().observe(this,temperatureObserver);
 
         //OBSERVING THE SPEED OF THE ROBOT
-        final TextView tvSpeed = (TextView) v.findViewById(R.id.text_speed_number);
+        final TextView tvSpeed = v.findViewById(R.id.text_speed_number);
         final Observer<Integer> speedObserver = new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable final Integer newSpeed) {

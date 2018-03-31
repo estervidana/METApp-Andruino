@@ -56,7 +56,7 @@ public class SplashScreenFragment extends Fragment {
     }
 
     private void bindViews(View v){
-        ivLogo = (ImageView)v.findViewById(R.id.ivLogo);
-        tvTitle = (TextView)v.findViewById(R.id.tvTitle);
+        ivLogo = v.findViewById(R.id.ivLogo);
+        tvTitle = v.findViewById(R.id.tvTitle);
     }
 }

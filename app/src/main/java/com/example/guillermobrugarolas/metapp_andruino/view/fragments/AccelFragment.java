@@ -55,7 +55,7 @@ public class AccelFragment extends Fragment {
         xAccel = v.findViewById(R.id.tvXAccel);
         yAccel = v.findViewById(R.id.tvYAccel);
         zAccel = v.findViewById(R.id.tvZAccel);
-        ImageButton ibBack = (ImageButton) v.findViewById(R.id.image_button_back_accel);
+        ImageButton ibBack = v.findViewById(R.id.image_button_back_accel);
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

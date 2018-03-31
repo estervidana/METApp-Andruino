@@ -56,15 +56,15 @@ public class LogCommFragment extends Fragment {
 
 
     public void bindViews(View v) {
-        tvLogComm = (TextView)v.findViewById(R.id.tvLogComm);
-        lvLogComm = (ListView)v.findViewById(R.id.lvLogComm);
+        tvLogComm = v.findViewById(R.id.tvLogComm);
+        lvLogComm = v.findViewById(R.id.lvLogComm);
         eventList = new ArrayList<String>();
         //prueba:
         eventList.add("Message: I am here | Type: Acknowledge | In/Out: Out | Date: 2018-03-21");
         listAdapter  = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, eventList);
         lvLogComm.setAdapter(listAdapter);
         listAdapter.setNotifyOnChange(true);
-        ImageButton ibBack = (ImageButton) v.findViewById(R.id.image_button_back_log_comm);
+        ImageButton ibBack = v.findViewById(R.id.image_button_back_log_comm);
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
