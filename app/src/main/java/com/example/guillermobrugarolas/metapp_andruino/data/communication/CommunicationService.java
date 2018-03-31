@@ -11,7 +11,7 @@ import java.util.TimerTask;
 
 
 
-public class CommunicationService  extends Service {
+public class CommunicationService extends Service {
 
     //constants
     private static final long UPDATE_INTERVAL = 1000; //ms

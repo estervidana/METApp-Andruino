@@ -33,6 +33,5 @@ public class LogCommActivity extends AppCompatActivity {
         transaction.replace(R.id.activity_log_comm_container,fragment,LOGCOMM_FRAGMENT);
         transaction.commit();
         Debug.showLogError("Entering the log comm activity");
-
     }
 }

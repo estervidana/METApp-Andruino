@@ -38,7 +38,6 @@ public class LogCommFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Debug.showLogError("Entering the log comm fragment");
-
     }
 
     public void onActivityCreated(Bundle savedInstanceState) {
