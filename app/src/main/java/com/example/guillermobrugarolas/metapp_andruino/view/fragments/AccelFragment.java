@@ -2,6 +2,7 @@ package com.example.guillermobrugarolas.metapp_andruino.view.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
@@ -17,6 +19,7 @@ import android.hardware.SensorEventListener;
 
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 import com.example.guillermobrugarolas.metapp_andruino.R;
+import com.example.guillermobrugarolas.metapp_andruino.view.activities.MainActivity;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.AccelViewModel;
 
 public class AccelFragment extends Fragment {
@@ -52,6 +55,15 @@ public class AccelFragment extends Fragment {
         xAccel = v.findViewById(R.id.tvXAccel);
         yAccel = v.findViewById(R.id.tvYAccel);
         zAccel = v.findViewById(R.id.tvZAccel);
+        ImageButton ibBack = (ImageButton) v.findViewById(R.id.image_button_back_accel);
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intMain = new Intent(getContext(), MainActivity.class);
+                startActivity(intMain);
+                Debug.showLogError("Volver a Menu!");
+            }
+        });
     }
 
     public void updateAccelValues(double [] accelValues) {

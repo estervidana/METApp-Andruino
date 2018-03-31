@@ -39,19 +39,19 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ctrl_remoto_manual_mode_text"
-                        android:id="@+id/text_manual_mode"
-                        android:layout_marginLeft="@dimen/ctrl_remoto_margin_left_lights"/>
-                    <Switch
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/switch_manual_mode"
-                        android:shadowColor="@color/colorSecondary"
-                        android:layout_gravity="right"
-                        android:layout_marginLeft="10dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ctrl_remoto_manual_mode_text"
+                    android:id="@+id/text_manual_mode"
+                    android:layout_marginLeft="@dimen/ctrl_remoto_margin_left_lights"/>
+                <Switch
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/switch_manual_mode"
+                    android:shadowColor="@color/colorSecondary"
+                    android:layout_gravity="right"
+                    android:layout_marginLeft="10dp"/>
             </LinearLayout>
 
             <View
@@ -80,7 +80,7 @@
                 <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_brake"
+                    android:background="@mipmap/ic_clear"
                     android:id="@+id/image_button_clear"
                     />
             </LinearLayout>
@@ -147,7 +147,7 @@
 
             <com.example.guillermobrugarolas.metapp_andruino.viewModel.PaintView
                 android:id="@+id/paintView"
-                android:layout_height="150dp"
+                android:layout_height="160dp"
                 android:layout_width="match_parent"/>
 
         </LinearLayout>
@@ -221,43 +221,51 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:gravity="bottom">
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/ic_gear_up"
-                android:layout_below="@id/relativelayout_speed"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/image_button_gearup"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center"
-                >
-                <TextView
+                <ImageButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/ctrl_remoto_gear_text"
-                    android:layout_below="@id/image_button_gearup"
+                    android:background="@mipmap/ic_gear_up"
+                    android:layout_below="@id/relativelayout_speed"
                     android:layout_centerHorizontal="true"
-                    android:id="@+id/gear_text"/>
-                <TextView
+                    android:id="@+id/image_button_gearup"/>
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/text_number_gear"
-                    android:layout_below="@id/gear_text"
+                    android:orientation="vertical"
+                    android:layout_gravity="center"
+                    >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/ctrl_remoto_gear_text"
+                        android:layout_below="@id/image_button_gearup"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/gear_text"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/text_number_gear"
+                        android:layout_below="@id/gear_text"
+                        android:layout_centerHorizontal="true"
+                        android:text="@string/ctrl_remoto_number_gear_text"
+                        android:layout_gravity="center"/>
+                </LinearLayout>
+                <ImageButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@mipmap/ic_gear_down"
+                    android:layout_below="@id/text_number_gear"
                     android:layout_centerHorizontal="true"
-                    android:text="@string/ctrl_remoto_number_gear_text"
-                    android:layout_gravity="center"/>
+                    android:id="@+id/image_button_geardown"/>
             </LinearLayout>
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@mipmap/ic_gear_down"
-                android:layout_below="@id/text_number_gear"
-                android:layout_centerHorizontal="true"
-                android:id="@+id/image_button_geardown"/>
-            </LinearLayout>
+                android:layout_gravity="end"
+                android:layout_marginHorizontal="10dp"
+                android:background="@mipmap/ic_back"
+                android:id="@+id/image_button_back_ctrl_remoto"
+                />
         </LinearLayout>
     </LinearLayout>
 

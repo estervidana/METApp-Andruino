@@ -2,17 +2,20 @@ package com.example.guillermobrugarolas.metapp_andruino.view.fragments;
 
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.guillermobrugarolas.metapp_andruino.R;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
+import com.example.guillermobrugarolas.metapp_andruino.view.activities.MainActivity;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.LogCommViewModel;
 
 import java.util.ArrayList;
@@ -61,6 +64,15 @@ public class LogCommFragment extends Fragment {
         listAdapter  = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_list_item_1, eventList);
         lvLogComm.setAdapter(listAdapter);
         listAdapter.setNotifyOnChange(true);
+        ImageButton ibBack = (ImageButton) v.findViewById(R.id.image_button_back_log_comm);
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intMain = new Intent(getContext(), MainActivity.class);
+                startActivity(intMain);
+                Debug.showLogError("Volver a Menu!");
+            }
+        });
     }
 
     public void addEvent(String event) {

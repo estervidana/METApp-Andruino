@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-
             <TextView
                 android:id="@+id/tvLogComm"
                 android:layout_width="0dp"
@@ -24,13 +23,17 @@
                 android:layout_marginStart="10dp"
                 android:textSize="25sp" />
         </LinearLayout>
-
         <ListView
-            android:layout_height="wrap_content"
+            android:layout_height="400dp"
             android:layout_width="match_parent"
             android:id="@+id/lvLogComm"
             android:dividerHeight="2dp"
             android:divider="@color/colorPrimary"/>
-
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:background="@mipmap/ic_back"
+            android:id="@+id/image_button_back_log_comm"/>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>

@@ -3,6 +3,7 @@ package com.example.guillermobrugarolas.metapp_andruino.view.fragments;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,6 +22,9 @@ import android.widget.TextView;
 
 import com.example.guillermobrugarolas.metapp_andruino.R;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
+import com.example.guillermobrugarolas.metapp_andruino.view.activities.CtrlRemotoActivity;
+import com.example.guillermobrugarolas.metapp_andruino.view.activities.LabActivity;
+import com.example.guillermobrugarolas.metapp_andruino.view.activities.MainActivity;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.CtrlRemotoViewModel;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.PaintView;
 
@@ -180,6 +184,17 @@ public class CtrlRemotoFragment extends Fragment {
             }
         });
 
+        ImageButton ibBack = (ImageButton) v.findViewById(R.id.image_button_back_ctrl_remoto);
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intMain = new Intent(getContext(), MainActivity.class);
+                startActivity(intMain);
+                Debug.showLogError("Volver a Menu!");
+            }
+        });
+
+
 
         //OBSERVING THE TEMPERATURE OF THE ROBOT
         final TextView tvTemperature = (TextView) v.findViewById(R.id.text_temperature_number);
@@ -224,28 +239,28 @@ public class CtrlRemotoFragment extends Fragment {
         //Post: if the previous color of the selected indicator was the default color is changed to the accent color.
         //Otherwise the color is changed to the default text color.
         switch (indicator){
-        case 0:
-            if (tvFrontalCollision.getCurrentTextColor() == getResources().getColor(R.color.colorDefaultText)) {
-                tvFrontalCollision.setTextColor(getResources().getColor(R.color.colorAccent));
-            } else {
-                tvFrontalCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));
-            }
-        break;
-        case 1:
-            if (tvBackRightCollision.getCurrentTextColor()==getResources().getColor(R.color.colorDefaultText)) {
-                tvBackRightCollision.setTextColor(getResources().getColor(R.color.colorAccent));
-            } else {
-                tvBackRightCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));
-            }
-        break;
-        case 2:
-            if (tvBackLeftCollision.getCurrentTextColor() == getResources().getColor(R.color.colorDefaultText)) {
-                tvBackLeftCollision.setTextColor(getResources().getColor(R.color.colorAccent));
-            } else {
-                tvBackLeftCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));
-            }
-        break;
-    }
+            case 0:
+                if (tvFrontalCollision.getCurrentTextColor() == getResources().getColor(R.color.colorDefaultText)) {
+                    tvFrontalCollision.setTextColor(getResources().getColor(R.color.colorAccent));
+                } else {
+                    tvFrontalCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));
+                }
+                break;
+            case 1:
+                if (tvBackRightCollision.getCurrentTextColor()==getResources().getColor(R.color.colorDefaultText)) {
+                    tvBackRightCollision.setTextColor(getResources().getColor(R.color.colorAccent));
+                } else {
+                    tvBackRightCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));
+                }
+                break;
+            case 2:
+                if (tvBackLeftCollision.getCurrentTextColor() == getResources().getColor(R.color.colorDefaultText)) {
+                    tvBackLeftCollision.setTextColor(getResources().getColor(R.color.colorAccent));
+                } else {
+                    tvBackLeftCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));
+                }
+                break;
+        }
     }
 
 }
