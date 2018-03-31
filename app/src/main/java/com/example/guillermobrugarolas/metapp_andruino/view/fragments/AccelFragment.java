@@ -59,9 +59,7 @@ public class AccelFragment extends Fragment {
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intMain = new Intent(getContext(), MainActivity.class);
-                startActivity(intMain);
-                Debug.showLogError("Volver a Menu!");
+                getActivity().onBackPressed();
             }
         });
     }
