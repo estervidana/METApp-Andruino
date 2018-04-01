@@ -19,16 +19,6 @@ import java.util.Date;
 
 public class Logger {
 
-    public enum MessageSender{
-        ROBOT, APP
-    }
-
-    public enum MessageType{
-        /*sent by Robot*/TEMP, BUMP, SPEED, WALL, POS,
-        /*sent by App*/MODE, TURN, MOVE, STOP, FIGURE,
-        /*sent by both*/LEDS, CTRL_MODE
-    }
-
     private static Logger instance = null;
     private static PrintWriter out = null;
     private static BufferedReader in = null;
