@@ -7,4 +7,6 @@ public interface Communicator {
     void send(String data) throws IOException;
 
     String receive() throws IOException;
+
+    void close();
 }

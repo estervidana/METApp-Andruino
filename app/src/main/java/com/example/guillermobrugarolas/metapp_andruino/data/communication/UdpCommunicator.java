@@ -42,6 +42,7 @@ public class UdpCommunicator implements Communicator {
         return new String(buffer);
     }
 
+    @Override
     public void close(){
         rSocket.close();
         sSocket.close();
