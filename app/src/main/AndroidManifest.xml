@@ -42,12 +42,9 @@
             android:name=".view.activities.LogCommActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
-
         <service
             android:name=".data.communication.CommunicationService"
             android:icon="@drawable/ic_launcher_foreground"
             android:label="METApp-Andruino" />
-
     </application>
-
 </manifest>
