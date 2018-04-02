@@ -17,7 +17,9 @@ public class UdpCommunicator implements Communicator {
     private DatagramSocket rSocket;//socket to receive
     private DatagramSocket sSocket;//socket to send
 
-    public UdpCommunicator() throws SocketException, UnknownHostException {
+    private static UdpCommunicator instance = null;
+
+    private UdpCommunicator() throws SocketException, UnknownHostException {
         rSocket = new DatagramSocket(PORT);
         try {
             sSocket = new DatagramSocket(PORT, InetAddress.getByName(ROBOT_IP));
@@ -26,6 +28,14 @@ public class UdpCommunicator implements Communicator {
             throw e;
         }
     }
+
+    public static UdpCommunicator getInstance() throws SocketException, UnknownHostException {
+        if(instance == null){
+            instance = new UdpCommunicator();
+        }
+        return instance;
+    }
+
 
     @Override
     public void send(String data) throws IOException {
