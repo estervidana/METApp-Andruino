@@ -25,7 +25,7 @@
             android:layout_height="wrap_content"
             android:maxHeight="100dp"
             android:id="@+id/tvTitle"
-            android:text="METApp-ANDRUINO"
+            android:text="@string/splash_app_name"
             android:gravity="center"
             android:textAlignment="center"
             android:textSize="30dp"/>

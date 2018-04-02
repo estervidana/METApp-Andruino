@@ -26,14 +26,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ctrl_remoto_lights_text"
                     android:id="@+id/text_lights"
-                    android:layout_marginLeft="@dimen/ctrl_remoto_margin_left_lights"/>
+                    android:layout_marginStart="@dimen/ctrl_remoto_margin_left_lights"/>
 
                 <Switch
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/switch_mode_lights"
                     android:shadowColor="@color/colorSecondary"
-                    android:layout_gravity="right" />
+                    android:layout_gravity="end" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -44,14 +44,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ctrl_remoto_manual_mode_text"
                     android:id="@+id/text_manual_mode"
-                    android:layout_marginLeft="@dimen/ctrl_remoto_margin_left_lights"/>
+                    android:layout_marginStart="@dimen/ctrl_remoto_margin_left_lights"/>
                 <Switch
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/switch_manual_mode"
                     android:shadowColor="@color/colorSecondary"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_gravity="end"
+                    android:layout_marginStart="10dp"/>
             </LinearLayout>
 
             <View
@@ -85,8 +85,6 @@
                     />
             </LinearLayout>
         </LinearLayout>
-
-
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -262,14 +260,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:layout_marginHorizontal="10dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@mipmap/ic_back"
                 android:id="@+id/image_button_back_ctrl_remoto"
                 />
         </LinearLayout>
     </LinearLayout>
-
-
-
-
 </FrameLayout>

@@ -7,5 +7,13 @@
     <string name="ctrl_remoto_manual_mode_text">Manual mode:  </string>
     <string name="ctrl_remoto_gear_text">Gear:  </string>
     <string name="ctrl_remoto_number_gear_text">0</string>
+    <string name="z_accel">Z Acceleration (m/s2):</string>
+    <string name="x_accel">X Acceleration (m/s2):</string>
+    <string name="y_accel">Y Acceleration (m/s2):</string>
+    <string name="main_log_comm">Log Comunicación</string>
+    <string name="main_accel">Reto Acelerómetro</string>
+    <string name="main_lab">Solución Laberinto</string>
+    <string name="main_remote_ctrl">Control Remoto</string>
+    <string name="splash_app_name">METApp-ANDRUINO</string>
 
 </resources>
