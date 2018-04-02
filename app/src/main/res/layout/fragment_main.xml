@@ -28,7 +28,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@color/colorSecondary"
-                android:text="Control Remoto"
+                android:text="@string/main_menu_ctrl_remoto_text"
                 android:textColor="@color/colorSecondaryText"/>
 
             <Button
@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@color/colorSecondary"
-                android:text="Solución Laberinto"
+                android:text="@string/main_menu_labyrinth_text"
                 android:textColor="@color/colorSecondaryText" />
 
             <Button
@@ -48,7 +48,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@color/colorSecondary"
-                android:text="Reto Acelerómetro"
+                android:text="@string/main_menu_accel_text"
                 android:textColor="@color/colorSecondaryText"/>
 
             <Button
@@ -58,7 +58,7 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:background="@color/colorSecondary"
-                android:text="Log Comunicación"
+                android:text="@string/main_menu_log_comm_text"
                 android:textColor="@color/colorSecondaryText"/>
         </LinearLayout>
     </FrameLayout>

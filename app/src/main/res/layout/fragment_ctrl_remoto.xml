@@ -26,14 +26,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ctrl_remoto_lights_text"
                     android:id="@+id/text_lights"
-                    android:layout_marginLeft="@dimen/ctrl_remoto_margin_left_lights"/>
+                    android:layout_marginStart="@dimen/ctrl_remoto_margin_left_lights"/>
 
                 <Switch
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/switch_mode_lights"
                     android:shadowColor="@color/colorSecondary"
-                    android:layout_gravity="right" />
+                    android:layout_gravity="end" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -44,14 +44,14 @@
                     android:layout_height="wrap_content"
                     android:text="@string/ctrl_remoto_manual_mode_text"
                     android:id="@+id/text_manual_mode"
-                    android:layout_marginLeft="@dimen/ctrl_remoto_margin_left_lights"/>
+                    android:layout_marginStart="@dimen/ctrl_remoto_margin_left_lights"/>
                 <Switch
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/switch_manual_mode"
                     android:shadowColor="@color/colorSecondary"
-                    android:layout_gravity="right"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_gravity="end"
+                    android:layout_marginStart="10dp"/>
             </LinearLayout>
 
             <View
@@ -101,7 +101,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text = "Collision indicator:"
+                android:text = "@string/ctrl_remoto_collision_text"
                 android:gravity = "center"/>
             <View
                 android:layout_width="match_parent"
@@ -113,24 +113,24 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text = "Frontal"
+                    android:text ="@string/ctrl_remoto_frontal_text"
                     android:gravity = "center"
                     android:textColor="@color/colorDefaultText"
                     android:id="@+id/text_frontal_collision"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text = "Back Left"
+                    android:text ="@string/ctrl_remoto_back_left_text"
                     android:gravity = "center"
-                    android:layout_marginLeft="@dimen/ctrl_remoto_margin_left_collision_indicators"
+                    android:layout_marginStart="@dimen/ctrl_remoto_margin_left_collision_indicators"
                     android:textColor="@color/colorDefaultText"
                     android:id="@+id/text_back_left_collision"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text = "Back Right"
+                    android:text ="@string/ctrl_remoto_back_right_text"
                     android:gravity = "center"
-                    android:layout_marginLeft="@dimen/ctrl_remoto_margin_left_collision_indicators"
+                    android:layout_marginStart="@dimen/ctrl_remoto_margin_left_collision_indicators"
                     android:textColor="@color/colorDefaultText"
                     android:id="@+id/text_back_right_collision"/>
             </LinearLayout>
@@ -138,7 +138,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Draw your pattern:"
+                android:text="@string/ctrl_remoto_pattern_text"
                 android:layout_marginTop="@dimen/ctrl_remoto_padding_top_pattern"/>
             <View
                 android:layout_width="match_parent"
@@ -158,7 +158,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Temperature:" />
+                android:text="@string/ctrl_remoto_temperature_text" />
             <ProgressBar
                 android:id="@+id/progressbar_temperature"
                 android:layout_width="@dimen/ctrl_remoto_termometer_width"
@@ -169,7 +169,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:text="0º"
+                android:text="@string/ctrl_remoto_temp_value_text"
                 android:gravity="center"
                 android:id="@+id/text_temperature_number" />
         </LinearLayout>
@@ -261,11 +261,10 @@
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_marginHorizontal="10dp"
-                android:background="@mipmap/ic_back"
-                android:id="@+id/image_button_back_ctrl_remoto"
-                />
+                android:layout_gravity="right"
+                android:layout_marginEnd="10dp"
+                android:background="@mipmap/ic_back_ctrl_rem"
+                android:id="@+id/image_button_back_ctrl_remoto"/>
         </LinearLayout>
     </LinearLayout>
 

@@ -28,6 +28,7 @@ public class AccelFragment extends Fragment {
     private  TextView xAccel;
     private  TextView yAccel;
     private  TextView zAccel;
+    private TextView tilt;
 
 
     public AccelFragment() {
@@ -55,6 +56,7 @@ public class AccelFragment extends Fragment {
         xAccel = v.findViewById(R.id.tvXAccel);
         yAccel = v.findViewById(R.id.tvYAccel);
         zAccel = v.findViewById(R.id.tvZAccel);
+        tilt = v.findViewById(R.id.tvTilt);
         ImageButton ibBack = v.findViewById(R.id.image_button_back_accel);
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -66,15 +68,29 @@ public class AccelFragment extends Fragment {
         });
     }
 
-    public void updateAccelValues(double [] accelValues) {
-        xAccel.setText((Html.fromHtml("X accel. (m/s<sup>2</sup>): ") + (String.valueOf(accelValues[0]))));
-        viewModel.setxAccel(accelValues[0]);
-        yAccel.setText((Html.fromHtml("Y accel. (m/s<sup>2</sup>): ") + (String.valueOf(accelValues[1]))));
-        viewModel.setyAccel(accelValues[1]);
-        zAccel.setText((Html.fromHtml("Z accel. (m/s<sup>2</sup>): ") + (String.valueOf(accelValues[2]))));
-        viewModel.setzAccel(accelValues[2]);
+    public void updateXAccelText(double xAccelValue) {
+        String text = R.string.accel_x_accel_text + String.valueOf(xAccelValue);
+        xAccel.setText(text);
+        viewModel.setxAccel(xAccelValue);
     }
 
+    public void updateYAccelText(double yAccelValue) {
+        String text = R.string.accel_y_accel_text + String.valueOf(yAccelValue);
+        yAccel.setText(text);
+        viewModel.setyAccel(yAccelValue);
+    }
+
+    public void updateZAccelText(double zAccelValue) {
+        String text = R.string.accel_z_accel_text + String.valueOf(zAccelValue);
+        zAccel.setText(text);
+        viewModel.setzAccel(zAccelValue);
+    }
+
+    public void updateTiltText(double tiltValue) {
+        String text = R.string.accel_tilt_text + String.valueOf(tiltValue);
+        tilt.setText(text);
+        viewModel.setTilt(tiltValue);
+    }
 
     private void initViewModel(final View v){
         viewModel = ViewModelProviders.of(getActivity()).get(AccelViewModel.class);

@@ -16,11 +16,10 @@
             android:orientation="horizontal">
             <TextView
                 android:id="@+id/tvLogComm"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Message | Type | In/Out | Date"
-                android:layout_marginStart="10dp"
+                android:gravity="center"
+                android:text="@string/log_comm_header_text"
                 android:textSize="25sp" />
         </LinearLayout>
         <ListView

@@ -12,6 +12,7 @@
     <dimen name="ctrl_remoto_termometer_height">80dp</dimen>
     <dimen name="ctrl_remoto_termometer_width">90dp</dimen>
     <dimen name="ctrl_remoto_padding_top_pattern">60dp</dimen>
-
+    <!-- Resources for the accelerometer -->
+    <dimen name="accel_margins">15dp</dimen>
 
 </resources>

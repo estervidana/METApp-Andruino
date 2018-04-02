@@ -1,5 +1,6 @@
 package com.example.guillermobrugarolas.metapp_andruino.view.fragments;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -7,15 +8,21 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.example.guillermobrugarolas.metapp_andruino.R;
+import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
+import com.example.guillermobrugarolas.metapp_andruino.view.activities.MainActivity;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.LabyrinthSection;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.LabyrinthSectionState;
 
 public class LabFragment extends Fragment {
     private static final int MAX_ROWS = 5;
     private static final int MAX_COLUMNS = 5;
+    private ImageButton ibStart;
+    private ImageButton ibSolution;
+    private ImageButton ibBack;
 
     //gridView is used to display on screen
     private SurfaceView[][] gridView = new SurfaceView[MAX_ROWS][MAX_COLUMNS];
@@ -42,6 +49,7 @@ public class LabFragment extends Fragment {
         gridLayout = view.findViewById(R.id.lab_grid);
         initData();
         initSections();
+        bindViews(view);
         displaySections();
 
         return view;
@@ -54,6 +62,33 @@ public class LabFragment extends Fragment {
                 gridData[row][column] = new LabyrinthSection(LabyrinthSectionState.DEAD_END, false, new boolean[4]);
             }
         }
+    }
+
+    private void bindViews(View view) {
+        //BIND THE THREE BUTTONS IN THE LABYRINTH SCREEN
+        ibBack = view.findViewById(R.id.image_button_back_labyrinth);
+        ibBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intMain = new Intent(getContext(), MainActivity.class);
+                startActivity(intMain);
+                Debug.showLogError("Volver a Menu!");
+            }
+        });
+        ibSolution = view.findViewById(R.id.image_button_solution_labyrinth);
+        ibSolution.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Debug.showLogError("Ver solución laberinto!");
+            }
+        });
+        ibStart = view.findViewById(R.id.image_button_start_labyrinth);
+        ibStart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Debug.showLogError("Comenzar laberinto!");
+            }
+        });
     }
 
     private void initSections() {

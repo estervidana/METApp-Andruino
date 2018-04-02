@@ -1,10 +1,47 @@
-<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.guillermobrugarolas.metapp_andruino.view.fragments.CtrlRemotoFragment"
-    android:rowCount="5"
-    android:columnCount="5"
-    android:id="@+id/lab_grid">
-
-</GridLayout>
+    android:orientation="horizontal"
+    tools:context="com.example.guillermobrugarolas.metapp_andruino.view.fragments.LabFragment">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            tools:context="com.example.guillermobrugarolas.metapp_andruino.view.fragments.LabFragment"
+            android:rowCount="5"
+            android:columnCount="5"
+            android:id="@+id/lab_grid"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_alignParentLeft="true"
+                android:background="@mipmap/ic_start_labyrinth"
+                android:id="@+id/image_button_start_labyrinth"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:background="@mipmap/ic_solution"
+                android:id="@+id/image_button_solution_labyrinth"/>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="10dp"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/ic_back"
+                android:id="@+id/image_button_back_labyrinth"/>
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

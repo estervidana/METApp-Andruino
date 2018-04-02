@@ -139,7 +139,7 @@ public class CtrlRemotoFragment extends Fragment {
             }
         });
         //LISTENING TO THE GAS, BRAKE OR CLEAR BUTTON
-        ImageButton ibGas = v.findViewById(R.id.image_button_gas);
+        final ImageButton ibGas = v.findViewById(R.id.image_button_gas);
         ibGas.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
