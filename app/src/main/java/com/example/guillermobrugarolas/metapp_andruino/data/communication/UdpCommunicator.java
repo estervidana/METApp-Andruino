@@ -12,6 +12,9 @@ public class UdpCommunicator implements Communicator {
     // TODO set actual robot IP.
     private static final String ROBOT_IP = "192.168.1.99";
 
+    // protocol:
+    // option:param1,param2,...,paramN;
+    // option = MessageType.ordinal();
     private static final int MAX_BUFFER_SIZE = 128;
 
     private DatagramSocket rSocket;//socket to receive
@@ -22,7 +25,8 @@ public class UdpCommunicator implements Communicator {
     private UdpCommunicator() throws SocketException, UnknownHostException {
         rSocket = new DatagramSocket(PORT);
         try {
-            sSocket = new DatagramSocket(PORT, InetAddress.getByName(ROBOT_IP));
+            //TODO this line should not be commented.. It is necessary now to avoid exceptions because there is no one listening.
+            //sSocket = new DatagramSocket(PORT, InetAddress.getByName(ROBOT_IP));
         } catch (Exception e) {
             rSocket.close();
             throw e;

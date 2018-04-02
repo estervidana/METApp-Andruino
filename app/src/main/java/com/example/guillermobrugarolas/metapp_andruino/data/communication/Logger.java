@@ -1,34 +1,41 @@
 package com.example.guillermobrugarolas.metapp_andruino.data.communication;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.util.Log;
+
+import com.example.guillermobrugarolas.metapp_andruino.data.repository.Repository;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.nio.Buffer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
-public class Logger {
+public class Logger implements Repository.RepositoryListener {
+    private static final String FILENAME = "commLogs.txt";
 
+    private Context context;
+
+    @SuppressLint("StaticFieldLeak")
     private static Logger instance = null;
-    private static PrintWriter out = null;
-    private static BufferedReader in = null;
 
     private Logger(Context context) throws IOException {
-        File file = new File(context.getFilesDir(), "commLogs.txt");
+        this.context = context;
+        File file = new File(context.getFilesDir(), FILENAME);
         //noinspection ResultOfMethodCallIgnored
         file.createNewFile();
-        out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
-        in = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
     }
 
     public synchronized static Logger getInstance(Context context) throws IOException {
@@ -40,10 +47,11 @@ public class Logger {
 
     // It is important that any Object passed to this function has a toString implementation that is human readable.
     public void addLog(String log){
+        log = getCurrentTime() + "->" + log;
         append(log);
     }
 
-    public String getCurrentTime(){
+    private String getCurrentTime(){
         Date currentTime = Calendar.getInstance().getTime();
         DateFormat format = SimpleDateFormat.getDateTimeInstance();
         return format.format(currentTime);
@@ -64,7 +72,22 @@ public class Logger {
     }
 
     private void append(String log) {
-        out.println(log);
+        log = addNewLine(log);
+        FileOutputStream outputStream;
+        try {
+            outputStream = context.openFileOutput(FILENAME, Context.MODE_APPEND);
+            outputStream.write(log.getBytes());
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String addNewLine(String log) {
+        if(!log.endsWith("\n")){
+            log = log + "\n";
+        }
+        return log;
     }
 
     public ArrayList<String> getLogs() throws IOException {
@@ -72,6 +95,8 @@ public class Logger {
     }
 
     public ArrayList<String> getLogs(int startingLine) throws IOException {
+        File file = new File(context.getFilesDir(), FILENAME);
+        BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
         ArrayList<String> lines = new ArrayList<>();
         int index = 0;
         String line;
@@ -87,11 +112,23 @@ public class Logger {
         return lines;
     }
 
-    public static void close() throws IOException {
-        if(instance != null){
-            out.close();
-            out = null;
-            instance = null;
+    public void close() throws IOException {
+        instance = null;
+    }
+
+    @Override
+    public void onMessageReceived(String message) {
+        message = message.split(";")[0];
+        addLog(message);
+        Log.d("Logger", message);
+    }
+
+    @Override
+    public void onServiceStopped() {
+        try {
+            close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }

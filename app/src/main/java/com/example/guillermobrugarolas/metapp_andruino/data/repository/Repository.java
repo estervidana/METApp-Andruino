@@ -7,28 +7,37 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 
 import com.example.guillermobrugarolas.metapp_andruino.data.communication.CommunicationService;
+import com.example.guillermobrugarolas.metapp_andruino.data.communication.MessageSender;
 
+import java.util.ArrayList;
+import java.util.List;
 
-
-
-public class Repository implements CommunicationService.CommunicationServiceInterface{
-
-    //interface that implements all the callbacks from the repository to the class that implements the interface
-    //in this case the ViewModel
-    private RepositoryCallbacks repositoryCallback;
+public class Repository implements CommunicationService.CommunicationServiceListener {
+    private List<RepositoryListener> repositoryListeners;
 
     private boolean serviceIsBound;
 
-    public Repository(RepositoryCallbacks callbacks) {
-        //get the interface from the viewmodel so we can push values to the viewmodel
-        this.repositoryCallback = callbacks;
+    private static Repository instance = null;
+
+    private Repository() {
+        repositoryListeners = new ArrayList<>();
+    }
+
+    public static Repository getInstance(){
+        if(instance == null){
+            instance = new Repository();
+        }
+        return instance;
+    }
+
+    public void addListener(RepositoryListener listener){
+        repositoryListeners.add(listener);
     }
 
     public void startService(Context context) {
         Intent intent = new Intent(context, CommunicationService.class);
         context.startService(intent);
         context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-
     }
 
     public void stopService(Context context) {
@@ -38,19 +47,19 @@ public class Repository implements CommunicationService.CommunicationServiceInte
         }
         Intent intent = new Intent(context, CommunicationService.class);
         context.stopService(intent);
-        //push to the viewmodel that the service has been stopped
-        repositoryCallback.onServiceStopped();
+        for(RepositoryListener listener: repositoryListeners){
+            listener.onServiceStopped();
+        }
+        repositoryListeners.clear();
     }
 
-
     private ServiceConnection serviceConnection = new ServiceConnection() {
-
         @Override
         public void onServiceConnected(ComponentName name, IBinder service) {
             CommunicationService.CommunicationServiceBinder binder
                     = (CommunicationService.CommunicationServiceBinder) service;
             //set the interface to the service so we can listen to the service callbacks
-            binder.setInterface(Repository.this);
+            binder.setListener(Repository.this);
             serviceIsBound = true;
         }
 
@@ -60,19 +69,22 @@ public class Repository implements CommunicationService.CommunicationServiceInte
         }
     };
 
-
-    /*------------------------- Service interface callbakcs -----------------------*/
     @Override
-    public void postSecondsValue(int seconds) {
-        //push seconds value to the viewmodel
-        repositoryCallback.onSecondsUpdate(seconds);
+    public void onServiceStopped() {
+        for(RepositoryListener listener: repositoryListeners){
+            listener.onServiceStopped();
+        }
     }
 
-    /*-------------------------- Repository Interface -----------------------------*/
-    public interface RepositoryCallbacks {
+    @Override
+    public void onMessageReceived(String message) {
+        for(RepositoryListener listener: repositoryListeners){
+            listener.onMessageReceived((MessageSender.ROBOT.name()) + message);
+        }
+    }
 
-        void onSecondsUpdate(int seconds);
-
+    public interface RepositoryListener {
+        void onMessageReceived(String message);
         void onServiceStopped();
     }
 }
