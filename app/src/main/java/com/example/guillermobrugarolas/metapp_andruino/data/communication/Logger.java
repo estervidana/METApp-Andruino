@@ -39,18 +39,17 @@ public class Logger {
     }
 
     // It is important that any Object passed to this function has a toString implementation that is human readable.
-    public void addLog(MessageSender sender, MessageType type, Object... args){
-        String log = buildLog(getCurrentTime(), sender.name(), type.name(), args);
+    public void addLog(String log){
         append(log);
     }
 
-    private String getCurrentTime(){
+    public String getCurrentTime(){
         Date currentTime = Calendar.getInstance().getTime();
         DateFormat format = SimpleDateFormat.getDateTimeInstance();
         return format.format(currentTime);
     }
 
-    private String buildLog(String date, String sender, String type, Object... args){
+    public String buildLog(String date, String sender, String type, Object... args){
         StringBuilder builder = new StringBuilder();
         builder.append(date);
         builder.append(": ");
