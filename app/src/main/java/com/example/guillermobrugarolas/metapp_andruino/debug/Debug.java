@@ -10,7 +10,7 @@ public class Debug {
     private static final boolean debugEnable = true;
 
     public static void showLogError(String error){
-        if(debugEnable == true) {
+        if(debugEnable) {
             Log.d("------------> Mensaje:", error);
         }
     }
