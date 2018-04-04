@@ -89,7 +89,7 @@ public class AccelFragment extends Fragment {
     public void updateTiltText(double tiltValue) {
         String text = R.string.accel_tilt_text + String.valueOf(tiltValue);
         tilt.setText(text);
-        viewModel.setTilt(tiltValue);
+        AccelViewModel.setTilt(tiltValue);
     }
 
     private void initViewModel(final View v){
