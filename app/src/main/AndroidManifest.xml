@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.guillermobrugarolas.metapp_andruino">
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"></uses-permission>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -46,7 +47,9 @@
             android:name=".data.communication.CommunicationService"
             android:icon="@drawable/ic_launcher_foreground"
             android:label="METApp-Andruino" />
-
+        <service
+            android:name=".data.communication.TestCommSenderService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

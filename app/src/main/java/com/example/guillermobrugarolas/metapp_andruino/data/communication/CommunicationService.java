@@ -1,74 +1,84 @@
 package com.example.guillermobrugarolas.metapp_andruino.data.communication;
 
+import android.app.IntentService;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 
-import java.util.Timer;
-import java.util.TimerTask;
+import java.io.IOException;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 
 
+public class CommunicationService extends IntentService {
 
-public class CommunicationService  extends Service {
+    private boolean running = true;
+    private Communicator communicator;
 
-    //constants
-    private static final long UPDATE_INTERVAL = 1000; //ms
-    private static final long DELAY = 1000; //ms
+    private CommunicationServiceListener listener;
 
-    //seconds
-    private int seconds;
-    //timer
-    private Timer timer;
-    //service binder
-    private IBinder binder = new CommunicationServiceBinder();
-    //interface that communicates the service with the class that starts/stops the service
-    //in this case the Repository
-    private CommunicationServiceInterface serviceCallbakcs;
+    public CommunicationService() {
+        super("CommService");
+    }
+
+    public CommunicationService(String name) {
+        super(name);
+    }
 
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return binder;
+        return new CommunicationServiceBinder();
     }
 
     @Override
-    public int onStartCommand(Intent i, int flags, final int startId){
-        //init timer to count seconds
-        timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                seconds++;
-                //push seconds value to the repository
-                serviceCallbakcs.postSecondsValue(seconds);
+    protected void onHandleIntent(@Nullable Intent intent) {
+        while(running){
+            try {
+                String message = UdpCommunicator.getInstance().receive();
+                listener.onMessageReceived(message);
+            } catch (IOException e) {
+                e.printStackTrace();
+                SystemClock.sleep(1000);
             }
-        },DELAY,UPDATE_INTERVAL);
+        }
+    }
 
+    @Override
+    public int onStartCommand(Intent intent, int flags, final int startId){
+        super.onStartCommand(intent, flags, startId);
+        running = true;
         return Service.START_NOT_STICKY;
     }
 
-    @Override
-    public void onDestroy(){
-        super.onDestroy();
-        //cancel timer when service is destroyed
-        timer.cancel();
-    }
-
-    /*-------------------------- Service Binder -----------------------------*/
-    public class CommunicationServiceBinder extends Binder {
-
-        //set the interface to allow to push values from service to the repository
-        public void setInterface(CommunicationService.CommunicationServiceInterface callback){
-            serviceCallbakcs = callback;
+    private void createCommunicator() {
+        try {
+            communicator = UdpCommunicator.getInstance();
+        } catch (SocketException | UnknownHostException e) {
+            running = false;
+            //listener.onServiceStopped();
+            e.printStackTrace();
         }
     }
-    /*--------------------------------------------------------------------------*/
-    /*-------------------------- Service Interface -----------------------------*/
-    public interface CommunicationServiceInterface{
-        void postSecondsValue(int seconds);
-    }
-    /*--------------------------------------------------------------------------*/
 
+    @Override
+    public void onDestroy() {
+        running = false;
+        communicator.close();
+        super.onDestroy();
+    }
+
+    public class CommunicationServiceBinder extends Binder {
+        public void setListener(CommunicationServiceListener listener){
+            CommunicationService.this.listener = listener;
+        }
+    }
+
+    public interface CommunicationServiceListener {
+        void onServiceStopped();
+        void onMessageReceived(String message);
+    }
 }

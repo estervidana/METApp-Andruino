@@ -14,5 +14,4 @@
     <dimen name="ctrl_remoto_padding_top_pattern">60dp</dimen>
     <!-- Resources for the accelerometer -->
     <dimen name="accel_margins">15dp</dimen>
-
 </resources>

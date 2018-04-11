@@ -76,6 +76,5 @@
                 android:background="@mipmap/ic_back"
                 android:id="@+id/image_button_back_accel"/>
         </RelativeLayout>
-
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
