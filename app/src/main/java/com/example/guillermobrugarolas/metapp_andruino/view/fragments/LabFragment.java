@@ -99,7 +99,7 @@ public class LabFragment extends Fragment {
                 Debug.showLogError("Comenzar laberinto!");
             }
         });
-        rvLab = (RecyclerView) view.findViewById(R.id.rvLabyrinth);
+        rvLab = view.findViewById(R.id.rvLabyrinth);
         int nCols = 5;
         rvLab.setLayoutManager(new GridLayoutManager(this.getActivity(), nCols));
         adapter = new RecyclerViewAdapter(this.getActivity(), data);

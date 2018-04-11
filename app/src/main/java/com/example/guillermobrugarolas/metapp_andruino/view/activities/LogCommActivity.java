@@ -12,7 +12,7 @@ import com.example.guillermobrugarolas.metapp_andruino.view.fragments.LogCommFra
 
 public class LogCommActivity extends AppCompatActivity {
 
-    private String LOGCOMM_FRAGMENT = "LOGCOMM_FRAGMENT";
+    private static final String LOGCOMM_FRAGMENT = "LOGCOMM_FRAGMENT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,5 @@ public class LogCommActivity extends AppCompatActivity {
         transaction.replace(R.id.activity_log_comm_container,fragment,LOGCOMM_FRAGMENT);
         transaction.commit();
         Debug.showLogError("Entering the log comm activity");
-
     }
 }
