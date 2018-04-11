@@ -64,6 +64,7 @@ public class LabFragment extends Fragment {
         //displaySections();
         imageData[0][0].setPadding(10,0,0,10);
         imageData[4][1].setPadding(10,10,10,0);
+        imageData[3][1].setColorFilter(getResources().getColor(R.color.colorGridDeadEnd));
         imageData[4][1].setColorFilter(getResources().getColor(R.color.colorGridSolution));
         imageData[3][3].setPadding(0,10,10,0);
         adapter.notifyDataSetChanged();
