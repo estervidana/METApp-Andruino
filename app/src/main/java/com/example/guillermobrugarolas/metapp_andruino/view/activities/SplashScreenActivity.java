@@ -1,5 +1,6 @@
 package com.example.guillermobrugarolas.metapp_andruino.view.activities;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -8,6 +9,7 @@ import android.os.Bundle;
 
 import com.example.guillermobrugarolas.metapp_andruino.R;
 import com.example.guillermobrugarolas.metapp_andruino.data.communication.Logger;
+import com.example.guillermobrugarolas.metapp_andruino.data.communication.TestCommSenderService;
 import com.example.guillermobrugarolas.metapp_andruino.data.repository.Repository;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 import com.example.guillermobrugarolas.metapp_andruino.view.fragments.SplashScreenFragment;
@@ -35,6 +37,10 @@ public class SplashScreenActivity extends AppCompatActivity {
         Repository repository = Repository.getInstance();
         repository.addListener(Logger.getInstance(getApplicationContext()));
         repository.startService(getApplicationContext());
+
+        //FIXME this is only for testing
+        Intent intent = new Intent(getApplicationContext(), TestCommSenderService.class);
+        getApplicationContext().startService(intent);
     }
 
     private void initFragment(){
