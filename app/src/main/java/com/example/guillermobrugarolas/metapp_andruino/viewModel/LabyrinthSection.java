@@ -4,11 +4,13 @@ public class LabyrinthSection {
 
     private LabyrinthSectionState state;
     private boolean isTargetLocation;
+    private int passed;
     private boolean[] walls;
 
-    public LabyrinthSection(LabyrinthSectionState state, boolean isTargetLocation, boolean[] walls) {
+    public LabyrinthSection(LabyrinthSectionState state, boolean isTargetLocation, int passed, boolean[] walls) {
         this.state = state;
         this.isTargetLocation = isTargetLocation;
+        this.passed = passed;
         this.walls = walls;
     }
 
@@ -23,6 +25,10 @@ public class LabyrinthSection {
     public boolean isTargetLocation() {
         return isTargetLocation;
     }
+
+    public int getPassed() { return passed; }
+
+    public void setPassed(int passed) { this.passed = passed; }
 
     public void setTargetLocation(boolean targetLocation) {
         isTargetLocation = targetLocation;

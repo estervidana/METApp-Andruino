@@ -20,5 +20,7 @@
     <color name="colorGridSolution">#009688</color>
     <color name="colorGridDeadEnd">#C62828</color>
     <color name="colorGridUnexplored">#BDBDBD</color>
+    <color name="colorGridCurrent">#080DBD</color>
+
 
 </resources>

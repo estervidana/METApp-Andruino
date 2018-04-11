@@ -23,17 +23,18 @@ import com.example.guillermobrugarolas.metapp_andruino.viewModel.RecyclerViewAda
 public class LabFragment extends Fragment {
     private static final int MAX_ROWS = 5;
     private static final int MAX_COLUMNS = 5;
-    private ImageButton ibStart;
+    private String robotOrientation;
     private ImageButton ibSolution;
     private ImageButton ibBack;
-    private ImageView[] data;
+    private ImageView[][] imageData = new ImageView[MAX_ROWS][MAX_COLUMNS];
+    private ImageView[] imageDataAdapter = new ImageView[MAX_ROWS*MAX_COLUMNS];
 
     private RecyclerView rvLab;
     private RecyclerViewAdapter adapter;
     //gridView is used to display on screen
-    private SurfaceView[] gridView = new SurfaceView[MAX_ROWS*MAX_COLUMNS];
+    private SurfaceView[][] gridView = new SurfaceView[MAX_ROWS][MAX_COLUMNS];
     //gridData stores the information of each Section
-    private LabyrinthSection[]gridData = new LabyrinthSection[MAX_ROWS*MAX_COLUMNS];
+    private LabyrinthSection[][] sectionData = new LabyrinthSection[MAX_ROWS][MAX_COLUMNS];
 
     private GridLayout gridLayout;
 
@@ -50,28 +51,35 @@ public class LabFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lab, container, false);
-
-        data = new ImageView[25];
-        for (int gg = 0; gg < 25; gg++) {
-            data[gg] = new ImageView(this.getActivity());
+        for(int count1 = 0; count1 < MAX_ROWS; count1++) {
+            for(int count2 = 0; count2 < MAX_COLUMNS; count2++) {
+                imageData[count1][count2] = new ImageView(this.getActivity());
+            }
         }
-        setDrawables(data);
-
-
+        setDrawables(imageData);
         //gridLayout = view.findViewById(R.id.lab_grid);
         initData();
         //initSections();
         bindViews(view);
         //displaySections();
-
+        imageData[0][0].setPadding(10,0,0,10);
+        imageData[4][1].setPadding(10,10,10,0);
+        imageData[4][1].setColorFilter(getResources().getColor(R.color.colorGridSolution));
+        imageData[3][3].setPadding(0,10,10,0);
+        adapter.notifyDataSetChanged();
         return view;
     }
 
     //fixme temporary method
     private void initData() {
-        for(int count = 0; count < MAX_ROWS*MAX_COLUMNS; count++) {
-            gridData[count] = new LabyrinthSection(LabyrinthSectionState.DEAD_END, false, new boolean[4]);
+        robotOrientation = "RIGHT";
+        for(int count1 = 0; count1 < MAX_ROWS; count1++) {
+            for(int count2 = 0; count2 < MAX_COLUMNS; count2++) {
+                sectionData[count1][count2] = new LabyrinthSection(LabyrinthSectionState.DEAD_END, false, 0, new boolean[4]);
+            }
         }
+        sectionData[4][0].setState(LabyrinthSectionState.CURRENT);
+        sectionData[0][4].setTargetLocation(true);
     }
 
     private void bindViews(View view) {
@@ -89,70 +97,144 @@ public class LabFragment extends Fragment {
         ibSolution.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Debug.showLogError("Ver solución laberinto!");
+                Debug.showLogError("Recorrer solución laberinto!");
+                //send signal to robot to start moving
             }
         });
-        ibStart = view.findViewById(R.id.image_button_start_labyrinth);
-        ibStart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Debug.showLogError("Comenzar laberinto!");
-            }
-        });
+
         rvLab = (RecyclerView) view.findViewById(R.id.rvLabyrinth);
         int nCols = 5;
         rvLab.setLayoutManager(new GridLayoutManager(this.getActivity(), nCols));
-        adapter = new RecyclerViewAdapter(this.getActivity(), data);
+        imageDataAdapter = matrixToArrayImageData(imageData);
+        adapter = new RecyclerViewAdapter(this.getActivity(), imageDataAdapter);
         rvLab.setAdapter(adapter);
+        rvLab.setHasFixedSize(true);
     }
 
-//    private void initSections() {
-//        for(int row = 0; row < MAX_ROWS; row++){
-//            for(int column = 0; column < MAX_COLUMNS; column++){
-//                gridView[row][column] = initSection(gridData[row][column]);
-//            }
-//        }
-//    }
-
-//    public SurfaceView initSection(LabyrinthSection sectionData){
-//        SurfaceView sectionView = new SurfaceView(getContext());
-//        setSectionBackground(sectionView, sectionData.getState());
-//        drawWalls(sectionView, sectionData.getWalls());
-//        return sectionView;
-//    }
-
-//    private void displaySections() {
-//        for(int row = 0; row < MAX_ROWS; row++){
-//            for(int column = 0; column < MAX_COLUMNS; column++){
-//                GridLayout.Spec rowSpec = GridLayout.spec(row);
-//                GridLayout.Spec columnSpec = GridLayout.spec(column);
-//                GridLayout.LayoutParams layoutParams = new GridLayout.LayoutParams(rowSpec, columnSpec);
-//                gridLayout.addView(gridView[row][column], layoutParams);
-//            }
-//        }
-//    }
-
-    //METHOD FOR SETTING A CELL TO DEAD END
-    private void setDeadEndSection(int cell) {
-        //THIS IS ONLY FOR THE CASE OF WALLUP
-        //every change of colour, of cell type, has to keep the walls of the cell
-        if (data[cell].getDrawable() == getResources().getDrawable(R.drawable.wallup)) {
-            //data[cell].setImageDrawable(getResources().getDrawable(R.drawable.wallupdeadend));
-            gridData[cell].setState(LabyrinthSectionState.DEAD_END);
+    //ON WALL IN FRONT DETECTED
+    public void printFrontWall() {
+        for (int count1 = 0; count1 < MAX_ROWS; count1++) {
+            for (int count2 = 0; count2 < MAX_COLUMNS; count2++) {
+                if (sectionData[count1][count2].getState().equals(LabyrinthSectionState.CURRENT)) {
+                    int currPaddLeft = imageData[count1][count2].getPaddingLeft();
+                    int currPaddTop = imageData[count1][count2].getPaddingTop();
+                    int currPaddRight = imageData[count1][count2].getPaddingRight();
+                    int currPaddBottom = imageData[count1][count2].getPaddingBottom();
+                    if (robotOrientation.equals("RIGHT")) {
+                        imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                    } else if (robotOrientation.equals("LEFT")) {
+                        imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                    } else if (robotOrientation.equals("UP")) {
+                        imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
+                    } else if (robotOrientation.equals("DOWN")) {
+                        imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                    }
+                }
+            }
         }
     }
 
-    //METHOD FOR SETTING A CELL TO SOLUTION
-    private void setSolutionSection(int cell) {
-        //THIS IS ONLY FOR THE CASE OF WALLUP
-        //every change of colour, of cell type, has to keep the walls of the cell
-        if (data[cell].getDrawable() == getResources().getDrawable(R.drawable.wallup)) {
-            //data[cell].setImageDrawable(getResources().getDrawable(R.drawable.wallupsolution));
-            gridData[cell].setState(LabyrinthSectionState.SOLUTION);
+    //ON WALL RIGHT DETECTED
+    public void printRightWall() {
+        for (int count1 = 0; count1 < MAX_ROWS; count1++) {
+            for (int count2 = 0; count2 < MAX_COLUMNS; count2++) {
+                if (sectionData[count1][count2].getState().equals(LabyrinthSectionState.CURRENT)) {
+                    int currPaddLeft = imageData[count1][count2].getPaddingLeft();
+                    int currPaddTop = imageData[count1][count2].getPaddingTop();
+                    int currPaddRight = imageData[count1][count2].getPaddingRight();
+                    int currPaddBottom = imageData[count1][count2].getPaddingBottom();
+                    if (robotOrientation.equals("RIGHT")) {
+                        imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                    } else if (robotOrientation.equals("LEFT")) {
+                        imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
+                    } else if (robotOrientation.equals("UP")) {
+                        imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                    } else if (robotOrientation.equals("DOWN")) {
+                        imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                    }
+                }
+            }
         }
     }
 
-    private void setSectionBackground(SurfaceView sectionView, LabyrinthSectionState state) {
+    //ON WALL LEFT DETECTED
+    public void printLeftWall() {
+        for (int count1 = 0; count1 < MAX_ROWS; count1++) {
+            for (int count2 = 0; count2 < MAX_COLUMNS; count2++) {
+                if (sectionData[count1][count2].getState().equals(LabyrinthSectionState.CURRENT)) {
+                    int currPaddLeft = imageData[count1][count2].getPaddingLeft();
+                    int currPaddTop = imageData[count1][count2].getPaddingTop();
+                    int currPaddRight = imageData[count1][count2].getPaddingRight();
+                    int currPaddBottom = imageData[count1][count2].getPaddingBottom();
+                    if (robotOrientation.equals("RIGHT")) {
+                        imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
+                    } else if (robotOrientation.equals("LEFT")) {
+                        imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                    } else if (robotOrientation.equals("UP")) {
+                        imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                    } else if (robotOrientation.equals("DOWN")) {
+                        imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                    }
+                }
+            }
+        }
+    }
+
+    //ON 180° LEFT ROTATION DETECTED
+    public void leftRotationUpdate() {
+        if (robotOrientation.equals("RIGHT")) {
+            robotOrientation = "UP";
+        } else if (robotOrientation.equals("LEFT")) {
+            robotOrientation = "DOWN";
+        } else if (robotOrientation.equals("UP")) {
+            robotOrientation = "LEFT";
+        } else if (robotOrientation.equals("DOWN")) {
+            robotOrientation = "RIGHT";
+        }
+    }
+
+    //ON 180° RIGHT ROTATION DETECTED
+    public void rightRotationUpdate() {
+        if (robotOrientation.equals("RIGHT")) {
+            robotOrientation = "DOWN";
+        } else if (robotOrientation.equals("LEFT")) {
+            robotOrientation = "UP";
+        } else if (robotOrientation.equals("UP")) {
+            robotOrientation = "RIGHT";
+        } else if (robotOrientation.equals("DOWN")) {
+            robotOrientation = "LEFT";
+        }
+    }
+
+    //ON REVERSE GEAR DETECTED??
+
+    //ON CELL PASSED (moved forward x cm?)
+    public void positionUpdate() {
+        for (int count1 = 0; count1 < MAX_ROWS; count1++) {
+            for (int count2 = 0; count2 < MAX_COLUMNS; count2++) {
+                if (sectionData[count1][count2].getState().equals(LabyrinthSectionState.CURRENT)) {
+                    sectionData[count1][count2].setState(LabyrinthSectionState.PASSED_UNCERTAIN);
+                    sectionData[count1][count2].setPassed(sectionData[count1][count2].getPassed()+1);
+                    setSectionBackground(imageData[count1][count2], LabyrinthSectionState.PASSED_UNCERTAIN);
+                    if (robotOrientation.equals("RIGHT")) {
+                        sectionData[count1][count2+1].setState(LabyrinthSectionState.CURRENT);
+                        setSectionBackground(imageData[count1][count2+1], LabyrinthSectionState.CURRENT);
+                    } else if (robotOrientation.equals("LEFT")) {
+                        sectionData[count1][count2-1].setState(LabyrinthSectionState.CURRENT);
+                        setSectionBackground(imageData[count1][count2-1], LabyrinthSectionState.CURRENT);
+                    } else if (robotOrientation.equals("UP")) {
+                        sectionData[count1-1][count2].setState(LabyrinthSectionState.CURRENT);
+                        setSectionBackground(imageData[count1-1][count2], LabyrinthSectionState.CURRENT);
+                    } else if (robotOrientation.equals("DOWN")) {
+                        sectionData[count1+1][count2].setState(LabyrinthSectionState.CURRENT);
+                        setSectionBackground(imageData[count1+1][count2], LabyrinthSectionState.CURRENT);
+                    }
+                }
+            }
+        }
+    }
+
+    private void setSectionBackground(ImageView imageData, LabyrinthSectionState state) {
         int color;
         switch(state){
             case PASSED_UNCERTAIN:
@@ -167,44 +249,33 @@ public class LabFragment extends Fragment {
             case UNEXPLORED:
                 color = getResources().getColor(R.color.colorGridUnexplored);
                 break;
+            case CURRENT:
+                color = getResources().getColor(R.color.colorGridCurrent);
+                break;
             default:
                 //TODO create message constant and improve message content
                 throw new IllegalStateException("There is no valid state defined.");
         }
-        sectionView.setBackgroundColor(color);
+        imageData.setColorFilter(color);
     }
 
-//    private void drawWalls(SurfaceView sectionView, boolean[] walls) {
-//        for(boolean wall: walls){
-//            //sectionView.draw
-//        }
-//    }
+    private void setDrawables(ImageView[][] imageData) {
+        for(int count1 = 0; count1 < MAX_ROWS; count1++) {
+            for (int count2 = 0; count2 < MAX_COLUMNS; count2++) {
+                imageData[count1][count2].setImageDrawable(getResources().getDrawable(R.drawable.emptygridcell));
+            }
+        }
+    }
 
-    private void setDrawables(ImageView[] data) {
-        data[0].setImageDrawable(getResources().getDrawable(R.drawable.wallupdownleft));
-        data[1].setImageDrawable(getResources().getDrawable(R.drawable.wallup));
-        data[2].setImageDrawable(getResources().getDrawable(R.drawable.wallup));
-        data[3].setImageDrawable(getResources().getDrawable(R.drawable.wallupdown));
-        data[4].setImageDrawable(getResources().getDrawable(R.drawable.wallupdownfinish));
-        data[5].setImageDrawable(getResources().getDrawable(R.drawable.wallleft));
-        data[6].setImageDrawable(getResources().getDrawable(R.drawable.walldown));
-        data[7].setImageDrawable(getResources().getDrawable(R.drawable.wallright));
-        data[8].setImageDrawable(getResources().getDrawable(R.drawable.wallnowalls));
-        data[9].setImageDrawable(getResources().getDrawable(R.drawable.walldownright));
-        data[10].setImageDrawable(getResources().getDrawable(R.drawable.walldownleftright));
-        data[11].setImageDrawable(getResources().getDrawable(R.drawable.walldown));
-        data[12].setImageDrawable(getResources().getDrawable(R.drawable.walldown));
-        data[13].setImageDrawable(getResources().getDrawable(R.drawable.wallnowalls));
-        data[14].setImageDrawable(getResources().getDrawable(R.drawable.walldownright));
-        data[15].setImageDrawable(getResources().getDrawable(R.drawable.walldownleft));
-        data[16].setImageDrawable(getResources().getDrawable(R.drawable.wallnowalls));
-        data[17].setImageDrawable(getResources().getDrawable(R.drawable.wallnowalls));
-        data[18].setImageDrawable(getResources().getDrawable(R.drawable.wallright));
-        data[19].setImageDrawable(getResources().getDrawable(R.drawable.wallright));
-        data[20].setImageDrawable(getResources().getDrawable(R.drawable.walldownstart));
-        data[21].setImageDrawable(getResources().getDrawable(R.drawable.walldownright));
-        data[22].setImageDrawable(getResources().getDrawable(R.drawable.walldown));
-        data[23].setImageDrawable(getResources().getDrawable(R.drawable.walldown));
-        data[24].setImageDrawable(getResources().getDrawable(R.drawable.walldownright));
+    private ImageView[] matrixToArrayImageData(ImageView[][] imageData) {
+        ImageView newArray[] = new ImageView[imageData.length * imageData[0].length];
+        for (int i = 0; i < imageData.length; i++) {
+            ImageView[] row = imageData[i];
+            for (int j = 0; j < row.length; j++) {
+                ImageView image = imageData[i][j];
+                newArray[i * row.length + j] = image;
+            }
+        }
+        return newArray;
     }
 }

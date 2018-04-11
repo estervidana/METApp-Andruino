@@ -14,7 +14,9 @@
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rvLabyrinth"
             android:padding="0dp"
-            android:layout_margin="0dp"
+            android:layout_marginStart="10dp"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
@@ -28,13 +30,8 @@
                 android:layout_marginStart="10dp"
                 android:layout_alignParentLeft="true"
                 android:background="@mipmap/ic_start_labyrinth"
-                android:id="@+id/image_button_start_labyrinth"/>
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:background="@mipmap/ic_solution"
                 android:id="@+id/image_button_solution_labyrinth"/>
+
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
