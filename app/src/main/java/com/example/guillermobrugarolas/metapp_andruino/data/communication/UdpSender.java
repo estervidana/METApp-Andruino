@@ -33,7 +33,8 @@ public class UdpSender extends AsyncTask<String, Void, List<String>> {
     protected void onPostExecute(List<String> messages) {
         // super.onPostExecute(s);
         for(String message: messages){
-            logger.addLog((MessageSender.APP.name()) + message);
+            //TODO do this properly.
+            logger.addLog((MessageSender.APP.name()) + ": " + message);
         }
     }
 }

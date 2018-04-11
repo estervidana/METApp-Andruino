@@ -4,13 +4,15 @@ import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class UdpCommunicator implements Communicator {
-    private static final int PORT = 31337;
+    private static final int PORT_RECEIVE = 31337;
+    private static final int PORT_SEND = 31338;
     // TODO set actual robot IP.
-    private static final String ROBOT_IP = "192.168.1.99";
+    private static final String ROBOT_IP = "192.168.1.37";
 
     // protocol:
     // option:param1,param2,...,paramN;
@@ -23,10 +25,10 @@ public class UdpCommunicator implements Communicator {
     private static UdpCommunicator instance = null;
 
     private UdpCommunicator() throws SocketException, UnknownHostException {
-        rSocket = new DatagramSocket(PORT);
+        rSocket = new DatagramSocket(PORT_RECEIVE);
         try {
             //TODO this line should not be commented.. It is necessary now to avoid exceptions because there is no one listening.
-            //sSocket = new DatagramSocket(PORT, InetAddress.getByName(ROBOT_IP));
+            //sSocket = new DatagramSocket(PORT_SEND, InetAddress.getByName(ROBOT_IP));
         } catch (Exception e) {
             rSocket.close();
             throw e;

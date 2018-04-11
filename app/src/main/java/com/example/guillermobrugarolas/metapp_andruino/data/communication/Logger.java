@@ -119,7 +119,8 @@ public class Logger implements Repository.RepositoryListener {
     @Override
     public void onMessageReceived(String message) {
         message = message.split(";")[0];
-        addLog(message);
+        //TODO do this properly.
+        addLog(MessageSender.ROBOT.name() + ": " + message);
         Log.d("Logger", message);
     }
 

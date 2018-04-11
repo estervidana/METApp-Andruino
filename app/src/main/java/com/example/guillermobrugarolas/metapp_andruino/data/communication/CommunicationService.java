@@ -5,6 +5,7 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
+import android.os.SystemClock;
 import android.support.annotation.Nullable;
 
 import java.io.IOException;
@@ -41,6 +42,7 @@ public class CommunicationService extends IntentService {
                 listener.onMessageReceived(message);
             } catch (IOException e) {
                 e.printStackTrace();
+                SystemClock.sleep(1000);
             }
         }
     }
