@@ -77,9 +77,8 @@ public class CtrlRemotoFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled.
-                    //Ahora lo ponemos a FALSE, tendremos que esperar la respuesta del robot
-                    //Para ponerlo a true.
-                    sLigths.setChecked(false);
+                    //Now we are setting it to "true", but we will need to wait until the response of the arduino.
+                    sLigths.setChecked(true);
                 } else {
                     // The toggle is disabled
                 }
