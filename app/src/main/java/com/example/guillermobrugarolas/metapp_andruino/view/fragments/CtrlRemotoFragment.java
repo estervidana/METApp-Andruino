@@ -3,7 +3,12 @@ package com.example.guillermobrugarolas.metapp_andruino.view.fragments;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,14 +34,16 @@ import com.example.guillermobrugarolas.metapp_andruino.viewModel.CtrlRemotoViewM
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.PaintView;
 
 
-public class CtrlRemotoFragment extends Fragment {
+public class CtrlRemotoFragment extends Fragment implements SensorEventListener {
     private CtrlRemotoViewModel viewModel;
     private  ProgressBar pbSpeed, pbTemperature;
     private  TextView tvFrontalCollision, tvBackLeftCollision, tvBackRightCollision;
     private PaintView pvDrawShape;
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
 
 
-    public static CtrlRemotoFragment newInstance(){
+    public static CtrlRemotoFragment newInstance() {
         return new CtrlRemotoFragment();
     }
 
@@ -80,7 +87,29 @@ public class CtrlRemotoFragment extends Fragment {
         listenButtonsGasBrakeClear(v);
         observeTemperature(v);
         observeSpeed(v);
+
+        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener((SensorEventListener) this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
     }
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        //From this list we will look for the Y value, as it shows the
+        //rotation of the device when it is placed landscape.
+        //Positive values indicate right rotation of the robot.
+        //Negative values indicate left rotation of the robot.
+        float x = event.values[0];
+        float y = event.values[1];
+        float z = event.values[2];
+        viewModel.setYRotation(y);
+
+    }
+    @Override
+    public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Do something here if sensor accuracy changes.
+    }
+
     private void listenLightsSwitch(final View v){
         //LISTENING THE LIGHT'S SWITCH
         final Switch sLigths = v.findViewById(R.id.switch_mode_lights);
@@ -219,7 +248,7 @@ public class CtrlRemotoFragment extends Fragment {
             public void onChanged(@Nullable final Integer newTemperature) {
                 // Update the layout. Both the number of the temperature and the termometer
                 tvTemperature.setText(newTemperature.toString()+'º');
-                pbTemperature.setProgress(newTemperature);
+                pbTemperature.setProgress(newTemperature*3);
             }
         };
         //Let's begin the observation!

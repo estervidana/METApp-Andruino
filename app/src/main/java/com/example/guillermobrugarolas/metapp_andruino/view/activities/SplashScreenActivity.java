@@ -38,7 +38,6 @@ public class SplashScreenActivity extends AppCompatActivity {
         repository.addListener(Logger.getInstance(getApplicationContext()));
         repository.startService(getApplicationContext());
 
-        //FIXME this is only for testing
         Intent intent = new Intent(getApplicationContext(), TestCommSenderService.class);
         getApplicationContext().startService(intent);
     }
