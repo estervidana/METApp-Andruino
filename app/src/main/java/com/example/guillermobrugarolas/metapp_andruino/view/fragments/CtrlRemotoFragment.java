@@ -31,8 +31,8 @@ import com.example.guillermobrugarolas.metapp_andruino.viewModel.PaintView;
 
 public class CtrlRemotoFragment extends Fragment {
     private CtrlRemotoViewModel viewModel;
-    private static ProgressBar pbSpeed, pbTemperature;
-    private static TextView tvFrontalCollision, tvBackLeftCollision, tvBackRightCollision;
+    private  ProgressBar pbSpeed, pbTemperature;
+    private  TextView tvFrontalCollision, tvBackLeftCollision, tvBackRightCollision;
     private PaintView pvDrawShape;
 
 
@@ -58,7 +58,7 @@ public class CtrlRemotoFragment extends Fragment {
     }
     @SuppressLint("ClickableViewAccessibility")
     private void bindViews(View v){
-        //THE CIRCULAR PROGRESS BAR FOR THE SPEED
+        //THE CIRCULAR PROGRESS BAR FOR THE SPEED.
         pbSpeed = v.findViewById(R.id.progressbar_circular_progress);
         //THE TEMPERATURE PROGRESS BAR
         pbTemperature = v.findViewById(R.id.progressbar_temperature);
