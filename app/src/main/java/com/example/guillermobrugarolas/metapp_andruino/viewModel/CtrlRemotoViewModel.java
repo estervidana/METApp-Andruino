@@ -5,6 +5,8 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 
+import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
+
 public class CtrlRemotoViewModel extends ViewModel{
     public CtrlRemotoViewModel(){
 
@@ -18,6 +20,7 @@ public class CtrlRemotoViewModel extends ViewModel{
     private boolean brake = false;
     private MutableLiveData<Integer> temperature;
     private MutableLiveData<Integer> speed;
+    private int yPosition,oldYPosition;
 
     public MutableLiveData<Integer> getTemperature() {
         if (temperature == null) {
@@ -65,5 +68,35 @@ public class CtrlRemotoViewModel extends ViewModel{
 
         }
         return gear;
+    }
+    public void setYRotation(float y){
+
+        if (y >= 6){
+            yPosition = 3;
+            Debug.showLogError("Turn right heavy");
+        }else if (y<6 && y>=3){
+            yPosition = 2;
+            Debug.showLogError("Turn right moderate");
+
+        }else if (y<3 && y>=1) {
+            yPosition = 1;
+            Debug.showLogError("Turn right a little bit");
+        }else if(y<1 && y>=-1){
+            yPosition = 0;
+            //The robot must move straight.
+        }else if (y<0 && y>=-3){
+            yPosition = -1;
+            Debug.showLogError("Turn left a little bit");
+        }else if (y<-3 && y>=-6){
+            yPosition = -2;
+            Debug.showLogError("Turn left moderate");
+        }else{
+            yPosition = -3;
+            Debug.showLogError("Turn left heavy");
+        }
+        if (oldYPosition != yPosition){
+            Debug.showLogError("Changed status!");
+        }
+        oldYPosition = yPosition;
     }
 }

@@ -3,7 +3,12 @@ package com.example.guillermobrugarolas.metapp_andruino.view.fragments;
 import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -29,14 +34,16 @@ import com.example.guillermobrugarolas.metapp_andruino.viewModel.CtrlRemotoViewM
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.PaintView;
 
 
-public class CtrlRemotoFragment extends Fragment {
+public class CtrlRemotoFragment extends Fragment implements SensorEventListener {
     private CtrlRemotoViewModel viewModel;
-    private static ProgressBar pbSpeed, pbTemperature;
-    private static TextView tvFrontalCollision, tvBackLeftCollision, tvBackRightCollision;
+    private  ProgressBar pbSpeed, pbTemperature;
+    private  TextView tvFrontalCollision, tvBackLeftCollision, tvBackRightCollision;
     private PaintView pvDrawShape;
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
 
 
-    public static CtrlRemotoFragment newInstance(){
+    public static CtrlRemotoFragment newInstance() {
         return new CtrlRemotoFragment();
     }
 
@@ -58,7 +65,7 @@ public class CtrlRemotoFragment extends Fragment {
     }
     @SuppressLint("ClickableViewAccessibility")
     private void bindViews(View v){
-        //THE CIRCULAR PROGRESS BAR FOR THE SPEED
+        //THE CIRCULAR PROGRESS BAR FOR THE SPEED.
         pbSpeed = v.findViewById(R.id.progressbar_circular_progress);
         //THE TEMPERATURE PROGRESS BAR
         pbTemperature = v.findViewById(R.id.progressbar_temperature);
@@ -71,21 +78,54 @@ public class CtrlRemotoFragment extends Fragment {
         DisplayMetrics metrics = new DisplayMetrics();
         this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         pvDrawShape.init(metrics);
+
+
+        listenLightsSwitch(v);
+        listenManualModeSwitch(v);
+        listenButtonsGear(v);
+        listenCanvas(v);
+        listenButtonsGasBrakeClear(v);
+        observeTemperature(v);
+        observeSpeed(v);
+
+        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener((SensorEventListener) this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+    }
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        //From this list we will look for the Y value, as it shows the
+        //rotation of the device when it is placed landscape.
+        //Positive values indicate right rotation of the robot.
+        //Negative values indicate left rotation of the robot.
+        float x = event.values[0];
+        float y = event.values[1];
+        float z = event.values[2];
+        viewModel.setYRotation(y);
+
+    }
+    @Override
+    public final void onAccuracyChanged(Sensor sensor, int accuracy) {
+        // Do something here if sensor accuracy changes.
+    }
+
+    private void listenLightsSwitch(final View v){
         //LISTENING THE LIGHT'S SWITCH
         final Switch sLigths = v.findViewById(R.id.switch_mode_lights);
         sLigths.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
                     // The toggle is enabled.
-                    //Ahora lo ponemos a FALSE, tendremos que esperar la respuesta del robot
-                    //Para ponerlo a true.
-                    sLigths.setChecked(false);
+                    //Now we are setting it to "true", but we will need to wait until the response of the arduino.
+                    sLigths.setChecked(true);
                 } else {
                     // The toggle is disabled
                 }
             }
         });
-
+    }
+    private void listenManualModeSwitch(final View v){
         //LISTENING THE MANUAL MODE SWITCH
         final Switch sManualMode = v.findViewById(R.id.switch_manual_mode);
         sManualMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -101,6 +141,8 @@ public class CtrlRemotoFragment extends Fragment {
             }
         });
 
+    }
+    private void listenButtonsGear(final View v){
         //LISTENING TO GEAR BUTTONS
         final TextView tvGearText = v.findViewById(R.id.text_number_gear);
         final ImageButton ibGearUp = v.findViewById(R.id.image_button_gearup);
@@ -119,6 +161,9 @@ public class CtrlRemotoFragment extends Fragment {
                 Debug.showLogError("Gear Down pressed");
             }
         });
+
+    }
+    private void listenCanvas(final View v){
         //LISTENING TO THE CANVAS OF THE SCREEN
         v.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -138,6 +183,8 @@ public class CtrlRemotoFragment extends Fragment {
                 return false;
             }
         });
+    }
+    private void listenButtonsGasBrakeClear(final View v){
         //LISTENING TO THE GAS, BRAKE OR CLEAR BUTTON
         final ImageButton ibGas = v.findViewById(R.id.image_button_gas);
         ibGas.setOnTouchListener(new View.OnTouchListener() {
@@ -192,8 +239,8 @@ public class CtrlRemotoFragment extends Fragment {
             }
         });
 
-
-
+    }
+    private void observeTemperature(final View v){
         //OBSERVING THE TEMPERATURE OF THE ROBOT
         final TextView tvTemperature = v.findViewById(R.id.text_temperature_number);
         final Observer<Integer> temperatureObserver = new Observer<Integer>() {
@@ -201,12 +248,15 @@ public class CtrlRemotoFragment extends Fragment {
             public void onChanged(@Nullable final Integer newTemperature) {
                 // Update the layout. Both the number of the temperature and the termometer
                 tvTemperature.setText(newTemperature.toString()+'º');
-                pbTemperature.setProgress(newTemperature);
+                pbTemperature.setProgress(newTemperature*3);
             }
         };
         //Let's begin the observation!
         viewModel.getTemperature().observe(this,temperatureObserver);
 
+    }
+
+    private void observeSpeed(final View v){
         //OBSERVING THE SPEED OF THE ROBOT
         final TextView tvSpeed = v.findViewById(R.id.text_speed_number);
         final Observer<Integer> speedObserver = new Observer<Integer>() {
@@ -219,7 +269,6 @@ public class CtrlRemotoFragment extends Fragment {
         };
         //Let's begin the observation!
         viewModel.getSpeed().observe(this,speedObserver);
-
     }
 
 
