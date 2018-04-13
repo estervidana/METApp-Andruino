@@ -71,6 +71,17 @@ public class CtrlRemotoFragment extends Fragment {
         DisplayMetrics metrics = new DisplayMetrics();
         this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         pvDrawShape.init(metrics);
+
+
+        listenLightsSwitch(v);
+        listenManualModeSwitch(v);
+        listenButtonsGear(v);
+        listenCanvas(v);
+        listenButtonsGasBrakeClear(v);
+        observeTemperature(v);
+        observeSpeed(v);
+    }
+    private void listenLightsSwitch(final View v){
         //LISTENING THE LIGHT'S SWITCH
         final Switch sLigths = v.findViewById(R.id.switch_mode_lights);
         sLigths.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -84,7 +95,8 @@ public class CtrlRemotoFragment extends Fragment {
                 }
             }
         });
-
+    }
+    private void listenManualModeSwitch(final View v){
         //LISTENING THE MANUAL MODE SWITCH
         final Switch sManualMode = v.findViewById(R.id.switch_manual_mode);
         sManualMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -100,6 +112,8 @@ public class CtrlRemotoFragment extends Fragment {
             }
         });
 
+    }
+    private void listenButtonsGear(final View v){
         //LISTENING TO GEAR BUTTONS
         final TextView tvGearText = v.findViewById(R.id.text_number_gear);
         final ImageButton ibGearUp = v.findViewById(R.id.image_button_gearup);
@@ -118,6 +132,9 @@ public class CtrlRemotoFragment extends Fragment {
                 Debug.showLogError("Gear Down pressed");
             }
         });
+
+    }
+    private void listenCanvas(final View v){
         //LISTENING TO THE CANVAS OF THE SCREEN
         v.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -137,6 +154,8 @@ public class CtrlRemotoFragment extends Fragment {
                 return false;
             }
         });
+    }
+    private void listenButtonsGasBrakeClear(final View v){
         //LISTENING TO THE GAS, BRAKE OR CLEAR BUTTON
         final ImageButton ibGas = v.findViewById(R.id.image_button_gas);
         ibGas.setOnTouchListener(new View.OnTouchListener() {
@@ -191,8 +210,8 @@ public class CtrlRemotoFragment extends Fragment {
             }
         });
 
-
-
+    }
+    private void observeTemperature(final View v){
         //OBSERVING THE TEMPERATURE OF THE ROBOT
         final TextView tvTemperature = v.findViewById(R.id.text_temperature_number);
         final Observer<Integer> temperatureObserver = new Observer<Integer>() {
@@ -206,6 +225,9 @@ public class CtrlRemotoFragment extends Fragment {
         //Let's begin the observation!
         viewModel.getTemperature().observe(this,temperatureObserver);
 
+    }
+
+    private void observeSpeed(final View v){
         //OBSERVING THE SPEED OF THE ROBOT
         final TextView tvSpeed = v.findViewById(R.id.text_speed_number);
         final Observer<Integer> speedObserver = new Observer<Integer>() {
@@ -218,7 +240,6 @@ public class CtrlRemotoFragment extends Fragment {
         };
         //Let's begin the observation!
         viewModel.getSpeed().observe(this,speedObserver);
-
     }
 
 
