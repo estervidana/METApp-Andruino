@@ -5,17 +5,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.guillermobrugarolas.metapp_andruino.view.activities.LogCommActivity"
-    android:id="@+id/log_comm_activity"
-    android:orientation="vertical">
-    <FrameLayout
-        android:id="@+id/activity_log_comm_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    android:id="@+id/log_comm_activity">
 
-        <fragment
-            android:name="com.example.guillermobrugarolas.metapp_andruino.view.fragments.LogCommFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/log_comm_fragment" />
-    </FrameLayout>
+    <fragment
+        android:name="com.example.guillermobrugarolas.metapp_andruino.view.fragments.LogCommFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/log_comm_fragment" />
 </android.support.constraint.ConstraintLayout>
