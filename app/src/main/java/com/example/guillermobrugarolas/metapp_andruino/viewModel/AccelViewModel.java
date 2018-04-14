@@ -6,15 +6,6 @@ public class AccelViewModel extends ViewModel {
     private static double xAccel;
     private static double yAccel;
     private static double zAccel;
-    private static double tilt;
-
-    public static double getTilt() {
-        return tilt;
-    }
-
-    public static void setTilt(double tilt) {
-        AccelViewModel.tilt = tilt;
-    }
 
     public AccelViewModel() {
     }

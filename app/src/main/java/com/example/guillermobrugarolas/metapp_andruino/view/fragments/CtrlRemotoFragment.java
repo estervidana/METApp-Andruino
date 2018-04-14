@@ -5,6 +5,11 @@ import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
 import android.content.Intent;
+import android.gesture.Gesture;
+import android.gesture.GestureLibraries;
+import android.gesture.GestureLibrary;
+import android.gesture.GestureOverlayView;
+import android.gesture.Prediction;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -24,6 +29,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.guillermobrugarolas.metapp_andruino.R;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
@@ -33,14 +39,18 @@ import com.example.guillermobrugarolas.metapp_andruino.view.activities.MainActiv
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.CtrlRemotoViewModel;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.PaintView;
 
+import java.util.ArrayList;
+
 
 public class CtrlRemotoFragment extends Fragment implements SensorEventListener {
     private CtrlRemotoViewModel viewModel;
     private  ProgressBar pbSpeed, pbTemperature;
     private  TextView tvFrontalCollision, tvBackLeftCollision, tvBackRightCollision;
-    private PaintView pvDrawShape;
+    private GestureOverlayView govGestures;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
+    private GestureLibrary gLibrary;
+
 
 
     public static CtrlRemotoFragment newInstance() {
@@ -73,13 +83,30 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         tvBackLeftCollision = v.findViewById(R.id.text_back_left_collision);
         tvFrontalCollision = v.findViewById(R.id.text_frontal_collision);
         tvBackRightCollision = v.findViewById(R.id.text_back_right_collision);
-        //THE PAINT VIEW
-        pvDrawShape = v.findViewById(R.id.paintView);
-        DisplayMetrics metrics = new DisplayMetrics();
-        this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        pvDrawShape.init(metrics);
-
-
+        //THE GESTURES VIEW
+        govGestures = v.findViewById(R.id.gestures);
+        govGestures.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
+            @Override
+            public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
+                ArrayList<Prediction> predictions = gLibrary.recognize(gesture);
+                Prediction prediction = (predictions.size() != 0) ? predictions.get(0) : null;
+                prediction = (prediction.score >= 1.0) ? prediction: null;
+                if (prediction != null) {
+                    // do something with the prediction
+                    //Toast.makeText(this, prediction.name + "(" + prediction.score + ")", Toast.LENGTH_LONG).show();
+                    Debug.showLogError("::::::::::::::::::: Gesture recognised: " + prediction.name);
+                    //send order to Arduino depending on the recognised gesture type
+                    sendPolygonOrder(prediction);
+                }
+            }
+        });
+        //DisplayMetrics metrics = new DisplayMetrics();
+        //this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        //pvDrawShape.init(metrics);
+        gLibrary = GestureLibraries.fromRawResource(getActivity(), R.raw.gestures);
+        if (!gLibrary.load()) {
+            this.getActivity().finish();
+        }
         listenLightsSwitch(v);
         listenManualModeSwitch(v);
         listenButtonsGear(v);
@@ -207,10 +234,8 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     Debug.showLogError("Aprieto el CLEAR!");
-                    //pvDrawShape.clear();
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     Debug.showLogError("Dejo ir el CLEAR!");
-                    pvDrawShape.clear();
                 }
                 return true;
             }
@@ -310,6 +335,33 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         }
     }
 
+    private void sendPolygonOrder (Prediction prediction) {
+        if (prediction.name.equals("CircleRadius10cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 10 cm RADIUS!");
+        } else if (prediction.name.equals("CircleRadius20cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 20 cm RADIUS!");
+        } else if (prediction.name.equals("CircleRadius20cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 30 cm RADIUS!");
+        } else if (prediction.name.equals("CircleRadius20cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");
+        } else if (prediction.name.equals("SquareSide20cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 20 cm SIDE!");
+        } else if (prediction.name.equals("SquareSide40cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 40 cm SIDE!");
+        } else if (prediction.name.equals("SquareSide60cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 60 cm SIDE!");
+        } else if (prediction.name.equals("SquareSide80cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 80 cm SIDE!");
+        } else if (prediction.name.equals("TriangleSide20cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 20 cm SIDE!");
+        } else if (prediction.name.equals("TriangleSide40cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 40 cm SIDE!");
+        } else if (prediction.name.equals("TriangleSide60cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 60 cm SIDE!");
+        } else if (prediction.name.equals("TriangleSide80cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 80 cm SIDE!");
+        }
+    }
 }
 
 

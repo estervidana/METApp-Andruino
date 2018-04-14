@@ -63,10 +63,16 @@ public class LabFragment extends Fragment {
         bindViews(view);
         //displaySections();
         imageData[0][0].setPadding(10,0,0,10);
+        imageData[0][0].setColorFilter(getResources().getColor(R.color.colorGridPassedUncertain));
         imageData[4][1].setPadding(10,10,10,0);
+        imageData[2][3].setPadding(10,10,10,0);
+        imageData[1][3].setPadding(10,0,0,10);
         imageData[3][1].setColorFilter(getResources().getColor(R.color.colorGridDeadEnd));
-        imageData[4][1].setColorFilter(getResources().getColor(R.color.colorGridSolution));
+        imageData[2][2].setColorFilter(getResources().getColor(R.color.colorGridPassedUncertain));
+        imageData[2][4].setPadding(10, 0, 10, 0);
+        imageData[0][4].setColorFilter(getResources().getColor(R.color.colorGridTarget));
         imageData[3][3].setPadding(0,10,10,0);
+        imageData[3][3].setColorFilter(getResources().getColor(R.color.colorGridSolution));
         adapter.notifyDataSetChanged();
         return view;
     }
@@ -104,7 +110,7 @@ public class LabFragment extends Fragment {
         });
 
         rvLab = (RecyclerView) view.findViewById(R.id.rvLabyrinth);
-        int nCols = 5;
+        int nCols = MAX_COLUMNS;
         rvLab.setLayoutManager(new GridLayoutManager(this.getActivity(), nCols));
         imageDataAdapter = matrixToArrayImageData(imageData);
         adapter = new RecyclerViewAdapter(this.getActivity(), imageDataAdapter);

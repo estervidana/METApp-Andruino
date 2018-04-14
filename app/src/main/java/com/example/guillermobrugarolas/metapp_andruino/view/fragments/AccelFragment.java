@@ -28,7 +28,6 @@ public class AccelFragment extends Fragment {
     private  TextView xAccel;
     private  TextView yAccel;
     private  TextView zAccel;
-    private TextView tilt;
 
 
     public AccelFragment() {
@@ -56,7 +55,10 @@ public class AccelFragment extends Fragment {
         xAccel = v.findViewById(R.id.tvXAccel);
         yAccel = v.findViewById(R.id.tvYAccel);
         zAccel = v.findViewById(R.id.tvZAccel);
-        tilt = v.findViewById(R.id.tvTilt);
+        //testing
+        xAccel.setText("X accel.: 3.44 m/s2");
+        yAccel.setText("Y accel.: 5.09 m/s2");
+        zAccel.setText("Z accel.: -9.81 m/s2");
         ImageButton ibBack = v.findViewById(R.id.image_button_back_accel);
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -84,12 +86,6 @@ public class AccelFragment extends Fragment {
         String text = R.string.accel_z_accel_text + String.valueOf(zAccelValue);
         zAccel.setText(text);
         viewModel.setzAccel(zAccelValue);
-    }
-
-    public void updateTiltText(double tiltValue) {
-        String text = R.string.accel_tilt_text + String.valueOf(tiltValue);
-        tilt.setText(text);
-        AccelViewModel.setTilt(tiltValue);
     }
 
     private void initViewModel(final View v){

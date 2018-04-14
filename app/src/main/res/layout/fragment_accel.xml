@@ -60,14 +60,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
-            <TextView
-                android:id="@+id/tvTilt"
-                android:layout_marginStart="10dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="@string/accel_tilt_text"
-                android:textSize="25sp" />
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

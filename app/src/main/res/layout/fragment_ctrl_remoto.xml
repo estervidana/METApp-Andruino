@@ -145,10 +145,12 @@
                 android:layout_height="1dp"
                 android:background="@color/colorPrimary"/>
 
-            <com.example.guillermobrugarolas.metapp_andruino.viewModel.PaintView
-                android:id="@+id/paintView"
-                android:layout_height="160dp"
-                android:layout_width="match_parent"/>
+            <android.gesture.GestureOverlayView
+                android:id="@+id/gestures"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:gestureColor="@color/colorPrimary"
+                android:gestureStrokeType="single" />
 
         </LinearLayout>
         <LinearLayout
