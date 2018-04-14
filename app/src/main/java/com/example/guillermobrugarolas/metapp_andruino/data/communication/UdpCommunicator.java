@@ -24,11 +24,10 @@ public class UdpCommunicator implements Communicator {
 
     private static UdpCommunicator instance = null;
 
-    private UdpCommunicator() throws SocketException, UnknownHostException {
+    private UdpCommunicator() throws SocketException {
         rSocket = new DatagramSocket(PORT_RECEIVE);
         try {
-            //TODO this line should not be commented.. It is necessary now to avoid exceptions because there is no one listening.
-            //sSocket = new DatagramSocket(PORT_SEND, InetAddress.getByName(ROBOT_IP));
+            sSocket = new DatagramSocket();
         } catch (Exception e) {
             rSocket.close();
             throw e;
@@ -46,7 +45,8 @@ public class UdpCommunicator implements Communicator {
     @Override
     public void send(String data) throws IOException {
         byte[] dataAsBytes = data.getBytes();
-        DatagramPacket packet = new DatagramPacket(dataAsBytes, dataAsBytes.length);
+        InetAddress sendAddress = InetAddress.getByName(ROBOT_IP);
+        DatagramPacket packet = new DatagramPacket(dataAsBytes, dataAsBytes.length, sendAddress, PORT_SEND);
         sSocket.send(packet);
     }
 

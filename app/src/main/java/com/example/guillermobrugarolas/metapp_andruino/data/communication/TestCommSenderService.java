@@ -25,8 +25,7 @@ public class TestCommSenderService extends IntentService {
                 String message = "test message";
                 String[] messages = {message};
                 // TODO uncomment execute line when the UdpCommunicator can create a socket to send data.
-                //sender.execute(messages);
-                Log.d("sender", message);
+                sender.execute(messages);
                 SystemClock.sleep(1000);
             } catch (IOException e) {
                 e.printStackTrace();
