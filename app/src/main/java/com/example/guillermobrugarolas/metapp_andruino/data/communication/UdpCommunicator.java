@@ -34,7 +34,7 @@ public class UdpCommunicator implements Communicator {
         }
     }
 
-    public static UdpCommunicator getInstance() throws SocketException, UnknownHostException {
+    public static UdpCommunicator getInstance() throws SocketException {
         if(instance == null){
             instance = new UdpCommunicator();
         }
