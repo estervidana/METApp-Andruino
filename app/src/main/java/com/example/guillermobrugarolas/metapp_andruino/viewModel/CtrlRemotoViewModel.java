@@ -1,9 +1,7 @@
 package com.example.guillermobrugarolas.metapp_andruino.viewModel;
 
-import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
-import android.content.Context;
 import android.gesture.Prediction;
 
 import com.example.guillermobrugarolas.metapp_andruino.data.repository.Repository;
@@ -136,66 +134,66 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
 
         if (y >= 6){
             yPosition = 3;
-           // Debug.showLogError("Turn right heavy");
+           // Debug.showLog("Turn right heavy");
         }else if (y<6 && y>=3){
             yPosition = 2;
-           // Debug.showLogError("Turn right moderate");
+           // Debug.showLog("Turn right moderate");
 
         }else if (y<3 && y>=1) {
             yPosition = 1;
-           // Debug.showLogError("Turn right a little bit");
+           // Debug.showLog("Turn right a little bit");
         }else if(y<1 && y>=-1){
             yPosition = 0;
             //The robot must move straight.
         }else if (y<0 && y>=-3){
             yPosition = -1;
-           // Debug.showLogError("Turn left a little bit");
+           // Debug.showLog("Turn left a little bit");
         }else if (y<-3 && y>=-6){
             yPosition = -2;
-           // Debug.showLogError("Turn left moderate");
+           // Debug.showLog("Turn left moderate");
         }else{
             yPosition = -3;
-           // Debug.showLogError("Turn left heavy");
+           // Debug.showLog("Turn left heavy");
         }
         if (oldYPosition != yPosition){
-            Debug.showLogError("Changed status!");
+            Debug.showLog("Changed status!");
         }
         oldYPosition = yPosition;
     }
     public void sendPolygonOrder (Prediction prediction) {
         if (prediction.name.equals("CircleRadius10cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 10 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a CIRCLE 10 cm RADIUS!");
         } else if (prediction.name.equals("CircleRadius20cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 20 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a CIRCLE 20 cm RADIUS!");
         } else if (prediction.name.equals("CircleRadius20cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 30 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a CIRCLE 30 cm RADIUS!");
         } else if (prediction.name.equals("CircleRadius20cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");
         } else if (prediction.name.equals("SquareSide20cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 20 cm SIDE!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a SQUARE 20 cm SIDE!");
         } else if (prediction.name.equals("SquareSide40cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 40 cm SIDE!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a SQUARE 40 cm SIDE!");
         } else if (prediction.name.equals("SquareSide60cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 60 cm SIDE!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a SQUARE 60 cm SIDE!");
         } else if (prediction.name.equals("SquareSide80cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 80 cm SIDE!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a SQUARE 80 cm SIDE!");
         } else if (prediction.name.equals("TriangleSide20cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 20 cm SIDE!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a TRIANGLE 20 cm SIDE!");
         } else if (prediction.name.equals("TriangleSide40cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 40 cm SIDE!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a TRIANGLE 40 cm SIDE!");
         } else if (prediction.name.equals("TriangleSide60cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 60 cm SIDE!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a TRIANGLE 60 cm SIDE!");
         } else if (prediction.name.equals("TriangleSide80cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 80 cm SIDE!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a TRIANGLE 80 cm SIDE!");
         }
     }
 
     @Override
     public void onMessageReceived(String message) {
         String msg[] = message.split("ROBOT");
-        Debug.showLogError(msg[1]);
+        Debug.showLog(msg[1]);
         String msgHeader[] = msg[1].split(":");
-        Debug.showLogError(msgHeader[0]);
+        Debug.showLog(msgHeader[0]);
         String msgParameters[] = msgHeader[1].split(",");
         if (msgHeader[0].equals("COLLISION")){
             if (msgParameters[0].equals("FRONT")){

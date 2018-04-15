@@ -2,7 +2,6 @@ package com.example.guillermobrugarolas.metapp_andruino.data.communication;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.util.Log;
 
 import com.example.guillermobrugarolas.metapp_andruino.data.repository.Repository;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
@@ -171,7 +170,7 @@ public class Logger implements Repository.RepositoryListener {
     public void onMessageReceived(String message) {
         String log = buildLog(getCurrentTime(), MessageSender.ROBOT.name(), message);
         append(log);
-        Debug.showLogError(message);
+        Debug.showLog(message);
     }
 
 

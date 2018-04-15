@@ -16,6 +16,7 @@ import com.example.guillermobrugarolas.metapp_andruino.data.communication.Logger
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.LogCommViewModel;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
 /**

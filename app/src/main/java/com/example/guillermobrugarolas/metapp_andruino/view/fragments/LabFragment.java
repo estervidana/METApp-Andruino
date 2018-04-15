@@ -97,14 +97,14 @@ public class LabFragment extends Fragment {
             public void onClick(View v) {
                 Intent intMain = new Intent(getContext(), MainActivity.class);
                 startActivity(intMain);
-                Debug.showLogError("Volver a Menu!");
+                Debug.showLog("Volver a Menu!");
             }
         });
         ibSolution = view.findViewById(R.id.image_button_solution_labyrinth);
         ibSolution.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Debug.showLogError("Recorrer solución laberinto!");
+                Debug.showLog("Recorrer solución laberinto!");
                 //send signal to robot to start moving
             }
         });

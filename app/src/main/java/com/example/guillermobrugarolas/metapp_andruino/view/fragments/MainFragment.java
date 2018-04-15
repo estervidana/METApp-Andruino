@@ -57,7 +57,7 @@ public class MainFragment extends Fragment{
             public void onClick(View v) {
                 Intent intCtrlRem = new Intent(getContext(), CtrlRemotoActivity.class);
                 startActivity(intCtrlRem);
-                Debug.showLogError("Ir a Ctrl remoto");
+                Debug.showLog("Ir a Ctrl remoto");
             }
         });
         bAccel = v.findViewById(R.id.bAcelerometro);
@@ -66,7 +66,7 @@ public class MainFragment extends Fragment{
             public void onClick(View v) {
                 Intent intAccel = new Intent(getContext(), AccelActivity.class);
                 startActivity(intAccel);
-                Debug.showLogError("Ir a Accelerometer");
+                Debug.showLog("Ir a Accelerometer");
             }
         });
         bLab = v.findViewById(R.id.bLaberinto);
@@ -75,7 +75,7 @@ public class MainFragment extends Fragment{
             public void onClick(View v) {
                 Intent intLab = new Intent(getContext(), LabActivity.class);
                 startActivity(intLab);
-                Debug.showLogError("Ir a Laberinto");
+                Debug.showLog("Ir a Laberinto");
             }
         });
         bLogComm = v.findViewById(R.id.bLogCom);
@@ -84,7 +84,7 @@ public class MainFragment extends Fragment{
             public void onClick(View v) {
                 Intent intLogComm = new Intent(getContext(), LogCommActivity.class);
                 startActivity(intLogComm);
-                Debug.showLogError("Ir a Log Comms");
+                Debug.showLog("Ir a Log Comms");
             }
         });
     }

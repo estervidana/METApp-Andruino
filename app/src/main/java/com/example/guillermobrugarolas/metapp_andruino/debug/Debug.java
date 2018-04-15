@@ -9,9 +9,9 @@ public class Debug {
 
     private static final boolean debugEnable = true;
 
-    public static void showLogError(String error){
+    public static void showLog(String message){
         if(debugEnable) {
-            Log.d("------------> Mensaje:", error);
+            Log.d("------------> Mensaje:", message);
         }
     }
 }

@@ -53,7 +53,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Debug.showLogError("Entering the remote control fragment");
+        Debug.showLog("Entering the remote control fragment");
 
     }
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -109,7 +109,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                 if (prediction != null) {
                     // do something with the prediction
                     //Toast.makeText(this, prediction.name + "(" + prediction.score + ")", Toast.LENGTH_LONG).show();
-                    Debug.showLogError("::::::::::::::::::: Gesture recognised: " + prediction.name);
+                    Debug.showLog("::::::::::::::::::: Gesture recognised: " + prediction.name);
                     //send order to Arduino depending on the recognised gesture type
                     viewModel.sendPolygonOrder(prediction);
                 }
@@ -219,7 +219,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             @Override
             public void onClick(View v) {
                 tvGearText.setText(String.valueOf(viewModel.incrementGear()));
-                Debug.showLogError("Gear Up pressed");
+                Debug.showLog("Gear Up pressed");
             }
         });
         final ImageButton ibGearDown = v.findViewById(R.id.image_button_geardown);
@@ -227,7 +227,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             @Override
             public void onClick(View v) {
                 tvGearText.setText(String.valueOf(viewModel.decrementGear()));
-                Debug.showLogError("Gear Down pressed");
+                Debug.showLog("Gear Down pressed");
             }
         });
 
@@ -245,9 +245,9 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                 LinearLayout llVerticalColision = v.findViewById(R.id.linearLayout_verticalCollisionIndicator);
 
                 if(event.getX() > llLateralLeft.getWidth() && event.getX() < (v.getWidth()-llLateralRight.getWidth()) && event.getY()> llVerticalColision.getMeasuredHeight()){
-                    Debug.showLogError("Canvas Pressed!!!!!");
-                    Debug.showLogError(String.valueOf(event.getX()));
-                    Debug.showLogError(String.valueOf(event.getY()));
+                    Debug.showLog("Canvas Pressed!!!!!");
+                    Debug.showLog(String.valueOf(event.getX()));
+                    Debug.showLog(String.valueOf(event.getY()));
 
                 }
                 return false;
@@ -271,10 +271,10 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             public boolean onTouch(View v, MotionEvent event) {
                 v.performClick();
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Debug.showLogError("Aprieto el GAS!");
+                    Debug.showLog("Aprieto el GAS!");
                     viewModel.setGas(true);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Debug.showLogError("Dejo ir el GAS!");
+                    Debug.showLog("Dejo ir el GAS!");
                     viewModel.setGas(false);
                 }
                 return true;
@@ -287,9 +287,9 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Debug.showLogError("Aprieto el CLEAR!");
+                    Debug.showLog("Aprieto el CLEAR!");
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Debug.showLogError("Dejo ir el CLEAR!");
+                    Debug.showLog("Dejo ir el CLEAR!");
                 }
                 return true;
             }
@@ -300,10 +300,10 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Debug.showLogError("Aprieto el BRAKE!");
+                    Debug.showLog("Aprieto el BRAKE!");
                     viewModel.setBrake(false);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Debug.showLogError("Dejo ir el BRAKE!");
+                    Debug.showLog("Dejo ir el BRAKE!");
                     viewModel.setBrake(false);
                 }
                 return true;

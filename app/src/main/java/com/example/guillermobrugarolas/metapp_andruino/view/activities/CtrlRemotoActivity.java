@@ -31,7 +31,7 @@ public class CtrlRemotoActivity extends AppCompatActivity {
         transaction.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
         transaction.replace(R.id.activity_ctrol_remoto_container,fragment,CTRL_REMOTO_FRAGMENT);
         transaction.commit();
-        Debug.showLogError("Entering the remote control activity");
+        Debug.showLog("Entering the remote control activity");
 
     }
 }
