@@ -44,11 +44,11 @@ public class CtrlRemotoViewModel extends ViewModel{
     }
 
 
-    public void setTemperature(Integer temp) {
+    private void setTemperature(Integer temp) {
         temperature.postValue(temp);
     }
 
-    public void setSpeed(Integer spd) {
+    private void setSpeed(Integer spd) {
         speed.postValue(spd);
     }
 
@@ -69,6 +69,13 @@ public class CtrlRemotoViewModel extends ViewModel{
         }
         return gear;
     }
+
+    /**
+     *This method calculates the rotation degree of the robot given a rotation value of the android device.
+     * The value is stored in the private variable yPosition of this class.
+     * The range of values of YPosition is between [-3,3] with an increment of one unit.
+     * @param y must be a a float determining the rotation value of the mobile device.
+     */
     public void setYRotation(float y){
 
         if (y >= 6){
