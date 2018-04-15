@@ -99,8 +99,11 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         tvBackRightCollision = v.findViewById(R.id.text_back_right_collision);
         //THE ACCELEROMETER SENSOR
         mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener((SensorEventListener) this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        if (mSensorManager != null) {
+            mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            mSensorManager.registerListener( this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+        }
 
         //THE GESTURES VIEW
         govGestures = v.findViewById(R.id.gestures);
@@ -239,6 +242,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     private void listenCanvas(final View v){
         //LISTENING TO THE CANVAS OF THE SCREEN
         v.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 //In order to adapt to different mobile resolutions we will check tye size of the lateral
@@ -264,12 +268,15 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
      * false/true and send a debugging message.
      * @param v is the view of the remote control.
      */
+    @SuppressLint("ClickableViewAccessibility")
     private void listenButtonsGasBrakeClear(final View v){
         //LISTENING TO THE GAS, BRAKE OR CLEAR BUTTON
         final ImageButton ibGas = v.findViewById(R.id.image_button_gas);
+
         ibGas.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                v.performClick();
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     Debug.showLogError("Aprieto el GAS!");
                     viewModel.setGas(true);
@@ -279,6 +286,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                 }
                 return true;
             }
+
         });
 
         ImageButton ibClear = v.findViewById(R.id.image_button_clear);
@@ -377,7 +385,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             @Override
             public void onChanged(@Nullable final Integer newSpeed) {
                 // Update the layout. We need to update both the progressbar and the value.
-                String saux = newSpeed.toString()+ " Km/h)";
+                String saux = newSpeed.toString()+ " Km/h";
                 tvSpeed.setText(saux);
                 pbSpeed.setProgress(newSpeed);
             }

@@ -36,7 +36,7 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
      */
     public MutableLiveData<Integer> getTemperature() {
         if (temperature == null) {
-            temperature = new MutableLiveData<Integer>();
+            temperature = new MutableLiveData<>();
         }
         return temperature;
     }
@@ -47,25 +47,25 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
      */
     public MutableLiveData<Integer> getSpeed() {
         if (speed == null) {
-            speed = new MutableLiveData<Integer>();
+            speed = new MutableLiveData<>();
         }
         return speed;
     }
     public MutableLiveData<Integer> getCollisionFront() {
         if (collisionFront == null) {
-            collisionFront = new MutableLiveData<Integer>();
+            collisionFront = new MutableLiveData<>();
         }
         return collisionFront;
     }
     public MutableLiveData<Integer> getCollisionLeft() {
         if (collisionLeft == null) {
-            collisionLeft = new MutableLiveData<Integer>();
+            collisionLeft = new MutableLiveData<>();
         }
         return collisionLeft;
     }
     public MutableLiveData<Integer> getCollisionRight() {
         if (collisionRight == null) {
-            collisionRight = new MutableLiveData<Integer>();
+            collisionRight = new MutableLiveData<>();
         }
         return collisionRight;
     }
