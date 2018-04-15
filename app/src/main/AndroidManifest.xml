@@ -49,7 +49,7 @@
             android:label="METApp-Andruino" />
         <service
             android:name=".data.communication.TestCommSenderService"
-            android:exported="false"></service>
+            android:exported="false" />
     </application>
 
 </manifest>

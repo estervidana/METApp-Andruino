@@ -7,12 +7,19 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 
 import com.example.guillermobrugarolas.metapp_andruino.data.communication.CommunicationService;
-import com.example.guillermobrugarolas.metapp_andruino.data.communication.MessageSender;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Redundant class that listens on the Service and has listeners.
+ * Instead of having the following flow Service -> Listeners now we have
+ * Service -> Listener (Repository) -> Listener of Listeners
+ */
 public class Repository implements CommunicationService.CommunicationServiceListener {
+    /**
+     *
+     */
     private List<RepositoryListener> repositoryListeners;
 
     private boolean serviceIsBound;
@@ -79,7 +86,7 @@ public class Repository implements CommunicationService.CommunicationServiceList
     @Override
     public void onMessageReceived(String message) {
         for(RepositoryListener listener: repositoryListeners){
-            listener.onMessageReceived((MessageSender.ROBOT.name()) + message);
+            listener.onMessageReceived(message);
         }
     }
 

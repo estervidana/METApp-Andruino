@@ -2,10 +2,8 @@ package com.example.guillermobrugarolas.metapp_andruino.data.communication;
 
 import android.app.IntentService;
 import android.content.Intent;
-import android.content.Context;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
-import android.util.Log;
 
 import java.io.IOException;
 
@@ -24,7 +22,6 @@ public class TestCommSenderService extends IntentService {
                 UdpSender sender = new UdpSender(getApplicationContext());
                 String message = "test message";
                 String[] messages = {message};
-                // TODO uncomment execute line when the UdpCommunicator can create a socket to send data.
                 sender.execute(messages);
                 SystemClock.sleep(1000);
             } catch (IOException e) {

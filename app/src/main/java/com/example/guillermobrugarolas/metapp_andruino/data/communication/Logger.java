@@ -7,30 +7,39 @@ import android.util.Log;
 import com.example.guillermobrugarolas.metapp_andruino.data.repository.Repository;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
 import java.io.EOFException;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.nio.Buffer;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * This class Logs the Messages sent and received by the application.
+ * It listens to the Repository to log the actions.
+ */
 public class Logger implements Repository.RepositoryListener {
+    /** Variable that stores the path to the file in which logs will be stored. */
     private static final String FILENAME = "commLogs.txt";
 
+    /** Variable that stores the context in which the class is executed. */
     private Context context;
 
+    /** Variable that stores the instance of Logger. There can only be one Logger. */
     @SuppressLint("StaticFieldLeak")
     private static Logger instance = null;
 
+    /**
+     * Private constructor to create a Logger instance.
+     *
+     * @param context The context in which the Logger runs.
+     * @throws IOException If an I/O error occurred.
+     */
     private Logger(Context context) throws IOException {
         this.context = context;
         File file = new File(context.getFilesDir(), FILENAME);
@@ -38,6 +47,13 @@ public class Logger implements Repository.RepositoryListener {
         file.createNewFile();
     }
 
+    /**
+     * Static method to get the instance of the Logger. If no instance currently exists one is created.
+     *
+     * @param context The context in which the method is executed. This should be the Application's context.
+     * @return The instance of Logger.
+     * @throws IOException If and I/O error occurred.
+     */
     public synchronized static Logger getInstance(Context context) throws IOException {
         if(instance == null){
             instance = new Logger(context);
@@ -45,32 +61,44 @@ public class Logger implements Repository.RepositoryListener {
         return instance;
     }
 
-    // It is important that any Object passed to this function has a toString implementation that is human readable.
-    public void addLog(String log){
-        log = getCurrentTime() + "->" + log;
+    /**
+     * Adds a log to the log file.
+     *
+     * @param message The message to be stored in the log file.
+     */
+    public void addLog(String message){
+        String log = buildLog(getCurrentTime(), MessageSender.APP.name(), message);
         append(log);
     }
 
+    /**
+     * Calculates the current date and time.
+     *
+     * @return The current time.
+     */
     private String getCurrentTime(){
         Date currentTime = Calendar.getInstance().getTime();
         DateFormat format = SimpleDateFormat.getDateTimeInstance();
         return format.format(currentTime);
     }
 
-    public String buildLog(String date, String sender, String type, Object... args){
-        StringBuilder builder = new StringBuilder();
-        builder.append(date);
-        builder.append(": ");
-        builder.append(sender);
-        builder.append('-');
-        builder.append(type);
-        builder.append("->");
-        for (Object obj :args) {
-            builder.append(obj.toString());
-        }
-        return builder.toString();
+    /**
+     * Builds the log message to be stored in the log file.
+     *
+     * @param date The date the message was sent/received.
+     * @param sender The name of the sender of the message.
+     * @param message The message that was sent
+     * @return The log formatted to be written to the log file.
+     */
+    private String buildLog(String date, String sender, String message){
+        return date + ": " + sender + '-' + message;
     }
 
+    /**
+     * Appends a new log to the log file.
+     *
+     * @param log The message to be logged.
+     */
     private void append(String log) {
         log = addNewLine(log);
         FileOutputStream outputStream;
@@ -83,17 +111,36 @@ public class Logger implements Repository.RepositoryListener {
         }
     }
 
-    private String addNewLine(String log) {
-        if(!log.endsWith("\n")){
-            log = log + "\n";
+    /**
+     * Adds a new line to the end of a String if one is not present.
+     *
+     * @param str The string to which a new line should be added.
+     * @return The input String with a new line appended.
+     */
+    private String addNewLine(String str) {
+        if(!str.endsWith("\n")){
+            str = str + "\n";
         }
-        return log;
+        return str;
     }
 
+    /**
+     * Reads the log file and returns its contents.
+     *
+     * @return The contents of the log file, ie. The logs.
+     * @throws IOException If an I/O error occurred.
+     */
     public ArrayList<String> getLogs() throws IOException {
         return getLogs(0);
     }
 
+    /**
+     * Reads the log file and returns its contents ignoring the lines up until startingLine.
+     *
+     * @param startingLine The line from which to start adding logs to the output.
+     * @return The logs written to the log file after startingLine.
+     * @throws IOException If an I/O error occurred.
+     */
     public ArrayList<String> getLogs(int startingLine) throws IOException {
         File file = new File(context.getFilesDir(), FILENAME);
         BufferedReader in = new BufferedReader(new InputStreamReader(new FileInputStream(file)));
@@ -112,24 +159,22 @@ public class Logger implements Repository.RepositoryListener {
         return lines;
     }
 
-    public void close() throws IOException {
+    /**
+     * Removes the instance of the Logger.
+     */
+    public void close() {
         instance = null;
     }
 
     @Override
     public void onMessageReceived(String message) {
-        message = message.split(";")[0];
-        //TODO do this properly.
-        addLog(MessageSender.ROBOT.name() + ": " + message);
-        Log.d("Logger", message);
+        String log = buildLog(getCurrentTime(), MessageSender.ROBOT.name(), message);
+        append(log);
+        Log.d("Logger", log);
     }
 
     @Override
     public void onServiceStopped() {
-        try {
-            close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        close();
     }
 }

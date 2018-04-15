@@ -1,5 +1,8 @@
 package com.example.guillermobrugarolas.metapp_andruino.data.communication;
 
+/**
+ * Enumerates the types of messages that can be sent.
+ */
 public enum MessageType {
     // Enum ordinal values are automatically assigned starting with 0 for the first value
     // and sequentially increases by one.
