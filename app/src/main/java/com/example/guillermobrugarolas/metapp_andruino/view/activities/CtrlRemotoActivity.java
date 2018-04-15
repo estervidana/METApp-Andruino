@@ -17,21 +17,5 @@ public class CtrlRemotoActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ctrl_remoto);
-        initFragment();
-    }
-    private void initFragment(){
-        FragmentManager manager = getSupportFragmentManager();
-        Fragment fragment = manager.findFragmentByTag(CTRL_REMOTO_FRAGMENT);
-        if(fragment == null){
-            //Creating the fragment that we want:
-            fragment = CtrlRemotoFragment.newInstance();
-        }
-
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
-        transaction.replace(R.id.activity_ctrol_remoto_container,fragment,CTRL_REMOTO_FRAGMENT);
-        transaction.commit();
-        Debug.showLogError("Entering the remote control activity");
-
     }
 }

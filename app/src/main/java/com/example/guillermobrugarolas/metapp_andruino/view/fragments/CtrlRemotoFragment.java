@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Context;
-import android.content.Intent;
 import android.gesture.Gesture;
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
@@ -18,7 +17,6 @@ import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -29,15 +27,10 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.guillermobrugarolas.metapp_andruino.R;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
-import com.example.guillermobrugarolas.metapp_andruino.view.activities.CtrlRemotoActivity;
-import com.example.guillermobrugarolas.metapp_andruino.view.activities.LabActivity;
-import com.example.guillermobrugarolas.metapp_andruino.view.activities.MainActivity;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.CtrlRemotoViewModel;
-import com.example.guillermobrugarolas.metapp_andruino.viewModel.PaintView;
 
 import java.util.ArrayList;
 
@@ -96,7 +89,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                     //Toast.makeText(this, prediction.name + "(" + prediction.score + ")", Toast.LENGTH_LONG).show();
                     Debug.showLogError("::::::::::::::::::: Gesture recognised: " + prediction.name);
                     //send order to Arduino depending on the recognised gesture type
-                    sendPolygonOrder(prediction);
+                    viewModel.sendPolygonOrder(prediction);
                 }
             }
         });
@@ -117,7 +110,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
 
         mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener((SensorEventListener) this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
 
     }
     @Override
@@ -228,19 +221,6 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             }
         });
 
-        ImageButton ibClear = v.findViewById(R.id.image_button_clear);
-        ibClear.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Debug.showLogError("Aprieto el CLEAR!");
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Debug.showLogError("Dejo ir el CLEAR!");
-                }
-                return true;
-            }
-        });
-
         ImageButton ibBrake = v.findViewById(R.id.image_button_brake);
         ibBrake.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -332,34 +312,6 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                     tvBackLeftCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));
                 }
                 break;
-        }
-    }
-
-    private void sendPolygonOrder (Prediction prediction) {
-        if (prediction.name.equals("CircleRadius10cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 10 cm RADIUS!");
-        } else if (prediction.name.equals("CircleRadius20cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 20 cm RADIUS!");
-        } else if (prediction.name.equals("CircleRadius20cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 30 cm RADIUS!");
-        } else if (prediction.name.equals("CircleRadius20cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");
-        } else if (prediction.name.equals("SquareSide20cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 20 cm SIDE!");
-        } else if (prediction.name.equals("SquareSide40cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 40 cm SIDE!");
-        } else if (prediction.name.equals("SquareSide60cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 60 cm SIDE!");
-        } else if (prediction.name.equals("SquareSide80cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 80 cm SIDE!");
-        } else if (prediction.name.equals("TriangleSide20cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 20 cm SIDE!");
-        } else if (prediction.name.equals("TriangleSide40cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 40 cm SIDE!");
-        } else if (prediction.name.equals("TriangleSide60cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 60 cm SIDE!");
-        } else if (prediction.name.equals("TriangleSide80cm")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 80 cm SIDE!");
         }
     }
 }

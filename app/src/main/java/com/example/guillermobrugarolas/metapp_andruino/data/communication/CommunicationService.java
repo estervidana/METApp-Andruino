@@ -57,7 +57,7 @@ public class CommunicationService extends IntentService {
     private void createCommunicator() {
         try {
             communicator = UdpCommunicator.getInstance();
-        } catch (SocketException | UnknownHostException e) {
+        } catch (SocketException e) {
             running = false;
             //listener.onServiceStopped();
             e.printStackTrace();

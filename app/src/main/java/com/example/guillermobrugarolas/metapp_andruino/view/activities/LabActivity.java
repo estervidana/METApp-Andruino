@@ -18,19 +18,5 @@ public class LabActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lab);
-        initFragment();
-    }
-
-    private void initFragment(){
-        FragmentManager manager = getSupportFragmentManager();
-        Fragment fragment = manager.findFragmentByTag(LAB_FRAGMENT);
-        if(fragment == null){
-            fragment = LabFragment.newInstance();
-        }
-
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
-        transaction.replace(R.id.lab_fragment,fragment, LAB_FRAGMENT);
-        transaction.commit();
     }
 }

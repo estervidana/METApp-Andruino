@@ -6,8 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.guillermobrugarolas.metapp_andruino.view.activities.CtrlRemotoActivity">
 
-    <FrameLayout
-        android:id="@+id/activity_ctrol_remoto_container"
+    <fragment
+        android:name="com.example.guillermobrugarolas.metapp_andruino.view.fragments.CtrlRemotoFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:id="@+id/ctrl_remoto_fragment" />
 </android.support.constraint.ConstraintLayout>

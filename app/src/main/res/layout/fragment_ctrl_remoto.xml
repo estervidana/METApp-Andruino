@@ -77,12 +77,6 @@
                     android:background="@mipmap/ic_brake"
                     android:id="@+id/image_button_brake"
                     />
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_clear"
-                    android:id="@+id/image_button_clear"
-                    />
             </LinearLayout>
         </LinearLayout>
 

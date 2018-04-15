@@ -62,16 +62,17 @@ public class LabFragment extends Fragment {
         //initSections();
         bindViews(view);
         //displaySections();
-        imageData[0][0].setPadding(10,0,0,10);
+        imageData[0][0].setPadding(5,0,0,5);
         imageData[0][0].setColorFilter(getResources().getColor(R.color.colorGridPassedUncertain));
-        imageData[4][1].setPadding(10,10,10,0);
-        imageData[2][3].setPadding(10,10,10,0);
-        imageData[1][3].setPadding(10,0,0,10);
+        imageData[4][1].setPadding(5,5,5,0);
+        imageData[2][3].setPadding(5,5,5,0);
+        imageData[1][3].setPadding(5,0,0,5);
         imageData[3][1].setColorFilter(getResources().getColor(R.color.colorGridDeadEnd));
         imageData[2][2].setColorFilter(getResources().getColor(R.color.colorGridPassedUncertain));
-        imageData[2][4].setPadding(10, 0, 10, 0);
+        imageData[2][4].setPadding(5, 0, 5, 0);
+        imageData[0][4].setPadding(0, 5, 0, 0);
         imageData[0][4].setColorFilter(getResources().getColor(R.color.colorGridTarget));
-        imageData[3][3].setPadding(0,10,10,0);
+        imageData[3][3].setPadding(0,5,5,0);
         imageData[3][3].setColorFilter(getResources().getColor(R.color.colorGridSolution));
         adapter.notifyDataSetChanged();
         return view;
@@ -95,9 +96,7 @@ public class LabFragment extends Fragment {
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intMain = new Intent(getContext(), MainActivity.class);
-                startActivity(intMain);
-                Debug.showLogError("Volver a Menu!");
+                getActivity().onBackPressed();
             }
         });
         ibSolution = view.findViewById(R.id.image_button_solution_labyrinth);
@@ -109,7 +108,7 @@ public class LabFragment extends Fragment {
             }
         });
 
-        rvLab = (RecyclerView) view.findViewById(R.id.rvLabyrinth);
+        rvLab = view.findViewById(R.id.rvLabyrinth);
         int nCols = MAX_COLUMNS;
         rvLab.setLayoutManager(new GridLayoutManager(this.getActivity(), nCols));
         imageDataAdapter = matrixToArrayImageData(imageData);
