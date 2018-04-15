@@ -20,6 +20,7 @@ public class AccelActivity extends AppCompatActivity {
         setContentView(R.layout.activity_accel);
         initFragment();
     }
+
     private void initFragment(){
         FragmentManager manager = getSupportFragmentManager();
         Fragment fragment = manager.findFragmentByTag(ACCEL_FRAGMENT);

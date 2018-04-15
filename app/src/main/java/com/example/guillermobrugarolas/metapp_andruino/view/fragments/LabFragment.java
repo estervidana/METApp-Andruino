@@ -1,8 +1,7 @@
 package com.example.guillermobrugarolas.metapp_andruino.view.fragments;
 
-import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,7 +14,6 @@ import android.widget.ImageView;
 
 import com.example.guillermobrugarolas.metapp_andruino.R;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
-import com.example.guillermobrugarolas.metapp_andruino.view.activities.MainActivity;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.LabyrinthSection;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.LabyrinthSectionState;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.RecyclerViewAdapter;
@@ -95,9 +93,8 @@ public class LabFragment extends Fragment {
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intMain = new Intent(getContext(), MainActivity.class);
-                startActivity(intMain);
                 Debug.showLog("Volver a Menu!");
+                getActivity().onBackPressed();
             }
         });
         ibSolution = view.findViewById(R.id.image_button_solution_labyrinth);
@@ -127,14 +124,19 @@ public class LabFragment extends Fragment {
                     int currPaddTop = imageData[count1][count2].getPaddingTop();
                     int currPaddRight = imageData[count1][count2].getPaddingRight();
                     int currPaddBottom = imageData[count1][count2].getPaddingBottom();
-                    if (robotOrientation.equals("RIGHT")) {
-                        imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
-                    } else if (robotOrientation.equals("LEFT")) {
-                        imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
-                    } else if (robotOrientation.equals("UP")) {
-                        imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
-                    } else if (robotOrientation.equals("DOWN")) {
-                        imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                    switch (robotOrientation) {
+                        case "RIGHT":
+                            imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                            break;
+                        case "LEFT":
+                            imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                            break;
+                        case "UP":
+                            imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
+                            break;
+                        case "DOWN":
+                            imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                            break;
                     }
                 }
             }
@@ -150,14 +152,19 @@ public class LabFragment extends Fragment {
                     int currPaddTop = imageData[count1][count2].getPaddingTop();
                     int currPaddRight = imageData[count1][count2].getPaddingRight();
                     int currPaddBottom = imageData[count1][count2].getPaddingBottom();
-                    if (robotOrientation.equals("RIGHT")) {
-                        imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
-                    } else if (robotOrientation.equals("LEFT")) {
-                        imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
-                    } else if (robotOrientation.equals("UP")) {
-                        imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
-                    } else if (robotOrientation.equals("DOWN")) {
-                        imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                    switch (robotOrientation) {
+                        case "RIGHT":
+                            imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                            break;
+                        case "LEFT":
+                            imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
+                            break;
+                        case "UP":
+                            imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                            break;
+                        case "DOWN":
+                            imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                            break;
                     }
                 }
             }
@@ -173,14 +180,19 @@ public class LabFragment extends Fragment {
                     int currPaddTop = imageData[count1][count2].getPaddingTop();
                     int currPaddRight = imageData[count1][count2].getPaddingRight();
                     int currPaddBottom = imageData[count1][count2].getPaddingBottom();
-                    if (robotOrientation.equals("RIGHT")) {
-                        imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
-                    } else if (robotOrientation.equals("LEFT")) {
-                        imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
-                    } else if (robotOrientation.equals("UP")) {
-                        imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
-                    } else if (robotOrientation.equals("DOWN")) {
-                        imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                    switch (robotOrientation) {
+                        case "RIGHT":
+                            imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
+                            break;
+                        case "LEFT":
+                            imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                            break;
+                        case "UP":
+                            imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                            break;
+                        case "DOWN":
+                            imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                            break;
                     }
                 }
             }
@@ -189,27 +201,37 @@ public class LabFragment extends Fragment {
 
     //ON 180° LEFT ROTATION DETECTED
     public void leftRotationUpdate() {
-        if (robotOrientation.equals("RIGHT")) {
-            robotOrientation = "UP";
-        } else if (robotOrientation.equals("LEFT")) {
-            robotOrientation = "DOWN";
-        } else if (robotOrientation.equals("UP")) {
-            robotOrientation = "LEFT";
-        } else if (robotOrientation.equals("DOWN")) {
-            robotOrientation = "RIGHT";
+        switch (robotOrientation) {
+            case "RIGHT":
+                robotOrientation = "UP";
+                break;
+            case "LEFT":
+                robotOrientation = "DOWN";
+                break;
+            case "UP":
+                robotOrientation = "LEFT";
+                break;
+            case "DOWN":
+                robotOrientation = "RIGHT";
+                break;
         }
     }
 
     //ON 180° RIGHT ROTATION DETECTED
     public void rightRotationUpdate() {
-        if (robotOrientation.equals("RIGHT")) {
-            robotOrientation = "DOWN";
-        } else if (robotOrientation.equals("LEFT")) {
-            robotOrientation = "UP";
-        } else if (robotOrientation.equals("UP")) {
-            robotOrientation = "RIGHT";
-        } else if (robotOrientation.equals("DOWN")) {
-            robotOrientation = "LEFT";
+        switch (robotOrientation) {
+            case "RIGHT":
+                robotOrientation = "DOWN";
+                break;
+            case "LEFT":
+                robotOrientation = "UP";
+                break;
+            case "UP":
+                robotOrientation = "RIGHT";
+                break;
+            case "DOWN":
+                robotOrientation = "LEFT";
+                break;
         }
     }
 
@@ -223,18 +245,23 @@ public class LabFragment extends Fragment {
                     sectionData[count1][count2].setState(LabyrinthSectionState.PASSED_UNCERTAIN);
                     sectionData[count1][count2].setPassed(sectionData[count1][count2].getPassed()+1);
                     setSectionBackground(imageData[count1][count2], LabyrinthSectionState.PASSED_UNCERTAIN);
-                    if (robotOrientation.equals("RIGHT")) {
-                        sectionData[count1][count2+1].setState(LabyrinthSectionState.CURRENT);
-                        setSectionBackground(imageData[count1][count2+1], LabyrinthSectionState.CURRENT);
-                    } else if (robotOrientation.equals("LEFT")) {
-                        sectionData[count1][count2-1].setState(LabyrinthSectionState.CURRENT);
-                        setSectionBackground(imageData[count1][count2-1], LabyrinthSectionState.CURRENT);
-                    } else if (robotOrientation.equals("UP")) {
-                        sectionData[count1-1][count2].setState(LabyrinthSectionState.CURRENT);
-                        setSectionBackground(imageData[count1-1][count2], LabyrinthSectionState.CURRENT);
-                    } else if (robotOrientation.equals("DOWN")) {
-                        sectionData[count1+1][count2].setState(LabyrinthSectionState.CURRENT);
-                        setSectionBackground(imageData[count1+1][count2], LabyrinthSectionState.CURRENT);
+                    switch (robotOrientation) {
+                        case "RIGHT":
+                            sectionData[count1][count2 + 1].setState(LabyrinthSectionState.CURRENT);
+                            setSectionBackground(imageData[count1][count2 + 1], LabyrinthSectionState.CURRENT);
+                            break;
+                        case "LEFT":
+                            sectionData[count1][count2 - 1].setState(LabyrinthSectionState.CURRENT);
+                            setSectionBackground(imageData[count1][count2 - 1], LabyrinthSectionState.CURRENT);
+                            break;
+                        case "UP":
+                            sectionData[count1 - 1][count2].setState(LabyrinthSectionState.CURRENT);
+                            setSectionBackground(imageData[count1 - 1][count2], LabyrinthSectionState.CURRENT);
+                            break;
+                        case "DOWN":
+                            sectionData[count1 + 1][count2].setState(LabyrinthSectionState.CURRENT);
+                            setSectionBackground(imageData[count1 + 1][count2], LabyrinthSectionState.CURRENT);
+                            break;
                     }
                 }
             }
@@ -278,10 +305,7 @@ public class LabFragment extends Fragment {
         ImageView newArray[] = new ImageView[imageData.length * imageData[0].length];
         for (int i = 0; i < imageData.length; i++) {
             ImageView[] row = imageData[i];
-            for (int j = 0; j < row.length; j++) {
-                ImageView image = imageData[i][j];
-                newArray[i * row.length + j] = image;
-            }
+            System.arraycopy(imageData[i], 0, newArray, i * row.length, row.length);
         }
         return newArray;
     }
