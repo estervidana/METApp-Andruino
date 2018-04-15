@@ -4,14 +4,20 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
+import android.gesture.Prediction;
 
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 
+/**
+ * This class is a ViewModel for the Remote control screen of the robot.
+ */
 public class CtrlRemotoViewModel extends ViewModel{
+    /**
+     * This method is the contructor of the class.
+     */
     public CtrlRemotoViewModel(){
 
     }
-
     private int gear = 0;
     private final int MAXGEAR = 3;
     private final int MINGEAR = -3;
@@ -22,12 +28,21 @@ public class CtrlRemotoViewModel extends ViewModel{
     private MutableLiveData<Integer> speed;
     private int yPosition,oldYPosition;
 
+    /**
+     * This method returns the value of the temperature, which is observed by the view.
+     * @return the value of the temperature of the robot.
+     */
     public MutableLiveData<Integer> getTemperature() {
         if (temperature == null) {
             temperature = new MutableLiveData<Integer>();
         }
         return temperature;
     }
+
+    /**
+     * This method returns the value of the speed, which is observed by the view.
+     * @return the value of the speed of the robot.
+     */
     public MutableLiveData<Integer> getSpeed() {
         if (speed == null) {
             speed = new MutableLiveData<Integer>();
@@ -35,23 +50,39 @@ public class CtrlRemotoViewModel extends ViewModel{
         return speed;
     }
 
+    /**
+     * this method sets gas to true or false given the input gas.
+     * @param gas can be true or false (true if the gas button it's pressed, false if it is not pressed).
+     */
     public void setGas(boolean gas) {
         this.gas = gas;
     }
-
+    /**
+     * this method sets brake to true or false given value of the input brake.
+     * @param brake can be true or false (true if the brake button it's pressed, false if it is not pressed).
+     */
     public void setBrake(boolean brake) {
         this.brake = brake;
     }
 
-
+    /**
+     * This method sets the value of the temperature of the robot, a variable observed by the view of the remote control.
+     * @param temp is the temperature that must be stored.
+     */
     private void setTemperature(Integer temp) {
         temperature.postValue(temp);
     }
-
+    /**
+     * This method sets the value of the speed of the robot, a variable observed by the view of the remote control..
+     * @param spd is the speed that must be stored.
+     */
     private void setSpeed(Integer spd) {
         speed.postValue(spd);
     }
-
+    /**
+     * This function increments de private variable variable gear and returns it.
+     * @return the variable gear, which indicates the gear of the robot (speed).
+     */
     public int incrementGear(){
         if (gear != MAXGEAR){
             gear++;
@@ -62,6 +93,11 @@ public class CtrlRemotoViewModel extends ViewModel{
         }
         return gear;
     }
+
+    /**
+     * This function decrements de private variable variable gear and returns it.
+     * @return the variable gear, which indicates the gear of the robot (speed).
+     */
     public int decrementGear(){
         if (gear != MINGEAR){
             gear--;
@@ -105,5 +141,32 @@ public class CtrlRemotoViewModel extends ViewModel{
             Debug.showLogError("Changed status!");
         }
         oldYPosition = yPosition;
+    }
+    public void sendPolygonOrder (Prediction prediction) {
+        if (prediction.name.equals("CircleRadius10cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 10 cm RADIUS!");
+        } else if (prediction.name.equals("CircleRadius20cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 20 cm RADIUS!");
+        } else if (prediction.name.equals("CircleRadius20cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 30 cm RADIUS!");
+        } else if (prediction.name.equals("CircleRadius20cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");
+        } else if (prediction.name.equals("SquareSide20cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 20 cm SIDE!");
+        } else if (prediction.name.equals("SquareSide40cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 40 cm SIDE!");
+        } else if (prediction.name.equals("SquareSide60cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 60 cm SIDE!");
+        } else if (prediction.name.equals("SquareSide80cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 80 cm SIDE!");
+        } else if (prediction.name.equals("TriangleSide20cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 20 cm SIDE!");
+        } else if (prediction.name.equals("TriangleSide40cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 40 cm SIDE!");
+        } else if (prediction.name.equals("TriangleSide60cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 60 cm SIDE!");
+        } else if (prediction.name.equals("TriangleSide80cm")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 80 cm SIDE!");
+        }
     }
 }
