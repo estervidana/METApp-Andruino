@@ -20,13 +20,13 @@ public class TestCommSenderService extends IntentService {
         while(true) {
             try {
                 UdpSender sender = new UdpSender(getApplicationContext());
-                String message = "test message";
+                String message = "3:5,20;";
                 String[] messages = {message};
                 sender.execute(messages);
-                SystemClock.sleep(1000);
+                SystemClock.sleep(10000);
             } catch (IOException e) {
                 e.printStackTrace();
-                SystemClock.sleep(1000);
+                SystemClock.sleep(10000);
             }
         }
     }

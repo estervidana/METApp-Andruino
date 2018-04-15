@@ -55,6 +55,7 @@ public class LogCommFragment extends Fragment {
     public void bindViews(View v) throws IOException {
         ListView lvLogs = v.findViewById(R.id.lvLogComm);
         List<String> logs = Logger.getInstance(getActivity().getApplicationContext()).getLogs();
+        Collections.reverse(logs);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, logs.toArray(new String[0]));
         lvLogs.setAdapter(adapter);
         ImageButton ibBack = v.findViewById(R.id.image_button_back_log_comm);

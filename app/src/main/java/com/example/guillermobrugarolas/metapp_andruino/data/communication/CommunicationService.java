@@ -8,6 +8,8 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 
+import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
+
 import java.io.IOException;
 
 /**
@@ -45,9 +47,10 @@ public class CommunicationService extends IntentService {
             try {
                 String message = UdpCommunicator.getInstance().receive();
                 listener.onMessageReceived(message);
+                Debug.showLog(message.split(";")[0]);
             } catch (IOException e) {
                 e.printStackTrace();
-                // used to avoid overflowing Logcat
+                // used to avoid overflowing Logcat in case of error
                 SystemClock.sleep(1000);
             }
         }

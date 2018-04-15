@@ -91,7 +91,11 @@ public class Logger implements Repository.RepositoryListener {
      * @return The log formatted to be written to the log file.
      */
     private String buildLog(String date, String sender, String message){
-        return date + ": " + sender + '-' + message;
+        String[] messages = message.split(":");
+        // FIXME If we want custom Integer values in the enum we will have to use this solution:
+        // https://stackoverflow.com/questions/11047756/getting-enum-associated-with-int-value/11047810#11047810
+        String messageType = MessageType.values()[Integer.valueOf(messages[0])].name();
+        return date + ": " + sender + " - " + messageType + " -> " + messages[1];
     }
 
     /**
@@ -170,7 +174,7 @@ public class Logger implements Repository.RepositoryListener {
     public void onMessageReceived(String message) {
         String log = buildLog(getCurrentTime(), MessageSender.ROBOT.name(), message);
         append(log);
-        Debug.showLog(message);
+        Debug.showLog(message.split(";")[0]);
     }
 
 
