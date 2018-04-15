@@ -351,7 +351,8 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             @Override
             public void onChanged(@Nullable final Integer newSpeed) {
                 // Update the layout. We need to update both the progressbar and the value.
-                tvSpeed.setText(newSpeed.toString()+ " Km/h");
+                String saux = newSpeed.toString()+ " Km/h)";
+                tvSpeed.setText(saux);
                 pbSpeed.setProgress(newSpeed);
             }
         };
