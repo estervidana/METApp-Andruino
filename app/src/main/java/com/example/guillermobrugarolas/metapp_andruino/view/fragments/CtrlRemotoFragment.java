@@ -93,9 +93,6 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                 }
             }
         });
-        //DisplayMetrics metrics = new DisplayMetrics();
-        //this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        //pvDrawShape.init(metrics);
         gLibrary = GestureLibraries.fromRawResource(getActivity(), R.raw.gestures);
         if (!gLibrary.load()) {
             this.getActivity().finish();
