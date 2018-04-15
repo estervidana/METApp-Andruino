@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.guillermobrugarolas.metapp_andruino.data.repository.Repository;
+import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -121,8 +122,9 @@ public class Logger implements Repository.RepositoryListener {
         message = message.split(";")[0];
         //TODO do this properly.
         addLog(MessageSender.ROBOT.name() + ": " + message);
-        Log.d("Logger", message);
+        Debug.showLogError(message);
     }
+
 
     @Override
     public void onServiceStopped() {

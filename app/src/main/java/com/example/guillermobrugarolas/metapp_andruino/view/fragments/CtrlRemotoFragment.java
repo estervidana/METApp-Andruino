@@ -133,7 +133,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         listenButtonsGasBrakeClear(v);
         observeTemperature(v);
         observeSpeed(v);
-
+        observeCollisions(v);
 
     }
 
@@ -336,6 +336,32 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         };
         //Declaring which variable is observed:
         viewModel.getTemperature().observe(this,temperatureObserver);
+
+    }
+    private void observeCollisions(final View v){
+        final Observer<Integer> collisionFrontObserver = new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                changeStatusCollisionIndicators(0);
+            }
+        };
+        viewModel.getCollisionFront().observe(this,collisionFrontObserver);
+        final Observer<Integer> collisionLeftObserver = new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                changeStatusCollisionIndicators(2);
+
+            }
+        };
+        viewModel.getCollisionLeft().observe(this,collisionLeftObserver);
+
+        final Observer<Integer> collisionRightObserver = new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                changeStatusCollisionIndicators(1);
+            }
+        };
+        viewModel.getCollisionRight().observe(this,collisionRightObserver);
 
     }
 

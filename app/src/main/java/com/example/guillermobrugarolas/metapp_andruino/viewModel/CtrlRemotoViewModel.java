@@ -6,16 +6,18 @@ import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.gesture.Prediction;
 
+import com.example.guillermobrugarolas.metapp_andruino.data.repository.Repository;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 
 /**
  * This class is a ViewModel for the Remote control screen of the robot.
  */
-public class CtrlRemotoViewModel extends ViewModel{
+public class CtrlRemotoViewModel extends ViewModel implements Repository.RepositoryListener{
     /**
      * This method is the contructor of the class.
      */
     public CtrlRemotoViewModel(){
+        Repository.getInstance().addListener(this);
 
     }
     private int gear = 0;
@@ -24,9 +26,9 @@ public class CtrlRemotoViewModel extends ViewModel{
 
     private boolean gas = false;
     private boolean brake = false;
-    private MutableLiveData<Integer> temperature;
-    private MutableLiveData<Integer> speed;
+    private MutableLiveData<Integer> temperature,speed, collisionFront, collisionLeft, collisionRight;
     private int yPosition,oldYPosition;
+
 
     /**
      * This method returns the value of the temperature, which is observed by the view.
@@ -48,6 +50,24 @@ public class CtrlRemotoViewModel extends ViewModel{
             speed = new MutableLiveData<Integer>();
         }
         return speed;
+    }
+    public MutableLiveData<Integer> getCollisionFront() {
+        if (collisionFront == null) {
+            collisionFront = new MutableLiveData<Integer>();
+        }
+        return collisionFront;
+    }
+    public MutableLiveData<Integer> getCollisionLeft() {
+        if (collisionLeft == null) {
+            collisionLeft = new MutableLiveData<Integer>();
+        }
+        return collisionLeft;
+    }
+    public MutableLiveData<Integer> getCollisionRight() {
+        if (collisionRight == null) {
+            collisionRight = new MutableLiveData<Integer>();
+        }
+        return collisionRight;
     }
 
     /**
@@ -116,26 +136,26 @@ public class CtrlRemotoViewModel extends ViewModel{
 
         if (y >= 6){
             yPosition = 3;
-            Debug.showLogError("Turn right heavy");
+           // Debug.showLogError("Turn right heavy");
         }else if (y<6 && y>=3){
             yPosition = 2;
-            Debug.showLogError("Turn right moderate");
+           // Debug.showLogError("Turn right moderate");
 
         }else if (y<3 && y>=1) {
             yPosition = 1;
-            Debug.showLogError("Turn right a little bit");
+           // Debug.showLogError("Turn right a little bit");
         }else if(y<1 && y>=-1){
             yPosition = 0;
             //The robot must move straight.
         }else if (y<0 && y>=-3){
             yPosition = -1;
-            Debug.showLogError("Turn left a little bit");
+           // Debug.showLogError("Turn left a little bit");
         }else if (y<-3 && y>=-6){
             yPosition = -2;
-            Debug.showLogError("Turn left moderate");
+           // Debug.showLogError("Turn left moderate");
         }else{
             yPosition = -3;
-            Debug.showLogError("Turn left heavy");
+           // Debug.showLogError("Turn left heavy");
         }
         if (oldYPosition != yPosition){
             Debug.showLogError("Changed status!");
@@ -168,5 +188,37 @@ public class CtrlRemotoViewModel extends ViewModel{
         } else if (prediction.name.equals("TriangleSide80cm")) {
             Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 80 cm SIDE!");
         }
+    }
+
+    @Override
+    public void onMessageReceived(String message) {
+        String msg[] = message.split("ROBOT");
+        Debug.showLogError(msg[1]);
+        String msgHeader[] = msg[1].split(":");
+        Debug.showLogError(msgHeader[0]);
+        String msgParameters[] = msgHeader[1].split(",");
+        if (msgHeader[0].equals("COLLISION")){
+            if (msgParameters[0].equals("FRONT")){
+                if (msgParameters[1].equals("ON")) {
+                    collisionFront.postValue(1);
+                }else collisionFront.postValue(0);
+            }else if (msgParameters[0].equals("LEFT")){
+                if (msgParameters[1].equals("ON")) {
+                    collisionLeft.postValue(1);
+                }else collisionLeft.postValue(0);
+
+            }else if (msgParameters[0].equals("RIGHT")) {
+                if (msgParameters[1].equals("ON")) {
+                    collisionRight.postValue(1);
+                } else collisionRight.postValue(0);
+            }
+        }
+
+    }
+
+
+    @Override
+    public void onServiceStopped() {
+
     }
 }

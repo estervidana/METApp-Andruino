@@ -12,9 +12,9 @@
     <string name="ctrl_remoto_manual_mode_text">Manual mode:  </string>
     <string name="ctrl_remoto_gear_text">Gear:  </string>
     <string name="ctrl_remoto_collision_text">Collision indicator:  </string>
-    <string name="ctrl_remoto_frontal_text">Frontal:  </string>
-    <string name="ctrl_remoto_back_left_text">Back left:  </string>
-    <string name="ctrl_remoto_back_right_text">Back right:  </string>
+    <string name="ctrl_remoto_frontal_text">Frontal  </string>
+    <string name="ctrl_remoto_back_left_text">Back left  </string>
+    <string name="ctrl_remoto_back_right_text">Back right  </string>
     <string name="ctrl_remoto_pattern_text">Draw your pattern:  </string>
     <string name="ctrl_remoto_temperature_text">Temperature:  </string>
     <string name="ctrl_remoto_temp_value_text">0°:  </string>
