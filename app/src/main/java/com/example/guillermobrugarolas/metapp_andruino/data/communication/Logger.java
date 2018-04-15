@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.example.guillermobrugarolas.metapp_andruino.data.repository.Repository;
+import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 
 import java.io.BufferedReader;
 import java.io.EOFException;
@@ -170,8 +171,9 @@ public class Logger implements Repository.RepositoryListener {
     public void onMessageReceived(String message) {
         String log = buildLog(getCurrentTime(), MessageSender.ROBOT.name(), message);
         append(log);
-        Log.d("Logger", log);
+        Debug.showLogError(message);
     }
+
 
     @Override
     public void onServiceStopped() {
