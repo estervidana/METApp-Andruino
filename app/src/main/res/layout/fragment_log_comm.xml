@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.guillermobrugarolas.metapp_andruino.view.fragments.LogCommFragment">
+    tools:context="com.Grupo1.MET.metapp_andruino.view.fragments.LogCommFragment">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -29,6 +28,7 @@
             android:dividerHeight="2dp"
             android:divider="@color/colorPrimary"/>
         <ImageButton
+            android:contentDescription="@string/ctrl_remoto_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"

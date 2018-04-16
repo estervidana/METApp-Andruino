@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.guillermobrugarolas.metapp_andruino">
+    package="com.Grupo1.MET.metapp_andruino">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".view.activities.SplashScreenActivity"
+            android:name="com.Grupo1.MET.metapp_andruino.view.activities.SplashScreenActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -23,32 +23,32 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".view.activities.MainActivity"
+            android:name="com.Grupo1.MET.metapp_andruino.view.activities.MainActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".view.activities.CtrlRemotoActivity"
+            android:name="com.Grupo1.MET.metapp_andruino.view.activities.CtrlRemotoActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.activities.LabActivity"
+            android:name="com.Grupo1.MET.metapp_andruino.view.activities.LabActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.activities.AccelActivity"
+            android:name="com.Grupo1.MET.metapp_andruino.view.activities.AccelActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />
         <activity
-            android:name=".view.activities.LogCommActivity"
+            android:name="com.Grupo1.MET.metapp_andruino.view.activities.LogCommActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
 
         <service
-            android:name=".data.communication.CommunicationService"
+            android:name="com.Grupo1.MET.metapp_andruino.data.communication.CommunicationService"
             android:icon="@drawable/ic_launcher_foreground"
             android:label="METApp-Andruino" />
         <service
-            android:name=".data.communication.TestCommSenderService"
+            android:name="com.Grupo1.MET.metapp_andruino.data.communication.TestCommSenderService"
             android:exported="false" />
     </application>
 

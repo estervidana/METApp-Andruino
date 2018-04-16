@@ -1,10 +1,12 @@
 <resources>
     <string name="app_name">Control Me</string>
     <!-- Main menu section -->
-    <string name="main_menu_ctrl_remoto_text">CONTROL REMOTO</string>
-    <string name="main_menu_accel_text">RETO ACELERÓMETRO</string>
-    <string name="main_menu_log_comm_text">LOG COMUNICACIÓN</string>
-    <string name="main_menu_labyrinth_text">SOLUCIÓN LABERINTO</string>
+    <string name="main_menu_ctrl_remoto_text">REMOTE CONTROL </string>
+    <string name="main_menu_accel_text">ACCELEROMETER  </string>
+    <string name="main_menu_log_comm_text">LOGS           </string>
+    <string name="main_menu_labyrinth_text">LABYRINTH      </string>
+    <string name="main_menu_title">MENU      </string>
+
     <!-- Remote control section -->
     <string name="ctrl_remoto_speed_text">Speed:</string>
     <string name="ctrl_remoto_speed_number_text">--Km/h</string>
@@ -19,6 +21,7 @@
     <string name="ctrl_remoto_temperature_text">Temperature:  </string>
     <string name="ctrl_remoto_temp_value_text">0°:  </string>
     <string name="ctrl_remoto_number_gear_text">0</string>
+    <string name="ctrl_remoto_content_description"> This is an auxiliar content description</string>
     <!-- Accelerometer section -->
     <string name="accel_z_accel_text">Z Acceleration (Gs):</string>
     <string name="accel_y_accel_text">Y Acceleration (Gs):</string>
