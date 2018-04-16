@@ -16,6 +16,10 @@ import com.example.guillermobrugarolas.metapp_andruino.view.fragments.SplashScre
 
 import java.io.IOException;
 
+/**
+ * This class represents the activity that contains the splashscreen.
+ */
+
 public class SplashScreenActivity extends AppCompatActivity {
 
     private static final String SPLASHSCREEN_FRAGMENT = "SPLASHSCREEN_FRAGMENT";

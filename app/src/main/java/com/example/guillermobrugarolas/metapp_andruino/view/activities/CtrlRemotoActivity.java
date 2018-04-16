@@ -10,6 +10,10 @@ import com.example.guillermobrugarolas.metapp_andruino.R;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 import com.example.guillermobrugarolas.metapp_andruino.view.fragments.CtrlRemotoFragment;
 
+/**
+ * This class represents the activity that contains the remote control options.
+ */
+
 public class CtrlRemotoActivity extends AppCompatActivity {
     private String CTRL_REMOTO_FRAGMENT = "CTRL_REMOTO_FRAGMENT";
 

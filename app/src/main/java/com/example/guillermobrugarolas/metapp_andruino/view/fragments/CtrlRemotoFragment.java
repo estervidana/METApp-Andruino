@@ -125,7 +125,6 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         listenLightsSwitch(v);
         listenManualModeSwitch(v);
         listenButtonsGear(v);
-        listenCanvas(v);
         listenButtonsGasBrakeClear(v);
         observeTemperature(v);
         observeSpeed(v);
@@ -233,27 +232,6 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             }
         });
 
-    }
-    private void listenCanvas(final View v){
-        //LISTENING TO THE CANVAS OF THE SCREEN
-        v.setOnTouchListener(new View.OnTouchListener() {
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                //In order to adapt to different mobile resolutions we will check tye size of the lateral
-                //Layouts and let the user paint only between them.
-                LinearLayout llLateralLeft = v.findViewById(R.id.linearLayout_lateralLeft);
-                LinearLayout llLateralRight = v.findViewById(R.id.linearLayout_lateralRight);
-                LinearLayout llVerticalColision = v.findViewById(R.id.linearLayout_verticalCollisionIndicator);
-
-                if(event.getX() > llLateralLeft.getWidth() && event.getX() < (v.getWidth()-llLateralRight.getWidth()) && event.getY()> llVerticalColision.getMeasuredHeight()){
-                    Debug.showLog("Canvas Pressed!!!!!");
-                    Debug.showLog(String.valueOf(event.getX()));
-                    Debug.showLog(String.valueOf(event.getY()));
-                }
-                return false;
-            }
-        });
     }
 
     /**

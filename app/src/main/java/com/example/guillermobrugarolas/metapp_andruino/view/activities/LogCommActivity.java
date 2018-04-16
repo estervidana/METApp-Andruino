@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.example.guillermobrugarolas.metapp_andruino.R;
 
 /**
- * Displays the Logs of the messages sent to and from the robot/app.
+ * This class represents the Logs of the messages sent to and from the robot/app.
  */
 public class LogCommActivity extends AppCompatActivity {
 

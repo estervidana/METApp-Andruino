@@ -15,9 +15,16 @@ import com.example.guillermobrugarolas.metapp_andruino.R;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 import com.example.guillermobrugarolas.metapp_andruino.view.activities.MainActivity;
 
+/**
+ * This class represents the fragment that displays the application Splashscreen.
+ */
+
 public class SplashScreenFragment extends Fragment {
-    private static final int SPLASHSCREEN_TIMEOUT = 1000;
+    /** The timeout of the splashscreen in millisecons. */
+    private static final int SPLASHSCREEN_TIMEOUT = 1500;
+    /** The title of the application. */
     private static TextView tvTitle;
+    /** The image that represents the logo of the application. */
     private static ImageView ivLogo;
 
 
