@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.guillermobrugarolas.metapp_andruino.view.activities.LogCommActivity"
-    android:id="@+id/log_comm_activity">
+    tools:context="com.example.guillermobrugarolas.metapp_andruino.view.activities.LogCommActivity">
 
     <fragment
         android:name="com.example.guillermobrugarolas.metapp_andruino.view.fragments.LogCommFragment"

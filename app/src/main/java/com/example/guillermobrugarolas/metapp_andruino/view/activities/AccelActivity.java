@@ -18,22 +18,5 @@ public class AccelActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_accel);
-        initFragment();
-    }
-
-    private void initFragment(){
-        FragmentManager manager = getSupportFragmentManager();
-        Fragment fragment = manager.findFragmentByTag(ACCEL_FRAGMENT);
-        if(fragment == null){
-            //Creating the fragment that we want:
-            fragment = AccelFragment.newInstance();
-        }
-
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.setCustomAnimations(android.R.anim.slide_in_left,android.R.anim.slide_out_right);
-        transaction.replace(R.id.activity_accel_container,fragment, ACCEL_FRAGMENT);
-        transaction.commit();
-        Debug.showLog("Entering the accelerometer activity");
-
     }
 }

@@ -2,6 +2,7 @@ package com.example.guillermobrugarolas.metapp_andruino.viewModel;
 
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+import android.content.Context;
 import android.gesture.Prediction;
 
 import com.example.guillermobrugarolas.metapp_andruino.data.repository.Repository;
@@ -160,33 +161,6 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
         }
         oldYPosition = yPosition;
     }
-    public void sendPolygonOrder (Prediction prediction) {
-        if (prediction.name.equals("CircleRadius10cm")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a CIRCLE 10 cm RADIUS!");
-        } else if (prediction.name.equals("CircleRadius20cm")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a CIRCLE 20 cm RADIUS!");
-        } else if (prediction.name.equals("CircleRadius20cm")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a CIRCLE 30 cm RADIUS!");
-        } else if (prediction.name.equals("CircleRadius20cm")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");
-        } else if (prediction.name.equals("SquareSide20cm")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a SQUARE 20 cm SIDE!");
-        } else if (prediction.name.equals("SquareSide40cm")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a SQUARE 40 cm SIDE!");
-        } else if (prediction.name.equals("SquareSide60cm")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a SQUARE 60 cm SIDE!");
-        } else if (prediction.name.equals("SquareSide80cm")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a SQUARE 80 cm SIDE!");
-        } else if (prediction.name.equals("TriangleSide20cm")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a TRIANGLE 20 cm SIDE!");
-        } else if (prediction.name.equals("TriangleSide40cm")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a TRIANGLE 40 cm SIDE!");
-        } else if (prediction.name.equals("TriangleSide60cm")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a TRIANGLE 60 cm SIDE!");
-        } else if (prediction.name.equals("TriangleSide80cm")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a TRIANGLE 80 cm SIDE!");
-        }
-    }
 
     @Override
     public void onMessageReceived(String message) {
@@ -214,9 +188,17 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
 
     }
 
-
     @Override
     public void onServiceStopped() {
+    }
 
+    public void sendPolygonOrder (Prediction prediction) {
+        if (prediction.name.equals("Circle")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");
+        } else if (prediction.name.equals("Triangle")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 40 cm RADIUS!");
+        } else if (prediction.name.equals("Square")) {
+            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 40 cm RADIUS!");
+        }
     }
 }

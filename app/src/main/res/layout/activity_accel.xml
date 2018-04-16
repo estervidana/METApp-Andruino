@@ -6,17 +6,9 @@
     android:layout_height="match_parent"
     tools:context="com.example.guillermobrugarolas.metapp_andruino.view.activities.AccelActivity">
 
-    <FrameLayout
+    <fragment
+        android:name="com.example.guillermobrugarolas.metapp_andruino.view.fragments.AccelFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/activity_accel_container">
-
-        <fragment
-            android:name="com.example.guillermobrugarolas.metapp_andruino.view.fragments.AccelFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/accel_fragment" />
-
-    </FrameLayout>
-
+        android:id="@+id/accel_fragment" />
 </android.support.constraint.ConstraintLayout>

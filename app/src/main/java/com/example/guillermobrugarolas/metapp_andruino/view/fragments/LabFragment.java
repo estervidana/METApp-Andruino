@@ -1,5 +1,8 @@
 package com.example.guillermobrugarolas.metapp_andruino.view.fragments;
 
+import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
@@ -42,12 +45,18 @@ public class LabFragment extends Fragment {
         return new LabFragment();
     }
 
-    public LabFragment() {
-        // Required empty public constructor
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_lab, container, false);
         for(int count1 = 0; count1 < MAX_ROWS; count1++) {
             for(int count2 = 0; count2 < MAX_COLUMNS; count2++) {
@@ -55,22 +64,10 @@ public class LabFragment extends Fragment {
             }
         }
         setDrawables(imageData);
-        //gridLayout = view.findViewById(R.id.lab_grid);
         initData();
-        //initSections();
         bindViews(view);
-        //displaySections();
-        imageData[0][0].setPadding(10,0,0,10);
-        imageData[0][0].setColorFilter(getResources().getColor(R.color.colorGridPassedUncertain));
-        imageData[4][1].setPadding(10,10,10,0);
-        imageData[2][3].setPadding(10,10,10,0);
-        imageData[1][3].setPadding(10,0,0,10);
-        imageData[3][1].setColorFilter(getResources().getColor(R.color.colorGridDeadEnd));
-        imageData[2][2].setColorFilter(getResources().getColor(R.color.colorGridPassedUncertain));
-        imageData[2][4].setPadding(10, 0, 10, 0);
-        imageData[0][4].setColorFilter(getResources().getColor(R.color.colorGridTarget));
-        imageData[3][3].setPadding(0,10,10,0);
-        imageData[3][3].setColorFilter(getResources().getColor(R.color.colorGridSolution));
+        //display random labyrinth
+        displayRandomLab();
         adapter.notifyDataSetChanged();
         return view;
     }
@@ -93,7 +90,6 @@ public class LabFragment extends Fragment {
         ibBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Debug.showLog("Volver a Menu!");
                 getActivity().onBackPressed();
             }
         });
@@ -106,7 +102,7 @@ public class LabFragment extends Fragment {
             }
         });
 
-        rvLab = (RecyclerView) view.findViewById(R.id.rvLabyrinth);
+        rvLab = view.findViewById(R.id.rvLabyrinth);
         int nCols = MAX_COLUMNS;
         rvLab.setLayoutManager(new GridLayoutManager(this.getActivity(), nCols));
         imageDataAdapter = matrixToArrayImageData(imageData);
@@ -120,23 +116,36 @@ public class LabFragment extends Fragment {
         for (int count1 = 0; count1 < MAX_ROWS; count1++) {
             for (int count2 = 0; count2 < MAX_COLUMNS; count2++) {
                 if (sectionData[count1][count2].getState().equals(LabyrinthSectionState.CURRENT)) {
-                    int currPaddLeft = imageData[count1][count2].getPaddingLeft();
-                    int currPaddTop = imageData[count1][count2].getPaddingTop();
-                    int currPaddRight = imageData[count1][count2].getPaddingRight();
-                    int currPaddBottom = imageData[count1][count2].getPaddingBottom();
-                    switch (robotOrientation) {
-                        case "RIGHT":
-                            imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
-                            break;
-                        case "LEFT":
-                            imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
-                            break;
-                        case "UP":
-                            imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
-                            break;
-                        case "DOWN":
-                            imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
-                            break;
+                    if (sectionData[count1][count2].getPassed() == 0) {
+                        int currPaddLeft = imageData[count1][count2].getPaddingLeft();
+                        int currPaddTop = imageData[count1][count2].getPaddingTop();
+                        int currPaddRight = imageData[count1][count2].getPaddingRight();
+                        int currPaddBottom = imageData[count1][count2].getPaddingBottom();
+                        if (robotOrientation.equals("RIGHT")) {
+                            if (count2 == 4) {
+                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                            } else {
+                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 5, currPaddBottom);
+                            }
+                        } else if (robotOrientation.equals("LEFT")) {
+                            if (count2 == 0) {
+                                imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                            } else {
+                                imageData[count1][count2].setPadding(5, currPaddTop, currPaddRight, currPaddBottom);
+                            }
+                        } else if (robotOrientation.equals("UP")) {
+                            if (count1 == 0) {
+                                imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
+                            } else {
+                                imageData[count1][count2].setPadding(currPaddLeft, 5, currPaddRight, currPaddBottom);
+                            }
+                        } else if (robotOrientation.equals("DOWN")) {
+                            if (count1 == 4) {
+                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                            } else {
+                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 5);
+                            }
+                        }
                     }
                 }
             }
@@ -148,23 +157,36 @@ public class LabFragment extends Fragment {
         for (int count1 = 0; count1 < MAX_ROWS; count1++) {
             for (int count2 = 0; count2 < MAX_COLUMNS; count2++) {
                 if (sectionData[count1][count2].getState().equals(LabyrinthSectionState.CURRENT)) {
-                    int currPaddLeft = imageData[count1][count2].getPaddingLeft();
-                    int currPaddTop = imageData[count1][count2].getPaddingTop();
-                    int currPaddRight = imageData[count1][count2].getPaddingRight();
-                    int currPaddBottom = imageData[count1][count2].getPaddingBottom();
-                    switch (robotOrientation) {
-                        case "RIGHT":
-                            imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
-                            break;
-                        case "LEFT":
-                            imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
-                            break;
-                        case "UP":
-                            imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
-                            break;
-                        case "DOWN":
-                            imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
-                            break;
+                    if (sectionData[count1][count2].getPassed() == 0) {
+                        int currPaddLeft = imageData[count1][count2].getPaddingLeft();
+                        int currPaddTop = imageData[count1][count2].getPaddingTop();
+                        int currPaddRight = imageData[count1][count2].getPaddingRight();
+                        int currPaddBottom = imageData[count1][count2].getPaddingBottom();
+                        if (robotOrientation.equals("RIGHT")) {
+                            if (count1 == 4) {
+                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                            } else {
+                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 5);
+                            }
+                        } else if (robotOrientation.equals("LEFT")) {
+                            if (count1 == 0) {
+                                imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
+                            } else {
+                                imageData[count1][count2].setPadding(currPaddLeft, 5, currPaddRight, currPaddBottom);
+                            }
+                        } else if (robotOrientation.equals("UP")) {
+                            if (count2 == 4) {
+                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                            } else {
+                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 5, currPaddBottom);
+                            }
+                        } else if (robotOrientation.equals("DOWN")) {
+                            if (count2 == 0) {
+                                imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                            } else {
+                                imageData[count1][count2].setPadding(5, currPaddTop, currPaddRight, currPaddBottom);
+                            }
+                        }
                     }
                 }
             }
@@ -176,23 +198,36 @@ public class LabFragment extends Fragment {
         for (int count1 = 0; count1 < MAX_ROWS; count1++) {
             for (int count2 = 0; count2 < MAX_COLUMNS; count2++) {
                 if (sectionData[count1][count2].getState().equals(LabyrinthSectionState.CURRENT)) {
-                    int currPaddLeft = imageData[count1][count2].getPaddingLeft();
-                    int currPaddTop = imageData[count1][count2].getPaddingTop();
-                    int currPaddRight = imageData[count1][count2].getPaddingRight();
-                    int currPaddBottom = imageData[count1][count2].getPaddingBottom();
-                    switch (robotOrientation) {
-                        case "RIGHT":
-                            imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
-                            break;
-                        case "LEFT":
-                            imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
-                            break;
-                        case "UP":
-                            imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
-                            break;
-                        case "DOWN":
-                            imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
-                            break;
+                    if (sectionData[count1][count2].getPassed() == 0) {
+                        int currPaddLeft = imageData[count1][count2].getPaddingLeft();
+                        int currPaddTop = imageData[count1][count2].getPaddingTop();
+                        int currPaddRight = imageData[count1][count2].getPaddingRight();
+                        int currPaddBottom = imageData[count1][count2].getPaddingBottom();
+                        if (robotOrientation.equals("RIGHT")) {
+                            if (count1 == 0) {
+                                imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
+                            } else {
+                                imageData[count1][count2].setPadding(currPaddLeft, 5, currPaddRight, currPaddBottom);
+                            }
+                        } else if (robotOrientation.equals("LEFT")) {
+                            if (count1 == 4) {
+                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                            } else {
+                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 5);
+                            }
+                        } else if (robotOrientation.equals("UP")) {
+                            if (count2 == 0) {
+                                imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                            } else {
+                                imageData[count1][count2].setPadding(5, currPaddTop, currPaddRight, currPaddBottom);
+                            }
+                        } else if (robotOrientation.equals("DOWN")) {
+                            if (count2 == 4) {
+                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                            } else {
+                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 5, currPaddBottom);
+                            }
+                        }
                     }
                 }
             }
@@ -308,5 +343,24 @@ public class LabFragment extends Fragment {
             System.arraycopy(imageData[i], 0, newArray, i * row.length, row.length);
         }
         return newArray;
+    }
+
+    private void displayRandomLab() {
+        imageData[4][0].setPadding(0,5,0,5);
+        imageData[4][0].setColorFilter(getResources().getColor(R.color.colorGridPassedUncertain));
+        imageData[4][1].setPadding(0,0,5,5);
+        imageData[4][1].setColorFilter(getResources().getColor(R.color.colorGridPassedUncertain));
+        imageData[4][2].setPadding(5,0,0,5);
+        imageData[4][2].setColorFilter(getResources().getColor(R.color.colorGridPassedUncertain));
+        imageData[3][2].setColorFilter(getResources().getColor(R.color.colorGridCurrent));
+        imageData[3][2].setPadding(0, 5, 5, 0);
+        imageData[2][2].setPadding(0, 0, 5, 5);
+        imageData[2][3].setPadding(5, 0, 0, 0);
+        imageData[0][4].setPadding(0, 5, 0, 5);
+        imageData[0][4].setColorFilter(getResources().getColor(R.color.colorGridTarget));
+        imageData[0][3].setPadding(5, 5, 0, 0);
+        imageData[0][3].setColorFilter(getResources().getColor(R.color.colorGridSolution));
+        imageData[0][2].setPadding(5,5,5,0);
+        imageData[0][2].setColorFilter(getResources().getColor(R.color.colorGridDeadEnd));
     }
 }

@@ -63,6 +63,16 @@ public class CommunicationService extends IntentService {
         return Service.START_NOT_STICKY;
     }
 
+    private void createCommunicator() {
+        try {
+            communicator = UdpCommunicator.getInstance();
+        } catch (SocketException e) {
+            running = false;
+            //listener.onServiceStopped();
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void onDestroy() {
         running = false;

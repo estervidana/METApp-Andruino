@@ -115,9 +115,6 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                 }
             }
         });
-        //DisplayMetrics metrics = new DisplayMetrics();
-        //this.getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
-        //pvDrawShape.init(metrics);
         gLibrary = GestureLibraries.fromRawResource(getActivity(), R.raw.gestures);
         if (!gLibrary.load()) {
             this.getActivity().finish();
@@ -130,7 +127,9 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         observeTemperature(v);
         observeSpeed(v);
         observeCollisions(v);
-
+        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
     }
 
     /**
@@ -282,19 +281,6 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
 
         });
 
-        ImageButton ibClear = v.findViewById(R.id.image_button_clear);
-        ibClear.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Debug.showLog("Aprieto el CLEAR!");
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Debug.showLog("Dejo ir el CLEAR!");
-                }
-                return true;
-            }
-        });
-
         ImageButton ibBrake = v.findViewById(R.id.image_button_brake);
         ibBrake.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -423,8 +409,6 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                 break;
         }
     }
-
-
 }
 
 
