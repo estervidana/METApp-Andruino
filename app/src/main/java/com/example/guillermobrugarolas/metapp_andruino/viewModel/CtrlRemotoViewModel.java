@@ -194,11 +194,11 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
 
     public void sendPolygonOrder (Prediction prediction) {
         if (prediction.name.equals("Circle")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");
         } else if (prediction.name.equals("Triangle")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 40 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a TRIANGLE 40 cm RADIUS!");
         } else if (prediction.name.equals("Square")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 40 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a SQUARE 40 cm RADIUS!");
         }
     }
 }

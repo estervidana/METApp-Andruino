@@ -11,6 +11,7 @@ import android.support.annotation.Nullable;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 
 import java.io.IOException;
+import java.net.SocketException;
 
 /**
  * Service used to receive UDP packets.
