@@ -17,8 +17,8 @@ import com.Grupo1.MET.metapp_andruino.view.activities.MainActivity;
 
 public class SplashScreenFragment extends Fragment {
     private static final int SPLASHSCREEN_TIMEOUT = 1000;
-    private static TextView tvTitle;
-    private static ImageView ivLogo;
+    private  TextView tvTitle;
+    private  ImageView ivLogo;
 
 
     public SplashScreenFragment() {
