@@ -4,7 +4,9 @@ import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.content.Context;
 import android.gesture.Prediction;
+import android.widget.Toast;
 
+import com.example.guillermobrugarolas.metapp_andruino.data.communication.MessageType;
 import com.example.guillermobrugarolas.metapp_andruino.data.repository.Repository;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 
@@ -17,7 +19,6 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
      */
     public CtrlRemotoViewModel(){
         Repository.getInstance().addListener(this);
-
     }
     private int gear = 0;
     private final int MAXGEAR = 3;
@@ -27,6 +28,7 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
     private boolean brake = false;
     private MutableLiveData<Integer> temperature,speed, collisionFront, collisionLeft, collisionRight;
     private int yPosition,oldYPosition;
+    long tOld = System.currentTimeMillis();
 
 
     /**
@@ -132,46 +134,64 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
      * @param y must be a a float determining the rotation value of the mobile device.
      */
     public void setYRotation(float y){
-
         if (y >= 6){
             yPosition = 3;
-           // Debug.showLog("Turn right heavy");
         }else if (y<6 && y>=3){
             yPosition = 2;
-           // Debug.showLog("Turn right moderate");
 
         }else if (y<3 && y>=1) {
             yPosition = 1;
-           // Debug.showLog("Turn right a little bit");
         }else if(y<1 && y>=-1){
             yPosition = 0;
             //The robot must move straight.
         }else if (y<0 && y>=-3){
             yPosition = -1;
-           // Debug.showLog("Turn left a little bit");
         }else if (y<-3 && y>=-6){
             yPosition = -2;
-           // Debug.showLog("Turn left moderate");
         }else{
             yPosition = -3;
-           // Debug.showLog("Turn left heavy");
         }
-        if (oldYPosition != yPosition){
-            Debug.showLog("Changed status!");
+        if (oldYPosition != yPosition && System.currentTimeMillis() - tOld > 500){
+            tOld = System.currentTimeMillis();
+            switch (yPosition){
+                case 3:
+                    Debug.showLog("Turn right heavy");
+                    break;
+                case 2:
+                    Debug.showLog("Turn right moderate");
+                    break;
+                case 1:
+                    Debug.showLog("Turn right a little bit");
+                    break;
+                case 0:
+                    Debug.showLog("Don't move");
+                    break;
+                case -1:
+                    Debug.showLog("Turn left a little bit");
+                    break;
+                case -2:
+                    Debug.showLog("Turn left moderate");
+                    break;
+                case -3:
+                    Debug.showLog("Turn left heavy");
+                    break;
+            }
         }
         oldYPosition = yPosition;
     }
 
     @Override
     public void onMessageReceived(String message) {
-        String msg[] = message.split("ROBOT");
-        Debug.showLog(msg[1]);
-        String msgHeader[] = msg[1].split(":");
+        String msg[] =message.split(";");
+        String msgHeader[] =msg[0].split(":");
         Debug.showLog(msgHeader[0]);
         String msgParameters[] = msgHeader[1].split(",");
-        if (msgHeader[0].equals("COLLISION")){
+        Debug.showLog(String.valueOf(MessageType.COLLISION.ordinal()));
+        if (Integer.parseInt(msgHeader[0]) == MessageType.COLLISION.ordinal()){
+            Debug.showLog("entro");
             if (msgParameters[0].equals("FRONT")){
                 if (msgParameters[1].equals("ON")) {
+                    Debug.showLog("kjgskdfg");
                     collisionFront.postValue(1);
                 }else collisionFront.postValue(0);
             }else if (msgParameters[0].equals("LEFT")){
@@ -194,11 +214,11 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
 
     public void sendPolygonOrder (Prediction prediction) {
         if (prediction.name.equals("Circle")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");
         } else if (prediction.name.equals("Triangle")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a TRIANGLE 40 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a TRIANGLE 40 cm RADIUS!");
         } else if (prediction.name.equals("Square")) {
-            Debug.showLogError("::::::::::::::::::: Arduino, Do a SQUARE 40 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, Do a SQUARE 40 cm RADIUS!");
         }
     }
 }

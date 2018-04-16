@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Switch;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.guillermobrugarolas.metapp_andruino.R;
 import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
@@ -43,6 +44,8 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
     private GestureLibrary gLibrary;
+    private static long DELAY_TIME = 1000000;
+
 
 
 
@@ -129,7 +132,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         observeCollisions(v);
         mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+        mSensorManager.registerListener(this, mAccelerometer, 10000000);
     }
 
     /**
@@ -247,7 +250,6 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                     Debug.showLog("Canvas Pressed!!!!!");
                     Debug.showLog(String.valueOf(event.getX()));
                     Debug.showLog(String.valueOf(event.getY()));
-
                 }
                 return false;
             }
@@ -271,9 +273,11 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                 v.performClick();
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     Debug.showLog("Aprieto el GAS!");
+                    Toast.makeText(getActivity().getApplicationContext(), "Gas pressed", Toast.LENGTH_LONG).show();
                     viewModel.setGas(true);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     Debug.showLog("Dejo ir el GAS!");
+                    Toast.makeText(getActivity().getApplicationContext(), "Gas released", Toast.LENGTH_LONG).show();
                     viewModel.setGas(false);
                 }
                 return true;
@@ -287,9 +291,11 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
                     Debug.showLog("Aprieto el BRAKE!");
+                    Toast.makeText(getActivity().getApplicationContext(), "Brake pressed", Toast.LENGTH_LONG).show();
                     viewModel.setBrake(false);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
                     Debug.showLog("Dejo ir el BRAKE!");
+                    Toast.makeText(getActivity().getApplicationContext(), "Brake released", Toast.LENGTH_LONG).show();
                     viewModel.setBrake(false);
                 }
                 return true;
@@ -325,18 +331,23 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         viewModel.getTemperature().observe(this,temperatureObserver);
 
     }
+
+    /**
+     * This methos observes the collision variables of the viewModel. Then it changes the status of the collision indicator.
+     * @param v is the view.
+     */
     private void observeCollisions(final View v){
         final Observer<Integer> collisionFrontObserver = new Observer<Integer>() {
             @Override
-            public void onChanged(@Nullable Integer integer) {
-                changeStatusCollisionIndicators(0);
+            public void onChanged(@Nullable Integer status) {
+                changeStatusCollisionIndicators(0,status);
             }
         };
         viewModel.getCollisionFront().observe(this,collisionFrontObserver);
         final Observer<Integer> collisionLeftObserver = new Observer<Integer>() {
             @Override
-            public void onChanged(@Nullable Integer integer) {
-                changeStatusCollisionIndicators(2);
+            public void onChanged(@Nullable Integer status) {
+                changeStatusCollisionIndicators(2,status);
 
             }
         };
@@ -344,8 +355,8 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
 
         final Observer<Integer> collisionRightObserver = new Observer<Integer>() {
             @Override
-            public void onChanged(@Nullable Integer integer) {
-                changeStatusCollisionIndicators(1);
+            public void onChanged(@Nullable Integer status) {
+                changeStatusCollisionIndicators(1,status);
             }
         };
         viewModel.getCollisionRight().observe(this,collisionRightObserver);
@@ -381,27 +392,30 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         super.onStop();
     }
 
-    public void changeStatusCollisionIndicators(int indicator) {
-        //Pre: indicator must be 0 (Frontal Collision), 1 (Back right collision), 2 (Back left collision).
-        //Post: if the previous color of the selected indicator was the default color is changed to the accent color.
-        //Otherwise the color is changed to the default text color.
+    /**
+     * This methos changes the color of the collision indicators depending of the parameters.
+     * @param indicator  must be 0 (Frontal Collision), 1 (Back right collision), 2 (Back left collision).
+     * @param status must be 0(no collision), 1 (collision).
+     */
+    public void changeStatusCollisionIndicators(int indicator, int status) {
+
         switch (indicator){
             case 0:
-                if (tvFrontalCollision.getCurrentTextColor() == getResources().getColor(R.color.colorDefaultText)) {
+                if (status ==1){
                     tvFrontalCollision.setTextColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     tvFrontalCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));
                 }
                 break;
             case 1:
-                if (tvBackRightCollision.getCurrentTextColor()==getResources().getColor(R.color.colorDefaultText)) {
+                if (status ==1){
                     tvBackRightCollision.setTextColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     tvBackRightCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));
                 }
                 break;
             case 2:
-                if (tvBackLeftCollision.getCurrentTextColor() == getResources().getColor(R.color.colorDefaultText)) {
+                if (status ==1){
                     tvBackLeftCollision.setTextColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     tvBackLeftCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));

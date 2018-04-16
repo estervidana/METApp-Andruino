@@ -111,6 +111,7 @@ public class LabFragment extends Fragment {
         rvLab.setHasFixedSize(true);
     }
 
+
     //ON WALL IN FRONT DETECTED
     public void printFrontWall() {
         for (int count1 = 0; count1 < MAX_ROWS; count1++) {

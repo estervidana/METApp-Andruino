@@ -1,7 +1,7 @@
 package com.example.guillermobrugarolas.metapp_andruino.debug;
 
 import android.util.Log;
-
+import android.widget.Toast;
 
 
 public class Debug {
@@ -14,4 +14,5 @@ public class Debug {
             Log.d("------------> Mensaje:", message);
         }
     }
+
 }
