@@ -23,9 +23,9 @@
     <string name="ctrl_remoto_number_gear_text">0</string>
     <string name="ctrl_remoto_content_description"> This is an auxiliar content description</string>
     <!-- Accelerometer section -->
-    <string name="accel_z_accel_text">Z Acceleration (Gs):</string>
-    <string name="accel_y_accel_text">Y Acceleration (Gs):</string>
-    <string name="accel_x_accel_text">X Acceleration (Gs):</string>
+    <string name="accel_z_accel_text">Z accel.: -9.81 m/s2</string>
+    <string name="accel_y_accel_text">Y accel.: 5.09 m/s2</string>
+    <string name="accel_x_accel_text">X accel.: 3.44 m/s2</string>
     <string name="accel_tilt_text">Tilt:</string>
     <!-- Log Comm section -->
     <string name="log_comm_header_text">Message | Type | In/Out | Date</string>

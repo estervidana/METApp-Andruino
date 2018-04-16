@@ -10,6 +10,9 @@ import android.widget.ImageView;
 
 import com.Grupo1.MET.metapp_andruino.R;
 
+/**
+ * This class represents the adapter that transforms the matrix of data into cell views.
+ */
 public class RecyclerViewAdapter extends Adapter<RecyclerViewAdapter.ViewHolder> {
 
     private static final int MAX_ROWS = 5;
@@ -32,6 +35,11 @@ public class RecyclerViewAdapter extends Adapter<RecyclerViewAdapter.ViewHolder>
 
     // binds the data to the ImageView in each cell
     @Override
+    /**
+     * This method links the recycler view that contains the data to a cell view holder that displays the cell.
+     * @param holder The view holder that will represent the data.
+     * @param position The position of the matrix to be displayed.
+     */
     public void onBindViewHolder(ViewHolder holder, int position) {
 
         ImageView cell = mData[position];
@@ -48,8 +56,9 @@ public class RecyclerViewAdapter extends Adapter<RecyclerViewAdapter.ViewHolder>
         return mData.length;
     }
 
-
-    // stores and recycles views as they are scrolled off screen
+    /**
+     * This method stores and recycles views as they are scrolled off screen.
+     */
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView myImageView;
 
@@ -59,7 +68,11 @@ public class RecyclerViewAdapter extends Adapter<RecyclerViewAdapter.ViewHolder>
         }
     }
 
-    // convenience method for getting data at click position
+    /**
+     * This method is a convenience method for getting data at click position.
+     * @param index The index of the item to return.
+     * @return The cell view to return.
+     */
     ImageView getItem(int index) {
         return mData[index];
     }

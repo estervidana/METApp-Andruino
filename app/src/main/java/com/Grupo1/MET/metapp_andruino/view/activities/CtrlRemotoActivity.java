@@ -5,6 +5,10 @@ import android.os.Bundle;
 
 import com.Grupo1.MET.metapp_andruino.R;
 
+/**
+ * This class represents the activity that contains all the remote control options.
+ */
+
 public class CtrlRemotoActivity extends AppCompatActivity {
     private String CTRL_REMOTO_FRAGMENT = "CTRL_REMOTO_FRAGMENT";
 

@@ -1,10 +1,16 @@
 package com.Grupo1.MET.metapp_andruino.viewModel;
 
+/**
+ * This class represents every cell of the labyrinth with its attributes and methods.
+ */
 public class LabyrinthSection {
-
+    /** The state of the cell (current, solution, etc.) */
     private LabyrinthSectionState state;
+    /** The finish cell has this attribute in true. */
     private boolean isTargetLocation;
+    /** The number of times the robot passed this cell. */
     private int passed;
+    /** The walls of the cell. */
     private boolean[] walls;
 
     public int getPassed() {

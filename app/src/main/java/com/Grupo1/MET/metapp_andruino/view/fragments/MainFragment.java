@@ -20,13 +20,15 @@ import com.Grupo1.MET.metapp_andruino.view.activities.LabActivity;
 import com.Grupo1.MET.metapp_andruino.view.activities.LogCommActivity;
 import com.Grupo1.MET.metapp_andruino.viewModel.MainViewModel;
 
-
+/**
+ * This class represents the main view fragments that displays its view items.
+ */
 
 public class MainFragment extends Fragment{
 
-    private TextView textView;
+    /** The different buttons for the different options. */
     private ImageButton bCtrlRem, bAccel, bLab, bLogComm;
-
+    /** The view model that controls the view items. */
     private MainViewModel viewModel;
 
     public static MainFragment newInstance(){
@@ -50,6 +52,10 @@ public class MainFragment extends Fragment{
         return v;
     }
 
+    /**
+     * This method links every view item to its corresponding layout item.
+     * @param v The view that contains these items.
+     */
     private void bindViews(View v){
 
         bCtrlRem = v.findViewById(R.id.bCtrlRemoto);

@@ -5,6 +5,10 @@ import android.os.Bundle;
 
 import com.Grupo1.MET.metapp_andruino.R;
 
+/**
+ * This class represents the activity of the accelerometer challenge.
+ */
+
 public class AccelActivity extends AppCompatActivity {
 
     private String ACCEL_FRAGMENT = "ACCEL_FRAGMENT";

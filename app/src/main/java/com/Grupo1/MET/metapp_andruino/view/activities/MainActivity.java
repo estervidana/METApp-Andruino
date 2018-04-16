@@ -5,6 +5,10 @@ import android.os.Bundle;
 
 import com.Grupo1.MET.metapp_andruino.R;
 
+/**
+ * This class represents the main menu activity with the four general options.
+ */
+
 public class MainActivity extends AppCompatActivity {
 
     private String MAIN_FRAGMENT = "MAIN_FRAGMENT";

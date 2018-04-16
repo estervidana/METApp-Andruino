@@ -35,15 +35,26 @@ import com.Grupo1.MET.metapp_andruino.viewModel.CtrlRemotoViewModel;
 
 import java.util.ArrayList;
 
+/**
+ * This class represents the remote control fragments that displays its view items.
+ */
 
 public class CtrlRemotoFragment extends Fragment implements SensorEventListener {
+    /** The view model that controls the remote control view. */
     private CtrlRemotoViewModel viewModel;
+    /** The visual progress bars for the robot speed and temperature, respectively. */
     private  ProgressBar pbSpeed, pbTemperature;
+    /** The three collision indicators' text views. */
     private  TextView tvFrontalCollision, tvBackLeftCollision, tvBackRightCollision;
+    /** The area where the user can draw a polygon. */
     private GestureOverlayView govGestures;
+    /** The manager that controls the sensors. */
     private SensorManager mSensorManager;
+    /** The accelerometer sensor of the robot. */
     private Sensor mAccelerometer;
+    /** The library that stores the different gestures (polygons). */
     private GestureLibrary gLibrary;
+    /** The defined time of delay in millisecons. */
     private static long DELAY_TIME = 1000000;
 
 
