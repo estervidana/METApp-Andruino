@@ -13,8 +13,8 @@ import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -53,7 +53,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Debug.showLogError("Entering the remote control fragment");
+        Debug.showLog("Entering the remote control fragment");
 
     }
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -66,6 +66,20 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         bindViews(v);
         return v;
     }
+
+    /**
+     * In this method we are indicating which viewModel belongs to the remote control.
+     * @param v the view of the remote control.
+     */
+    private void initViewModel(final View v){
+        viewModel = ViewModelProviders.of(getActivity()).get(CtrlRemotoViewModel.class);
+    }
+
+    /**
+     * In this function we declare all the elements that we will change in this fragment
+     * and all of it's listeners.
+     * @param v the view of the remote control.
+     */
     @SuppressLint("ClickableViewAccessibility")
     private void bindViews(View v){
         //THE CIRCULAR PROGRESS BAR FOR THE SPEED.
@@ -76,6 +90,14 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         tvBackLeftCollision = v.findViewById(R.id.text_back_left_collision);
         tvFrontalCollision = v.findViewById(R.id.text_frontal_collision);
         tvBackRightCollision = v.findViewById(R.id.text_back_right_collision);
+        //THE ACCELEROMETER SENSOR
+        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
+        if (mSensorManager != null) {
+            mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            mSensorManager.registerListener( this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+
+        }
+
         //THE GESTURES VIEW
         govGestures = v.findViewById(R.id.gestures);
         govGestures.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
@@ -87,7 +109,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                 if (prediction != null) {
                     // do something with the prediction
                     //Toast.makeText(this, prediction.name + "(" + prediction.score + ")", Toast.LENGTH_LONG).show();
-                    Debug.showLogError("::::::::::::::::::: Gesture recognised: " + prediction.name);
+                    Debug.showLog("::::::::::::::::::: Gesture recognised: " + prediction.name);
                     //send order to Arduino depending on the recognised gesture type
                     viewModel.sendPolygonOrder(prediction);
                 }
@@ -104,12 +126,17 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         listenButtonsGasBrakeClear(v);
         observeTemperature(v);
         observeSpeed(v);
-
+        observeCollisions(v);
         mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
         mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-
     }
+
+    /**
+     * This is a listener for the sensors we have declared (the accelerometer).
+     * It stores the three values (x,y,z) but only stores in the viewModel the y coordinate.
+     * @param event is an event on the accelerometer.
+     */
     @Override
     public void onSensorChanged(SensorEvent event) {
         //From this list we will look for the Y value, as it shows the
@@ -122,11 +149,22 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         viewModel.setYRotation(y);
 
     }
+
+    /**
+     * This method does nothing for the moment, but Android Studio required it's overriding.
+     * @param sensor is the accelerometer.
+     * @param accuracy is the accuracy. Now it is not used.
+     */
     @Override
     public final void onAccuracyChanged(Sensor sensor, int accuracy) {
         // Do something here if sensor accuracy changes.
     }
 
+    /**
+     * Listener for the switch that represent the lights of the robot. When the switch is clicked it must send a message
+     * to the robot. The message sending part is still not implemented, for now it only turns the switch on/off.
+     * @param v is the view of the remote control.
+     */
     private void listenLightsSwitch(final View v){
         //LISTENING THE LIGHT'S SWITCH
         final Switch sLigths = v.findViewById(R.id.switch_mode_lights);
@@ -138,10 +176,17 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                     sLigths.setChecked(true);
                 } else {
                     // The toggle is disabled
+                    sLigths.setChecked(false);
                 }
             }
         });
     }
+
+    /**
+     * This method is a listener for the manual mode switch. Now, it changes the progress bar of the speed
+     * of the robot in order to see how it changes.
+     * @param v is the view of the remote control.
+     */
     private void listenManualModeSwitch(final View v){
         //LISTENING THE MANUAL MODE SWITCH
         final Switch sManualMode = v.findViewById(R.id.switch_manual_mode);
@@ -159,6 +204,12 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         });
 
     }
+
+    /**
+     * This method is a listener for the Gear Buttons. For now, this method changes de gear value
+     * and sends a debugging message.
+     * @param v is the view of the remote control.
+     */
     private void listenButtonsGear(final View v){
         //LISTENING TO GEAR BUTTONS
         final TextView tvGearText = v.findViewById(R.id.text_number_gear);
@@ -167,7 +218,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             @Override
             public void onClick(View v) {
                 tvGearText.setText(String.valueOf(viewModel.incrementGear()));
-                Debug.showLogError("Gear Up pressed");
+                Debug.showLog("Gear Up pressed");
             }
         });
         final ImageButton ibGearDown = v.findViewById(R.id.image_button_geardown);
@@ -175,7 +226,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             @Override
             public void onClick(View v) {
                 tvGearText.setText(String.valueOf(viewModel.decrementGear()));
-                Debug.showLogError("Gear Down pressed");
+                Debug.showLog("Gear Down pressed");
             }
         });
 
@@ -183,6 +234,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     private void listenCanvas(final View v){
         //LISTENING TO THE CANVAS OF THE SCREEN
         v.setOnTouchListener(new View.OnTouchListener() {
+            @SuppressLint("ClickableViewAccessibility")
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 //In order to adapt to different mobile resolutions we will check tye size of the lateral
@@ -192,30 +244,41 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                 LinearLayout llVerticalColision = v.findViewById(R.id.linearLayout_verticalCollisionIndicator);
 
                 if(event.getX() > llLateralLeft.getWidth() && event.getX() < (v.getWidth()-llLateralRight.getWidth()) && event.getY()> llVerticalColision.getMeasuredHeight()){
-                    Debug.showLogError("Canvas Pressed!!!!!");
-                    Debug.showLogError(String.valueOf(event.getX()));
-                    Debug.showLogError(String.valueOf(event.getY()));
+                    Debug.showLog("Canvas Pressed!!!!!");
+                    Debug.showLog(String.valueOf(event.getX()));
+                    Debug.showLog(String.valueOf(event.getY()));
 
                 }
                 return false;
             }
         });
     }
+
+    /**
+     * This method is a listener for the GAS, BRAKE and CLEAR buttons.
+     * It sets the status of the corresponding variables of the view model to
+     * false/true and send a debugging message.
+     * @param v is the view of the remote control.
+     */
+    @SuppressLint("ClickableViewAccessibility")
     private void listenButtonsGasBrakeClear(final View v){
         //LISTENING TO THE GAS, BRAKE OR CLEAR BUTTON
         final ImageButton ibGas = v.findViewById(R.id.image_button_gas);
+
         ibGas.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                v.performClick();
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Debug.showLogError("Aprieto el GAS!");
+                    Debug.showLog("Aprieto el GAS!");
                     viewModel.setGas(true);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Debug.showLogError("Dejo ir el GAS!");
+                    Debug.showLog("Dejo ir el GAS!");
                     viewModel.setGas(false);
                 }
                 return true;
             }
+
         });
 
         ImageButton ibBrake = v.findViewById(R.id.image_button_brake);
@@ -223,10 +286,10 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Debug.showLogError("Aprieto el BRAKE!");
+                    Debug.showLog("Aprieto el BRAKE!");
                     viewModel.setBrake(false);
                 } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Debug.showLogError("Dejo ir el BRAKE!");
+                    Debug.showLog("Dejo ir el BRAKE!");
                     viewModel.setBrake(false);
                 }
                 return true;
@@ -242,8 +305,13 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         });
 
     }
+    /**
+     * This method observes the temperature of the robot, a variable stored in the ViewModel.
+     * When a change in the temperature is observed, the value is set into the  progress bar of the view
+     * (termometer) and it's corresponding textView.
+     * @param v is the view of the remote control.
+     */
     private void observeTemperature(final View v){
-        //OBSERVING THE TEMPERATURE OF THE ROBOT
         final TextView tvTemperature = v.findViewById(R.id.text_temperature_number);
         final Observer<Integer> temperatureObserver = new Observer<Integer>() {
             @Override
@@ -253,30 +321,60 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                 pbTemperature.setProgress(newTemperature*3);
             }
         };
-        //Let's begin the observation!
+        //Declaring which variable is observed:
         viewModel.getTemperature().observe(this,temperatureObserver);
 
     }
+    private void observeCollisions(final View v){
+        final Observer<Integer> collisionFrontObserver = new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                changeStatusCollisionIndicators(0);
+            }
+        };
+        viewModel.getCollisionFront().observe(this,collisionFrontObserver);
+        final Observer<Integer> collisionLeftObserver = new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                changeStatusCollisionIndicators(2);
 
+            }
+        };
+        viewModel.getCollisionLeft().observe(this,collisionLeftObserver);
+
+        final Observer<Integer> collisionRightObserver = new Observer<Integer>() {
+            @Override
+            public void onChanged(@Nullable Integer integer) {
+                changeStatusCollisionIndicators(1);
+            }
+        };
+        viewModel.getCollisionRight().observe(this,collisionRightObserver);
+
+    }
+
+    /**
+     * This method observes the speed of the robot, a variable stored in the ViewModel.
+     * When a change in the speed is observed, the value is set into the circular progress bar of the view
+     * (velocimeter) and it's corresponding textView.
+     * @param v is the view of the remote control.
+     */
     private void observeSpeed(final View v){
-        //OBSERVING THE SPEED OF THE ROBOT
         final TextView tvSpeed = v.findViewById(R.id.text_speed_number);
         final Observer<Integer> speedObserver = new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable final Integer newSpeed) {
                 // Update the layout. We need to update both the progressbar and the value.
-                tvSpeed.setText(newSpeed.toString()+ " Km/h");
+                String saux = newSpeed.toString()+ " Km/h";
+                tvSpeed.setText(saux);
                 pbSpeed.setProgress(newSpeed);
             }
         };
-        //Let's begin the observation!
+        //Declaring which variable is observed:
         viewModel.getSpeed().observe(this,speedObserver);
     }
 
 
-    private void initViewModel(final View v){
-        viewModel = ViewModelProviders.of(getActivity()).get(CtrlRemotoViewModel.class);
-    }
+
 
     @Override
     public void onStop(){

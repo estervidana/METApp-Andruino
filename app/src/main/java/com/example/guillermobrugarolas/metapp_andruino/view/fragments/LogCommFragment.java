@@ -13,30 +13,24 @@ import android.widget.ListView;
 
 import com.example.guillermobrugarolas.metapp_andruino.R;
 import com.example.guillermobrugarolas.metapp_andruino.data.communication.Logger;
-import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.LogCommViewModel;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
+/**
+ * Displays the Logs of the messages sent to and from the robot/app.
+ */
 public class LogCommFragment extends Fragment {
     private LogCommViewModel viewModel;
     private ArrayAdapter<String> listAdapter;
 
+    /**
+     * Necessary empty constructor.
+     */
     public LogCommFragment() {
         // Required empty public constructor
-    }
-
-    public static LogCommFragment newInstance() { return new LogCommFragment();    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        Debug.showLogError("Entering the log comm fragment");
-    }
-
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
     }
 
     @Override
@@ -48,13 +42,20 @@ public class LogCommFragment extends Fragment {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        initViewModel(v);
+        initViewModel();
         return v;
     }
 
+    /**
+     * Associate the views.
+     *
+     * @param v The Fragments View.
+     * @throws IOException If an I/O error occurred.
+     */
     public void bindViews(View v) throws IOException {
         ListView lvLogs = v.findViewById(R.id.lvLogComm);
         List<String> logs = Logger.getInstance(getActivity().getApplicationContext()).getLogs();
+        Collections.reverse(logs);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getActivity().getApplicationContext(), android.R.layout.simple_list_item_1, logs.toArray(new String[0]));
         lvLogs.setAdapter(adapter);
         ImageButton ibBack = v.findViewById(R.id.image_button_back_log_comm);
@@ -66,7 +67,10 @@ public class LogCommFragment extends Fragment {
         });
     }
 
-    private void initViewModel(final View v){
+    /**
+     * Starts the ViewModel.
+     */
+    private void initViewModel(){
         viewModel = ViewModelProviders.of(getActivity()).get(LogCommViewModel.class);
     }
 }

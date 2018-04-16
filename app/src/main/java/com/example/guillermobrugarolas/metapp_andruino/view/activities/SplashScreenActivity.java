@@ -53,7 +53,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         transaction.setCustomAnimations(android.R.anim.slide_in_left, android.R.anim.slide_out_right);
         transaction.replace(R.id.activity_splashscreen_container, fragment, SPLASHSCREEN_FRAGMENT);
         transaction.commit();
-        Debug.showLogError("Entering the splashscreen activity");
+        Debug.showLog("Entering the splashscreen activity");
     }
 }
 

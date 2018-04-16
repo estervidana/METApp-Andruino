@@ -8,22 +8,29 @@ import android.os.IBinder;
 import android.os.SystemClock;
 import android.support.annotation.Nullable;
 
+import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
+
 import java.io.IOException;
-import java.net.SocketException;
-import java.net.UnknownHostException;
 
-
+/**
+ * Service used to receive UDP packets.
+ */
 public class CommunicationService extends IntentService {
 
+    /** Used to determine if the Service should be running or not. Once it is set to False it can not be set to True again. */
     private boolean running = true;
+    /** Interface used to receive messages. */
     private Communicator communicator;
 
+    /** Listener to alert when an action occurs. */
     private CommunicationServiceListener listener;
 
+    /** Empty constructor. */
     public CommunicationService() {
         super("CommService");
     }
 
+    /** Constructor that overrides super. */
     public CommunicationService(String name) {
         super(name);
     }
@@ -40,8 +47,10 @@ public class CommunicationService extends IntentService {
             try {
                 String message = UdpCommunicator.getInstance().receive();
                 listener.onMessageReceived(message);
+                Debug.showLog(message.split(";")[0]);
             } catch (IOException e) {
                 e.printStackTrace();
+                // used to avoid overflowing Logcat in case of error
                 SystemClock.sleep(1000);
             }
         }
@@ -77,8 +86,20 @@ public class CommunicationService extends IntentService {
         }
     }
 
+    /**
+     * Interface that must be implemented by the classes which want to listen to the actions done
+     * by the CommunicationService.
+     */
     public interface CommunicationServiceListener {
+        /**
+         * Called when the Service stops.
+         */
         void onServiceStopped();
+
+        /**
+         * Called when the Service receives a message.
+         * @param message The message received.
+         */
         void onMessageReceived(String message);
     }
 }

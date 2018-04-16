@@ -1,25 +1,16 @@
 package com.example.guillermobrugarolas.metapp_andruino.view.fragments;
 
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.hardware.Sensor;
-import android.hardware.SensorManager;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
 
-import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 import com.example.guillermobrugarolas.metapp_andruino.R;
-import com.example.guillermobrugarolas.metapp_andruino.view.activities.MainActivity;
+import com.example.guillermobrugarolas.metapp_andruino.debug.Debug;
 import com.example.guillermobrugarolas.metapp_andruino.viewModel.AccelViewModel;
 
 public class AccelFragment extends Fragment {
@@ -39,7 +30,7 @@ public class AccelFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Debug.showLogError("Entering the accelerometer fragment");
+        Debug.showLog("Entering the accelerometer fragment");
     }
 
     @Override
