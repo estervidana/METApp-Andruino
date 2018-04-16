@@ -24,7 +24,7 @@
             android:layout_gravity="center"/>
 
         <ImageButton
-            android:contentDescription="@string/ctrl_remoto_content_description"
+            android:contentDescription="@string/allclasses_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@mipmap/ic_ctrl"
@@ -45,7 +45,7 @@
             android:layout_height="1dp"
             android:background="@color/colorSecondaryDark"/>
         <ImageButton
-            android:contentDescription="@string/ctrl_remoto_content_description"
+            android:contentDescription="@string/allclasses_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@mipmap/ic_lab"
@@ -65,7 +65,7 @@
             android:layout_height="1dp"
             android:background="@color/colorSecondaryDark"/>
         <ImageButton
-            android:contentDescription="@string/ctrl_remoto_content_description"
+            android:contentDescription="@string/allclasses_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@mipmap/ic_accel"
@@ -84,7 +84,7 @@
             android:layout_height="1dp"
             android:background="@color/colorSecondaryDark"/>
         <ImageButton
-            android:contentDescription="@string/ctrl_remoto_content_description"
+            android:contentDescription="@string/allclasses_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@mipmap/ic_log"

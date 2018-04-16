@@ -10,7 +10,7 @@ import com.Grupo1.MET.metapp_andruino.R;
  */
 
 public class CtrlRemotoActivity extends AppCompatActivity {
-    private String CTRL_REMOTO_FRAGMENT = "CTRL_REMOTO_FRAGMENT";
+    private String CTRL_REMOTO_FRAGMENT = "CTRL_REMOTO_FRAGMENT"; //Name of the fragment.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

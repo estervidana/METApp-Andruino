@@ -11,7 +11,7 @@ import com.Grupo1.MET.metapp_andruino.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private String MAIN_FRAGMENT = "MAIN_FRAGMENT";
+    private String MAIN_FRAGMENT = "MAIN_FRAGMENT"; //Name of the fragment.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

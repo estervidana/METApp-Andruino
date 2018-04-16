@@ -11,7 +11,7 @@ import com.Grupo1.MET.metapp_andruino.R;
 
 public class AccelActivity extends AppCompatActivity {
 
-    private String ACCEL_FRAGMENT = "ACCEL_FRAGMENT";
+    private String ACCEL_FRAGMENT = "ACCEL_FRAGMENT"; //Name of the fragment.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

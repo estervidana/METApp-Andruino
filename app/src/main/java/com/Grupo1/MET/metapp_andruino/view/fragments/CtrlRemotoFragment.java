@@ -109,30 +109,11 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         if (mSensorManager != null) {
             mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
             mSensorManager.registerListener( this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
-
         }
 
         //THE GESTURES VIEW
         govGestures = v.findViewById(R.id.gestures);
-        govGestures.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
-            @Override
-            public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
-                ArrayList<Prediction> predictions = gLibrary.recognize(gesture);
-                Prediction prediction = (predictions.size() != 0) ? predictions.get(0) : null;
-                prediction = (prediction.score >= 1.0) ? prediction: null;
-                if (prediction != null) {
-                    // do something with the prediction
-                    //Toast.makeText(this, prediction.name + "(" + prediction.score + ")", Toast.LENGTH_LONG).show();
-                    Debug.showLog("::::::::::::::::::: Gesture recognised: " + prediction.name);
-                    //send order to Arduino depending on the recognised gesture type
-                    viewModel.sendPolygonOrder(prediction);
-                }
-            }
-        });
-        gLibrary = GestureLibraries.fromRawResource(getActivity(), R.raw.gestures);
-        if (!gLibrary.load()) {
-            this.getActivity().finish();
-        }
+
         listenLightsSwitch(v);
         listenManualModeSwitch(v);
         listenButtonsGear(v);
@@ -141,9 +122,8 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         observeTemperature(v);
         observeSpeed(v);
         observeCollisions(v);
-        mSensorManager = (SensorManager) getActivity().getSystemService(Context.SENSOR_SERVICE);
-        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mSensorManager.registerListener(this, mAccelerometer, 10000000);
+        listenPatternRecognition(v);
+
     }
 
     /**
@@ -393,9 +373,35 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         viewModel.getSpeed().observe(this,speedObserver);
     }
 
+    /**
+     * This method is the listener for the pattern recognition zone.
+     * @param v is the view of the model.
+     */
+    private void listenPatternRecognition(final View v){
+        govGestures.addOnGesturePerformedListener(new GestureOverlayView.OnGesturePerformedListener() {
+            @Override
+            public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
+                ArrayList<Prediction> predictions = gLibrary.recognize(gesture);
+                Prediction prediction = (predictions.size() != 0) ? predictions.get(0) : null;
+                prediction = (prediction.score >= 1.0) ? prediction: null;
+                if (prediction != null) {
+                    // do something with the prediction
+                    Toast.makeText(getActivity().getApplicationContext(), prediction.name + "(" + prediction.score + ")", Toast.LENGTH_LONG).show();
+                    Debug.showLog("::::::::::::::::::: Gesture recognised: " + prediction.name);
+                    //send order to Arduino depending on the recognised gesture type
+                    viewModel.sendPolygonOrder(prediction);
+                }
+            }
+        });
+        gLibrary = GestureLibraries.fromRawResource(getActivity(), R.raw.gestures);
+        if (!gLibrary.load()) {
+            this.getActivity().finish();
+        }
+    }
 
     @Override
     public void onStop(){
+        mSensorManager.unregisterListener(this);
         super.onStop();
     }
 

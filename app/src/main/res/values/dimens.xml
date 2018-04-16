@@ -1,31 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!-- Resources for main menu -->
-    <dimen name="MainButtonHeight">150dp</dimen>
-    <dimen name="MainButtonWidth">75dp</dimen>
-    <dimen name="menu_margins"> 10dp </dimen>
-    <dimen name="menu_title"> 40sp </dimen>
-    <dimen name="menu_title_margins"> 30dp </dimen>
-
+    <dimen name="MainButtonHeight">150dp</dimen> <!-- the height of the buttons-->
+    <dimen name="MainButtonWidth">75dp</dimen><!-- the width of the buttons-->
+    <dimen name="menu_margins"> 10dp </dimen> <!-- the margins between  the buttons -->
+    <dimen name="menu_title"> 40sp </dimen> <!-- the title size-->
+    <dimen name="menu_title_margins"> 30dp </dimen><!-- The margin between the title and the buttons-->
 
     <!-- Resources for the remote control -->
-    <dimen name="ctrl_remoto_speed_height">150dp</dimen>
-    <dimen name="ctrl_remoto_speed_width">150dp</dimen>
-    <dimen name="ctrl_remoto_margin_left_lights">10dp</dimen>
-    <dimen name="ctrl_remoto_margin_top">15dp</dimen>
-    <dimen name="ctrl_remoto_margin_left_collision_indicators">15dp</dimen>
-    <dimen name="ctrl_remoto_termometer_height">80dp</dimen>
-    <dimen name="ctrl_remoto_termometer_width">90dp</dimen>
-    <dimen name="ctrl_remoto_padding_top_pattern">60dp</dimen>
+    <dimen name="ctrl_remoto_speed_height">150dp</dimen> <!-- the height of speed progressbar-->
+    <dimen name="ctrl_remoto_speed_width">150dp</dimen><!-- the width of the speed progressbar-->
+    <dimen name="ctrl_remoto_margin_left_lights">10dp</dimen><!-- the height of the buttons-->
+    <dimen name="ctrl_remoto_margin_top">15dp</dimen><!-- the margin of the top of the screen-->
+    <dimen name="ctrl_remoto_margin_left_collision_indicators">15dp</dimen><!-- the left margin of the collision indicators-->
+    <dimen name="ctrl_remoto_termometer_height">80dp</dimen><!-- the termometer height-->
+    <dimen name="ctrl_remoto_termometer_width">90dp</dimen><!-- the termometer width-->
+    <dimen name="ctrl_remoto_padding_top_pattern">60dp</dimen> <!-- the margin for the pattern recognition
+    part of the layout-->
+    <dimen name="ctrl_remoto_pattern_recognition_size">150dp</dimen><!-- size of the pattern recognition square-->
+    <dimen name="ctrl_remoto_padding_start">10dp</dimen><!-- padding at the top-->
+
     <!-- Resources for the accelerometer -->
-    <dimen name="accel_margins">15dp</dimen>
+    <dimen name="accel_margins">15dp</dimen> <!-- the margins of the values-->
+    <dimen name="accel_text_size">25sp</dimen> <!-- the text size for the text views.-->
+    <dimen name="accel_image_size">160dp</dimen> <!-- the text of the imag.-->
 
     <!-- Resources for the splash screen -->
-    <dimen name="splash_height">300dp</dimen>
-    <dimen name="splash_width">200dp</dimen>
-    <dimen name="splash_titleSize">50dp</dimen>
+    <dimen name="splash_height">300dp</dimen> <!-- height of the logo of the splashscreen-->
+    <dimen name="splash_width">200dp</dimen> <!-- width of the logo of the splashscreen-->
+    <dimen name="splash_titleSize">50dp</dimen><!-- title size of the splashscreen-->
 
+    <!-- Resources for the lab screen -->
+    <dimen name="lab_margin_top">10dp</dimen><!-- space for the top margin-->
 
+    <!-- Resources for the logcomm screen -->
+    <dimen name="log_margin_top">15dp</dimen><!-- space for the top margin-->
+    <dimen name="log_text_size">25sp</dimen><!-- text size-->
+    <dimen name="log_size">400dp</dimen><!-- height of the logcom panel-->
+    <dimen name="log_divider">2dp</dimen><!-- size of the dividing line between each panel-->
 
+    <dimen name="back_button_space">10dp</dimen><!-- space for the backbutton-->
 
 </resources>

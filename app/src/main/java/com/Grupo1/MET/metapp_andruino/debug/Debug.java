@@ -5,8 +5,8 @@ import android.util.Log;
 
 public class Debug {
     public Debug(){}
-
-    private static final boolean debugEnable = true;
+    //Class for debugging.
+    private static final boolean debugEnable = true; //If true all the logs will be displayed.
 
     public static void showLog(String message){
         if(debugEnable) {

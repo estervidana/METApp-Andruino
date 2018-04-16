@@ -18,9 +18,11 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
     public CtrlRemotoViewModel(){
         Repository.getInstance().addListener(this);
     }
+    //Variables of the class:
     private int gear = 0;
     private final int MAXGEAR = 3;
     private final int MINGEAR = -3;
+    private final int MAXTIME = 500;
 
     private boolean gas = false;
     private boolean brake = false;
@@ -50,18 +52,33 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
         }
         return speed;
     }
+    /**
+     * This method returns the value of the collisionFront variable, which is observed by the view.
+     * @return the status of the collisionFront (0 if there's no collision, otherwise 1). This variable
+     * is observed in the view.
+     */
     public MutableLiveData<Integer> getCollisionFront() {
         if (collisionFront == null) {
             collisionFront = new MutableLiveData<>();
         }
         return collisionFront;
     }
+    /**
+     * This method returns the value of the collisionLeft variable, which is observed by the view.
+     * @return the status of the collisionLeft (0 if there's no collision, otherwise 1). This variable
+     * is observed in the view.
+     */
     public MutableLiveData<Integer> getCollisionLeft() {
         if (collisionLeft == null) {
             collisionLeft = new MutableLiveData<>();
         }
         return collisionLeft;
     }
+    /**
+     * This method returns the value of the collisionRight variable, which is observed by the view.
+     * @return the status of the collisionRight (0 if there's no collision, otherwise 1). This variable
+     * is observed in the view.
+     */
     public MutableLiveData<Integer> getCollisionRight() {
         if (collisionRight == null) {
             collisionRight = new MutableLiveData<>();
@@ -105,10 +122,10 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
     public int incrementGear(){
         if (gear != MAXGEAR){
             gear++;
-            //AUX! MUST BE REMOVED!!!!
-            setSpeed(gear);
-            //AUX!!! MUST BE REMOVED!!!
-            setTemperature(gear);
+            //Aux, to test the speed listener.
+            setSpeed(gear*10);
+            //Aux, to test the temperature listener.
+            setTemperature(gear*10);
         }
         return gear;
     }
@@ -136,7 +153,6 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
             yPosition = 3;
         }else if (y<6 && y>=3){
             yPosition = 2;
-
         }else if (y<3 && y>=1) {
             yPosition = 1;
         }else if(y<1 && y>=-1){
@@ -149,7 +165,9 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
         }else{
             yPosition = -3;
         }
-        if (oldYPosition != yPosition && System.currentTimeMillis() - tOld > 500){
+        //Check if the position detected is the same that we had stored and that the time between a change is greater than
+        //MAXTIME so is there is noise the Android mobile does not send too many notifications.
+        if (oldYPosition != yPosition && System.currentTimeMillis() - tOld > MAXTIME){
             tOld = System.currentTimeMillis();
             switch (yPosition){
                 case 3:
@@ -180,6 +198,8 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
 
     @Override
     public void onMessageReceived(String message) {
+        //When receiving a message, we need to process the string.
+        //In this case only the collisions are cheked.
         String msg[] =message.split(";");
         String msgHeader[] =msg[0].split(":");
         Debug.showLog(msgHeader[0]);
@@ -210,6 +230,10 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
     public void onServiceStopped() {
     }
 
+    /**
+     * This method will send the message of sending a polygon to the Arduino.
+     * @param prediction is the polygon that has been detected.
+     */
     public void sendPolygonOrder (Prediction prediction) {
         if (prediction.name.equals("Circle")) {
             Debug.showLog("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");

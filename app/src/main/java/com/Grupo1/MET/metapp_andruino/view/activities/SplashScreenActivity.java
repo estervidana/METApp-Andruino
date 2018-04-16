@@ -22,7 +22,7 @@ import java.io.IOException;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
-    private static final String SPLASHSCREEN_FRAGMENT = "SPLASHSCREEN_FRAGMENT";
+    private static final String SPLASHSCREEN_FRAGMENT = "SPLASHSCREEN_FRAGMENT";//Name of the fragment.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

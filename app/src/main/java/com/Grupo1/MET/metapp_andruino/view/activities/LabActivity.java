@@ -10,7 +10,7 @@ import com.Grupo1.MET.metapp_andruino.R;
  */
 
 public class LabActivity extends AppCompatActivity {
-    private static final String LAB_FRAGMENT = "LAB_FRAGMENT";
+    private static final String LAB_FRAGMENT = "LAB_FRAGMENT"; //Name of the fragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
