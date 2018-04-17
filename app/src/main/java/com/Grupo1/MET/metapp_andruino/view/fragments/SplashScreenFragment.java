@@ -59,6 +59,7 @@ public class SplashScreenFragment extends Fragment {
 
     /**
      * This method links every view item to its corresponding layout item.
+     *
      * @param v The view that contains these items.
      */
     private void bindViews(View v){

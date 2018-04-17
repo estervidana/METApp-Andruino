@@ -11,6 +11,11 @@
         android:layout_height="match_parent"
         android:id="@+id/activity_splashscreen_container">
 
+        <fragment
+            android:name="com.Grupo1.MET.metapp_andruino.view.fragments.SplashScreenFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/splash_screen_fragment"/>
     </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>
