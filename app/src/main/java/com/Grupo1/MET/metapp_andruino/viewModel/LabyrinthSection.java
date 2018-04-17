@@ -77,7 +77,7 @@ public class LabyrinthSection {
 
     /**
      * getter of the array of walls.
-     * @returns the value of walls.
+     * @return the value of walls.
      */
     public boolean[] getWalls() {
         return walls;

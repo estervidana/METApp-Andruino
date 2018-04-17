@@ -318,7 +318,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
             @Override
             public void onChanged(@Nullable final Integer newTemperature) {
                 // Update the layout. Both the number of the temperature and the thermometer
-                tvTemperature.setText(newTemperature.toString()+'º');
+                tvTemperature.setText(getResources().getString(R.string.ctrl_remoto_display_temperature, newTemperature));
                 pbTemperature.setProgress(newTemperature*3);
             }
         };

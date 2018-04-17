@@ -21,6 +21,7 @@
     <string name="ctrl_remoto_temperature_text">Temperature:  </string><!-- temperature text-->
     <string name="ctrl_remoto_temp_value_text">0°:  </string><!--first temperature value -->
     <string name="ctrl_remoto_number_gear_text">0</string><!-- first gear value-->
+    <string name="ctrl_remoto_display_temperature">%1$d º</string>
     <!-- Accelerometer section -->
     <string name="accel_z_accel_text">Z accel: -9.81 m/s2</string> <!-- z accel initial value-->
     <string name="accel_y_accel_text">Y accel: 5.09 m/s2</string><!-- y accel inital value-->
