@@ -11,7 +11,6 @@ import android.support.annotation.Nullable;
 import com.Grupo1.MET.metapp_andruino.debug.Debug;
 
 import java.io.IOException;
-import java.net.SocketException;
 
 /**
  * Service used to receive UDP packets.
@@ -62,16 +61,6 @@ public class CommunicationService extends IntentService {
         super.onStartCommand(intent, flags, startId);
         running = true;
         return Service.START_NOT_STICKY;
-    }
-
-    private void createCommunicator() {
-        try {
-            communicator = UdpCommunicator.getInstance();
-        } catch (SocketException e) {
-            running = false;
-            //listener.onServiceStopped();
-            e.printStackTrace();
-        }
     }
 
     @Override
