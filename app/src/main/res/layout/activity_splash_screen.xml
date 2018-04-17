@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.guillermobrugarolas.metapp_andruino.view.activities.SplashScreenActivity"
+    tools:context="com.Grupo1.MET.metapp_andruino.view.activities.SplashScreenActivity"
     android:id="@+id/splashscreen_activity"
     android:orientation="vertical">
     <FrameLayout
@@ -12,6 +11,11 @@
         android:layout_height="match_parent"
         android:id="@+id/activity_splashscreen_container">
 
+        <fragment
+            android:name="com.Grupo1.MET.metapp_andruino.view.fragments.SplashScreenFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/splash_screen_fragment"/>
     </FrameLayout>
 
 </android.support.constraint.ConstraintLayout>

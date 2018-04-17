@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
-    tools:context="com.example.guillermobrugarolas.metapp_andruino.view.fragments.AccelFragment">
+    tools:context="com.Grupo1.MET.metapp_andruino.view.fragments.AccelFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginTop="15dp">
+        android:layout_marginTop="@dimen/accel_margins">
 
         <TextView
             android:id="@+id/tvZAccel"
@@ -20,15 +19,16 @@
             android:layout_marginStart="@dimen/accel_margins"
             android:gravity="center"
             android:text="@string/accel_z_accel_text"
-            android:textSize="25sp" />
+            android:textSize="@dimen/accel_text_size" />
 
         <ImageView
+            android:contentDescription="@string/allclasses_content_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/xyzaxis"
             android:adjustViewBounds="true"
-            android:maxWidth="160dp"
-            android:maxHeight="160dp"
+            android:maxWidth="@dimen/accel_image_size"
+            android:maxHeight="@dimen/accel_image_size"
             android:scaleType="fitCenter"
             android:gravity="center"
             android:layout_gravity="center"/>
@@ -45,7 +45,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_margin="@dimen/accel_margins"
                 android:text="@string/accel_x_accel_text"
-                android:textSize="25sp" />
+                android:textSize="@dimen/accel_text_size" />
 
             <TextView
                 android:id="@+id/tvYAccel"
@@ -54,17 +54,18 @@
                 android:layout_alignParentEnd="true"
                 android:layout_margin="@dimen/accel_margins"
                 android:text="@string/accel_y_accel_text"
-                android:textSize="25sp" />
+                android:textSize="@dimen/accel_text_size" />
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <ImageButton
+                android:contentDescription="@string/allclasses_content_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="10dp"
-                android:layout_alignParentRight="true"
+                android:layout_marginEnd="@dimen/back_button_space"
+                android:layout_alignParentEnd="true"
                 android:background="@mipmap/ic_back"
                 android:id="@+id/image_button_back_accel"/>
         </RelativeLayout>

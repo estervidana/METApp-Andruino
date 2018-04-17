@@ -1,85 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.guillermobrugarolas.metapp_andruino.view.fragments.CtrlRemotoFragment">
+    android:orientation="horizontal"
+    android:layout_marginTop="@dimen/ctrl_remoto_margin_top"
+    android:layout_marginBottom="@dimen/ctrl_remoto_margin_top"
+    tools:context="com.Grupo1.MET.metapp_andruino.view.fragments.CtrlRemotoFragment">
+
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="horizontal"
-        android:layout_marginTop="@dimen/ctrl_remoto_margin_top"
-        android:layout_marginBottom="@dimen/ctrl_remoto_margin_top">
+        android:orientation="vertical"
+        android:id="@+id/linearLayout_lateralLeft">
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/linearLayout_lateralLeft">
-            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ctrl_remoto_lights_text"
+                android:id="@+id/text_lights"
+                android:layout_marginStart="@dimen/ctrl_remoto_margin_left_lights"/>
+
+            <Switch
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ctrl_remoto_lights_text"
-                    android:id="@+id/text_lights"
-                    android:layout_marginStart="@dimen/ctrl_remoto_margin_left_lights"/>
-
-                <Switch
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/switch_mode_lights"
-                    android:shadowColor="@color/colorSecondary"
-                    android:layout_gravity="end" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/ctrl_remoto_manual_mode_text"
-                    android:id="@+id/text_manual_mode"
-                    android:layout_marginStart="@dimen/ctrl_remoto_margin_left_lights"/>
-                <Switch
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/switch_manual_mode"
-                    android:shadowColor="@color/colorSecondary"
-                    android:layout_gravity="end"
-                    android:layout_marginStart="10dp"/>
-            </LinearLayout>
-
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_gravity="center"
-                android:gravity="bottom">
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_gas"
-                    android:id="@+id/image_button_gas"
-                    />
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_brake"
-                    android:id="@+id/image_button_brake"
-                    />
-            </LinearLayout>
+                android:id="@+id/switch_mode_lights"
+                android:shadowColor="@color/colorSecondary"
+                android:layout_gravity="end" />
         </LinearLayout>
-
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ctrl_remoto_manual_mode_text"
+                android:id="@+id/text_manual_mode"
+                android:layout_marginStart="@dimen/ctrl_remoto_margin_left_lights"/>
+            <Switch
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/switch_manual_mode"
+                android:shadowColor="@color/colorSecondary"
+                android:layout_gravity="end"
+                android:layout_marginStart="@dimen/ctrl_remoto_padding_start"/>
+        </LinearLayout>
 
         <View
             android:layout_width="0dp"
@@ -89,178 +59,200 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:id="@+id/linearLayout_verticalCollisionIndicator">
-            <TextView
+            android:orientation="horizontal"
+            android:layout_gravity="center"
+            android:gravity="bottom">
+            <ImageButton
+                android:contentDescription="@string/allclasses_content_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text = "@string/ctrl_remoto_collision_text"
-                android:gravity = "center"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorPrimary"/>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text ="@string/ctrl_remoto_frontal_text"
-                    android:gravity = "center"
-                    android:textColor="@color/colorDefaultText"
-                    android:id="@+id/text_frontal_collision"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text ="@string/ctrl_remoto_back_left_text"
-                    android:gravity = "center"
-                    android:layout_marginStart="@dimen/ctrl_remoto_margin_left_collision_indicators"
-                    android:textColor="@color/colorDefaultText"
-                    android:id="@+id/text_back_left_collision"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text ="@string/ctrl_remoto_back_right_text"
-                    android:gravity = "center"
-                    android:layout_marginStart="@dimen/ctrl_remoto_margin_left_collision_indicators"
-                    android:textColor="@color/colorDefaultText"
-                    android:id="@+id/text_back_right_collision"/>
-            </LinearLayout>
-
-            <TextView
+                android:background="@mipmap/ic_gas"
+                android:id="@+id/image_button_gas"
+                />
+            <ImageButton
+                android:contentDescription="@string/allclasses_content_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ctrl_remoto_pattern_text"
-                android:layout_marginTop="@dimen/ctrl_remoto_padding_top_pattern"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/colorPrimary"/>
-
-            <android.gesture.GestureOverlayView
-                android:id="@+id/gestures"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:gestureColor="@color/colorPrimary"
-                android:gestureStrokeType="single" />
-
+                android:background="@mipmap/ic_brake"
+                android:id="@+id/image_button_brake"
+                />
         </LinearLayout>
+    </LinearLayout>
+
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout_verticalCollisionIndicator">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "@string/ctrl_remoto_collision_text"
+            android:gravity = "center"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"/>
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="@string/ctrl_remoto_frontal_text"
+                android:gravity = "center"
+                android:textColor="@color/colorDefaultText"
+                android:id="@+id/text_frontal_collision"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="@string/ctrl_remoto_back_left_text"
+                android:gravity = "center"
+                android:layout_marginStart="@dimen/ctrl_remoto_margin_left_collision_indicators"
+                android:textColor="@color/colorDefaultText"
+                android:id="@+id/text_back_left_collision"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text ="@string/ctrl_remoto_back_right_text"
+                android:gravity = "center"
+                android:layout_marginStart="@dimen/ctrl_remoto_margin_left_collision_indicators"
+                android:textColor="@color/colorDefaultText"
+                android:id="@+id/text_back_right_collision"/>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ctrl_remoto_pattern_text"
+            android:layout_marginTop="@dimen/ctrl_remoto_padding_top_pattern"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/colorPrimary"/>
+
+        <android.gesture.GestureOverlayView
+            android:id="@+id/gestures"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ctrl_remoto_pattern_recognition_size"
+            android:gestureColor="@color/colorPrimary"
+            android:gestureStrokeType="single" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/ctrl_remoto_temperature_text" />
+        <ProgressBar
+            android:id="@+id/progressbar_temperature"
+            android:layout_width="@dimen/ctrl_remoto_termometer_width"
+            android:layout_height="@dimen/ctrl_remoto_termometer_height"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:progressDrawable="@drawable/progressbar_vertical"
+            android:progress="1" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="@string/ctrl_remoto_temp_value_text"
+            android:gravity="center"
+            android:id="@+id/text_temperature_number" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/linearLayout_lateralRight">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/ctrl_remoto_speed_text"
+            android:layout_gravity="center"
+            android:id="@+id/text_speed_text"/>
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativelayout_speed">
+
+            <ProgressBar
+                android:id="@+id/progressbar_circular_progress"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="@dimen/ctrl_remoto_speed_width"
+                android:layout_height="@dimen/ctrl_remoto_speed_height"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="end|fill_horizontal"
+                android:layout_marginTop="@dimen/ctrl_remoto_padding_start"
+                android:indeterminate="false"
+                android:max="180"
+                android:progress="90"
+                android:progressDrawable="@drawable/progressbar_circular"
+                />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/ctrl_remoto_speed_number_text"
+                android:id="@+id/text_speed_number"/>
+
+        </RelativeLayout>
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/ctrl_remoto_temperature_text" />
-            <ProgressBar
-                android:id="@+id/progressbar_temperature"
-                android:layout_width="@dimen/ctrl_remoto_termometer_width"
-                android:layout_height="@dimen/ctrl_remoto_termometer_height"
-                style="@android:style/Widget.ProgressBar.Horizontal"
-                android:progressDrawable="@drawable/progressbar_vertical"
-                android:progress="1" />
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:text="@string/ctrl_remoto_temp_value_text"
-                android:gravity="center"
-                android:id="@+id/text_temperature_number" />
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/linearLayout_lateralRight">
-            <TextView
+            android:layout_gravity="center_horizontal"
+            android:gravity="bottom">
+            <ImageButton
+                android:contentDescription="@string/allclasses_content_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/ctrl_remoto_speed_text"
-                android:layout_gravity="center"
-                android:id="@+id/text_speed_text"/>
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/relativelayout_speed">
-
-                <ProgressBar
-                    android:id="@+id/progressbar_circular_progress"
-                    style="?android:attr/progressBarStyleHorizontal"
-                    android:layout_width="@dimen/ctrl_remoto_speed_width"
-                    android:layout_height="@dimen/ctrl_remoto_speed_height"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="end|fill_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:indeterminate="false"
-                    android:max="180"
-                    android:progress="90"
-                    android:progressDrawable="@drawable/progressbar_circular"
-                    />
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="@string/ctrl_remoto_speed_number_text"
-                    android:id="@+id/text_speed_number"/>
-
-            </RelativeLayout>
-            <View
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
+                android:background="@mipmap/ic_gear_up"
+                android:id="@+id/image_button_gearup"/>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="bottom">
-                <ImageButton
+                android:orientation="vertical"
+                android:layout_gravity="center">
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_gear_up"
-                    android:layout_below="@id/relativelayout_speed"
-                    android:layout_centerHorizontal="true"
-                    android:id="@+id/image_button_gearup"/>
-                <LinearLayout
+                    android:text="@string/ctrl_remoto_gear_text"
+                    android:id="@+id/gear_text"/>
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:layout_gravity="center"
-                    >
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/ctrl_remoto_gear_text"
-                        android:layout_below="@id/image_button_gearup"
-                        android:layout_centerHorizontal="true"
-                        android:id="@+id/gear_text"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/text_number_gear"
-                        android:layout_below="@id/gear_text"
-                        android:layout_centerHorizontal="true"
-                        android:text="@string/ctrl_remoto_number_gear_text"
-                        android:layout_gravity="center"/>
-                </LinearLayout>
-                <ImageButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/ic_gear_down"
-                    android:layout_below="@id/text_number_gear"
-                    android:layout_centerHorizontal="true"
-                    android:id="@+id/image_button_geardown"/>
+                    android:id="@+id/text_number_gear"
+                    android:text="@string/ctrl_remoto_number_gear_text"
+                    android:layout_gravity="center"/>
             </LinearLayout>
             <ImageButton
+                android:contentDescription="@string/allclasses_content_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginEnd="10dp"
-                android:background="@mipmap/ic_back_ctrl_rem"
-                android:id="@+id/image_button_back_ctrl_remoto"/>
+                android:background="@mipmap/ic_gear_down"
+                android:id="@+id/image_button_geardown"/>
         </LinearLayout>
+        <ImageButton
+            android:contentDescription="@string/allclasses_content_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginEnd="@dimen/back_button_space"
+            android:background="@mipmap/ic_back_ctrl_rem"
+            android:id="@+id/image_button_back_ctrl_remoto"/>
     </LinearLayout>
-</FrameLayout>
+</LinearLayout>

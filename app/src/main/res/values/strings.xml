@@ -1,30 +1,35 @@
 <resources>
-    <string name="app_name">Control Me</string>
+    <string name="app_name">Control Me</string> <!-- app name -->
     <!-- Main menu section -->
-    <string name="main_menu_ctrl_remoto_text">CONTROL REMOTO</string>
-    <string name="main_menu_accel_text">RETO ACELERÓMETRO</string>
-    <string name="main_menu_log_comm_text">LOG COMUNICACIÓN</string>
-    <string name="main_menu_labyrinth_text">SOLUCIÓN LABERINTO</string>
+    <string name="main_menu_ctrl_remoto_text">REMOTE CONTROL </string> <!-- remote control tv text-->
+    <string name="main_menu_accel_text">ACCELEROMETER  </string><!--accelerometer tv text -->
+    <string name="main_menu_log_comm_text">LOGS           </string><!-- logs tv text-->
+    <string name="main_menu_labyrinth_text">LABYRINTH      </string> <!-- labyrinth tv text-->
+    <string name="main_menu_title">MENU      </string><!-- title text-->
+
     <!-- Remote control section -->
-    <string name="ctrl_remoto_speed_text">Speed:</string>
-    <string name="ctrl_remoto_speed_number_text">--Km/h</string>
-    <string name="ctrl_remoto_lights_text">Lights:       </string>
-    <string name="ctrl_remoto_manual_mode_text">Manual mode:  </string>
-    <string name="ctrl_remoto_gear_text">Gear:  </string>
-    <string name="ctrl_remoto_collision_text">Collision indicator:  </string>
-    <string name="ctrl_remoto_frontal_text">Frontal  </string>
-    <string name="ctrl_remoto_back_left_text">Back left  </string>
-    <string name="ctrl_remoto_back_right_text">Back right  </string>
-    <string name="ctrl_remoto_pattern_text">Draw your pattern:  </string>
-    <string name="ctrl_remoto_temperature_text">Temperature:  </string>
-    <string name="ctrl_remoto_temp_value_text">0°:  </string>
-    <string name="ctrl_remoto_number_gear_text">0</string>
+    <string name="ctrl_remoto_speed_text">Speed:</string> <!-- speed text-->
+    <string name="ctrl_remoto_speed_number_text">--Km/h</string><!-- speed units-->
+    <string name="ctrl_remoto_lights_text">Lights:       </string><!-- lights text-->
+    <string name="ctrl_remoto_manual_mode_text">Manual mode:  </string><!-- manual mode text-->
+    <string name="ctrl_remoto_gear_text">Gear:  </string><!-- gear text-->
+    <string name="ctrl_remoto_collision_text">Collision indicator:  </string> <!-- collision indicator title text-->
+    <string name="ctrl_remoto_frontal_text">Frontal  </string><!-- frontal collision indicator text-->
+    <string name="ctrl_remoto_back_left_text">Back left  </string><!-- back left collision text-->
+    <string name="ctrl_remoto_back_right_text">Back right  </string><!-- back right collision text-->
+    <string name="ctrl_remoto_pattern_text">Draw your pattern:  </string><!-- pattern text-->
+    <string name="ctrl_remoto_temperature_text">Temperature:  </string><!-- temperature text-->
+    <string name="ctrl_remoto_temp_value_text">0°:  </string><!--first temperature value -->
+    <string name="ctrl_remoto_number_gear_text">0</string><!-- first gear value-->
     <!-- Accelerometer section -->
-    <string name="accel_z_accel_text">Z Acceleration (Gs):</string>
-    <string name="accel_y_accel_text">Y Acceleration (Gs):</string>
-    <string name="accel_x_accel_text">X Acceleration (Gs):</string>
-    <string name="accel_tilt_text">Tilt:</string>
+    <string name="accel_z_accel_text">Z accel: -9.81 m/s2</string> <!-- z accel initial value-->
+    <string name="accel_y_accel_text">Y accel: 5.09 m/s2</string><!-- y accel inital value-->
+    <string name="accel_x_accel_text">X accel: 3.44 m/s2</string><!--  x accel initial value-->
+    <string name="accel_tilt_text">Tilt:</string> <!-- tilt title text-->
     <!-- Log Comm section -->
-    <string name="log_comm_header_text">Message | Type | In/Out | Date</string>
+    <string name="log_comm_header_text">Message | Type | In/Out | Date</string><!-- title for the logcom-->
+
+
+    <string name="allclasses_content_description"> This is an auxiliar content description</string><!-- auxiliary content description -->
 
 </resources>

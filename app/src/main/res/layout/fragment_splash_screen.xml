@@ -1,33 +1,29 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.guillermobrugarolas.metapp_andruino.view.fragments.SplashScreenFragment">
-
-    <LinearLayout
-        android:orientation="vertical"
+    tools:context="com.Grupo1.MET.metapp_andruino.view.fragments.SplashScreenFragment"
+    android:orientation="vertical"
+    android:gravity="center">
+    <ImageView
+        android:contentDescription="@string/allclasses_content_description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:maxHeight="@dimen/splash_height"
+        android:maxWidth="@dimen/splash_width"
+        android:scaleType="fitCenter"
+        android:id="@+id/ivLogo"
+        android:adjustViewBounds="true"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:src="@drawable/ic_andruino"/>
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center">
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:maxHeight="300dp"
-            android:maxWidth="200dp"
-            android:scaleType="fitCenter"
-            android:id="@+id/ivLogo"
-            android:adjustViewBounds="true"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:src="@drawable/ic_andruino"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:maxHeight="100dp"
-            android:id="@+id/tvTitle"
-            android:text="@string/app_name"
-            android:gravity="center"
-            android:textAlignment="center"
-            android:textSize="30dp"/>
-    </LinearLayout>
-</FrameLayout>
+        android:layout_height="wrap_content"
+        android:maxHeight="100dp"
+        android:id="@+id/tvTitle"
+        android:text="@string/app_name"
+        android:gravity="center"
+        android:textAlignment="center"
+        android:textSize="@dimen/splash_titleSize"/>
+</LinearLayout>
