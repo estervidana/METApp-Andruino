@@ -39,6 +39,7 @@ import java.util.ArrayList;
  * This class represents the remote control fragments that displays its view items.
  */
 public class CtrlRemotoFragment extends Fragment implements SensorEventListener {
+    //fixme JavaDoc comments should only apply to one variable, not multiple ones.
     /** The view model that controls the remote control view. */
     private CtrlRemotoViewModel viewModel;
     /** The visual progress bars for the robot speed and temperature, respectively. */
@@ -136,6 +137,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         //rotation of the device when it is placed landscape.
         //Positive values indicate right rotation of the robot.
         //Negative values indicate left rotation of the robot.
+        //fixme remove unnecessary variables.
         float x = event.values[0];
         float y = event.values[1];
         float z = event.values[2];
@@ -151,7 +153,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
      */
     @Override
     public final void onAccuracyChanged(Sensor sensor, int accuracy) {
-        // Do something here if sensor accuracy changes.
+        // TODO implement
     }
 
     /**
@@ -315,7 +317,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         final Observer<Integer> temperatureObserver = new Observer<Integer>() {
             @Override
             public void onChanged(@Nullable final Integer newTemperature) {
-                // Update the layout. Both the number of the temperature and the termometer
+                // Update the layout. Both the number of the temperature and the thermometer
                 tvTemperature.setText(newTemperature.toString()+'º');
                 pbTemperature.setProgress(newTemperature*3);
             }
@@ -326,7 +328,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     }
 
     /**
-     * This methos observes the collision variables of the viewModel. Then it changes the status of the collision indicator.
+     * This method observes the collision variables of the viewModel. Then it changes the status of the collision indicator.
      *
      * @param v is the view.
      */
@@ -419,23 +421,25 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
      * @param status must be 0(no collision), 1 (collision).
      */
     public void changeStatusCollisionIndicators(int indicator, int status) {
+        // TODO Status and Indicator should be public static final variables to avoid the overhead of remembering which
+        // integer value applies to which Status / Indicator.
         switch (indicator){
             case 0:
-                if (status ==1){
+                if (status == 1){
                     tvFrontalCollision.setTextColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     tvFrontalCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));
                 }
                 break;
             case 1:
-                if (status ==1){
+                if (status == 1){
                     tvBackRightCollision.setTextColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     tvBackRightCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));
                 }
                 break;
             case 2:
-                if (status ==1){
+                if (status == 1){
                     tvBackLeftCollision.setTextColor(getResources().getColor(R.color.colorAccent));
                 } else {
                     tvBackLeftCollision.setTextColor(getResources().getColor(R.color.colorDefaultText));

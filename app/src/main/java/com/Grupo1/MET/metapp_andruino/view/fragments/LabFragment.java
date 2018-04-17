@@ -113,8 +113,7 @@ public class LabFragment extends Fragment {
         });
 
         rvLab = view.findViewById(R.id.rvLabyrinth);
-        int nCols = MAX_COLUMNS;
-        rvLab.setLayoutManager(new GridLayoutManager(this.getActivity(), nCols));
+        rvLab.setLayoutManager(new GridLayoutManager(this.getActivity(), MAX_COLUMNS));
         imageDataAdapter = matrixToArrayImageData(imageData);
         adapter = new RecyclerViewAdapter(this.getActivity(), imageDataAdapter);
         rvLab.setAdapter(adapter);
@@ -400,7 +399,7 @@ public class LabFragment extends Fragment {
     }
 
     /**
-     * This method displays a random labyrinth at the beginning.
+     * This method displays a predefined labyrinth for testing.
      */
     private void displayRandomLab() {
         imageData[4][0].setPadding(0,5,0,5);
