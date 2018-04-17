@@ -1,15 +1,13 @@
 package com.Grupo1.MET.metapp_andruino.view.fragments;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -22,12 +20,13 @@ import com.Grupo1.MET.metapp_andruino.viewModel.RecyclerViewAdapter;
 /**
  * This class represents the labyrinth fragment that displays its view items.
  */
-
 public class LabFragment extends Fragment {
     /** The maximum number of rows in the labyrinth (5). */
     private static final int MAX_ROWS = 5;
     /** The maximum number of columns in the labyrinth (5). */
     private static final int MAX_COLUMNS = 5;
+    //fixme robot orientation should be an Int and use static final fields for RIGHT, LEFT, etc.
+    // this will improve performance.
     /** The orientation of the robot in the labyrinth. */
     private String robotOrientation;
     /** The button to go through the solution to the labyrinth. */
@@ -92,6 +91,7 @@ public class LabFragment extends Fragment {
 
     /**
      * This method links every view item to its corresponding layout item.
+     *
      * @param view The view that contains the view items.
      */
     private void bindViews(View view) {
@@ -133,30 +133,35 @@ public class LabFragment extends Fragment {
                         int currPaddTop = imageData[count1][count2].getPaddingTop();
                         int currPaddRight = imageData[count1][count2].getPaddingRight();
                         int currPaddBottom = imageData[count1][count2].getPaddingBottom();
-                        if (robotOrientation.equals("RIGHT")) {
-                            if (count2 == 4) {
-                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
-                            } else {
-                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 5, currPaddBottom);
-                            }
-                        } else if (robotOrientation.equals("LEFT")) {
-                            if (count2 == 0) {
-                                imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
-                            } else {
-                                imageData[count1][count2].setPadding(5, currPaddTop, currPaddRight, currPaddBottom);
-                            }
-                        } else if (robotOrientation.equals("UP")) {
-                            if (count1 == 0) {
-                                imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
-                            } else {
-                                imageData[count1][count2].setPadding(currPaddLeft, 5, currPaddRight, currPaddBottom);
-                            }
-                        } else if (robotOrientation.equals("DOWN")) {
-                            if (count1 == 4) {
-                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
-                            } else {
-                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 5);
-                            }
+                        switch (robotOrientation) {
+                            case "RIGHT":
+                                if (count2 == 4) {
+                                    imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                                } else {
+                                    imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 5, currPaddBottom);
+                                }
+                                break;
+                            case "LEFT":
+                                if (count2 == 0) {
+                                    imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                                } else {
+                                    imageData[count1][count2].setPadding(5, currPaddTop, currPaddRight, currPaddBottom);
+                                }
+                                break;
+                            case "UP":
+                                if (count1 == 0) {
+                                    imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
+                                } else {
+                                    imageData[count1][count2].setPadding(currPaddLeft, 5, currPaddRight, currPaddBottom);
+                                }
+                                break;
+                            case "DOWN":
+                                if (count1 == 4) {
+                                    imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                                } else {
+                                    imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 5);
+                                }
+                                break;
                         }
                     }
                 }
@@ -176,30 +181,35 @@ public class LabFragment extends Fragment {
                         int currPaddTop = imageData[count1][count2].getPaddingTop();
                         int currPaddRight = imageData[count1][count2].getPaddingRight();
                         int currPaddBottom = imageData[count1][count2].getPaddingBottom();
-                        if (robotOrientation.equals("RIGHT")) {
-                            if (count1 == 4) {
-                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
-                            } else {
-                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 5);
-                            }
-                        } else if (robotOrientation.equals("LEFT")) {
-                            if (count1 == 0) {
-                                imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
-                            } else {
-                                imageData[count1][count2].setPadding(currPaddLeft, 5, currPaddRight, currPaddBottom);
-                            }
-                        } else if (robotOrientation.equals("UP")) {
-                            if (count2 == 4) {
-                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
-                            } else {
-                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 5, currPaddBottom);
-                            }
-                        } else if (robotOrientation.equals("DOWN")) {
-                            if (count2 == 0) {
-                                imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
-                            } else {
-                                imageData[count1][count2].setPadding(5, currPaddTop, currPaddRight, currPaddBottom);
-                            }
+                        switch (robotOrientation) {
+                            case "RIGHT":
+                                if (count1 == 4) {
+                                    imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                                } else {
+                                    imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 5);
+                                }
+                                break;
+                            case "LEFT":
+                                if (count1 == 0) {
+                                    imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
+                                } else {
+                                    imageData[count1][count2].setPadding(currPaddLeft, 5, currPaddRight, currPaddBottom);
+                                }
+                                break;
+                            case "UP":
+                                if (count2 == 4) {
+                                    imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                                } else {
+                                    imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 5, currPaddBottom);
+                                }
+                                break;
+                            case "DOWN":
+                                if (count2 == 0) {
+                                    imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                                } else {
+                                    imageData[count1][count2].setPadding(5, currPaddTop, currPaddRight, currPaddBottom);
+                                }
+                                break;
                         }
                     }
                 }
@@ -219,30 +229,35 @@ public class LabFragment extends Fragment {
                         int currPaddTop = imageData[count1][count2].getPaddingTop();
                         int currPaddRight = imageData[count1][count2].getPaddingRight();
                         int currPaddBottom = imageData[count1][count2].getPaddingBottom();
-                        if (robotOrientation.equals("RIGHT")) {
-                            if (count1 == 0) {
-                                imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
-                            } else {
-                                imageData[count1][count2].setPadding(currPaddLeft, 5, currPaddRight, currPaddBottom);
-                            }
-                        } else if (robotOrientation.equals("LEFT")) {
-                            if (count1 == 4) {
-                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
-                            } else {
-                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 5);
-                            }
-                        } else if (robotOrientation.equals("UP")) {
-                            if (count2 == 0) {
-                                imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
-                            } else {
-                                imageData[count1][count2].setPadding(5, currPaddTop, currPaddRight, currPaddBottom);
-                            }
-                        } else if (robotOrientation.equals("DOWN")) {
-                            if (count2 == 4) {
-                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
-                            } else {
-                                imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 5, currPaddBottom);
-                            }
+                        switch (robotOrientation) {
+                            case "RIGHT":
+                                if (count1 == 0) {
+                                    imageData[count1][count2].setPadding(currPaddLeft, 10, currPaddRight, currPaddBottom);
+                                } else {
+                                    imageData[count1][count2].setPadding(currPaddLeft, 5, currPaddRight, currPaddBottom);
+                                }
+                                break;
+                            case "LEFT":
+                                if (count1 == 4) {
+                                    imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 10);
+                                } else {
+                                    imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, currPaddRight, 5);
+                                }
+                                break;
+                            case "UP":
+                                if (count2 == 0) {
+                                    imageData[count1][count2].setPadding(10, currPaddTop, currPaddRight, currPaddBottom);
+                                } else {
+                                    imageData[count1][count2].setPadding(5, currPaddTop, currPaddRight, currPaddBottom);
+                                }
+                                break;
+                            case "DOWN":
+                                if (count2 == 4) {
+                                    imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 10, currPaddBottom);
+                                } else {
+                                    imageData[count1][count2].setPadding(currPaddLeft, currPaddTop, 5, currPaddBottom);
+                                }
+                                break;
                         }
                     }
                 }
@@ -327,6 +342,7 @@ public class LabFragment extends Fragment {
 
     /**
      * This method sets the background color of a cell.
+     *
      * @param imageData The subject cell view.
      * @param state The state that determines the background color.
      */
@@ -357,6 +373,7 @@ public class LabFragment extends Fragment {
 
     /**
      * This method sets the white empty cells at the beginning of the challenge.
+     *
      * @param imageData The matrix of cell views of the labyrinth.
      */
     private void setDrawables(ImageView[][] imageData) {
@@ -369,6 +386,7 @@ public class LabFragment extends Fragment {
 
     /**
      * This method transforms the matrix of cells into an array, for more comfort.
+     *
      * @param imageData The matrix of cell views.
      * @return The array of cell views.
      */

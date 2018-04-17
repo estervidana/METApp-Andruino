@@ -8,9 +8,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.Grupo1.MET.metapp_andruino.R;
 import com.Grupo1.MET.metapp_andruino.debug.Debug;
@@ -26,6 +24,8 @@ import com.Grupo1.MET.metapp_andruino.viewModel.MainViewModel;
 
 public class MainFragment extends Fragment{
 
+    //TODO a JavaDoc should be for individual variables only not for a group.
+    //TODO listen to IDE when it tells you that a variable can be local.
     /** The different buttons for the different options. */
     private ImageButton bCtrlRem, bAccel, bLab, bLogComm;
     /** The view model that controls the view items. */
@@ -54,6 +54,7 @@ public class MainFragment extends Fragment{
 
     /**
      * This method links every view item to its corresponding layout item.
+     *
      * @param v The view that contains these items.
      */
     private void bindViews(View v){

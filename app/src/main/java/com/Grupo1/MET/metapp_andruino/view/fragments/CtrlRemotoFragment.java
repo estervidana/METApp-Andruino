@@ -38,7 +38,6 @@ import java.util.ArrayList;
 /**
  * This class represents the remote control fragments that displays its view items.
  */
-
 public class CtrlRemotoFragment extends Fragment implements SensorEventListener {
     /** The view model that controls the remote control view. */
     private CtrlRemotoViewModel viewModel;
@@ -54,11 +53,8 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     private Sensor mAccelerometer;
     /** The library that stores the different gestures (polygons). */
     private GestureLibrary gLibrary;
-    /** The defined time of delay in millisecons. */
-    private static long DELAY_TIME = 1000000;
-
-
-
+    /** The defined time of delay in milliseconds. */
+    private static final long DELAY_TIME = 1000000;
 
     public static CtrlRemotoFragment newInstance() {
         return new CtrlRemotoFragment();
@@ -83,6 +79,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
 
     /**
      * In this method we are indicating which viewModel belongs to the remote control.
+     *
      * @param v the view of the remote control.
      */
     private void initViewModel(final View v){
@@ -92,6 +89,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     /**
      * In this function we declare all the elements that we will change in this fragment
      * and all of it's listeners.
+     *
      * @param v the view of the remote control.
      */
     @SuppressLint("ClickableViewAccessibility")
@@ -129,6 +127,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     /**
      * This is a listener for the sensors we have declared (the accelerometer).
      * It stores the three values (x,y,z) but only stores in the viewModel the y coordinate.
+     *
      * @param event is an event on the accelerometer.
      */
     @Override
@@ -146,6 +145,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
 
     /**
      * This method does nothing for the moment, but Android Studio required it's overriding.
+     *
      * @param sensor is the accelerometer.
      * @param accuracy is the accuracy. Now it is not used.
      */
@@ -157,6 +157,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     /**
      * Listener for the switch that represent the lights of the robot. When the switch is clicked it must send a message
      * to the robot. The message sending part is still not implemented, for now it only turns the switch on/off.
+     *
      * @param v is the view of the remote control.
      */
     private void listenLightsSwitch(final View v){
@@ -202,6 +203,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     /**
      * This method is a listener for the Gear Buttons. For now, this method changes de gear value
      * and sends a debugging message.
+     *
      * @param v is the view of the remote control.
      */
     private void listenButtonsGear(final View v){
@@ -251,6 +253,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
      * This method is a listener for the GAS and BRAKE buttons.
      * It sets the status of the corresponding variables of the view model to
      * false/true and send a debugging message.
+     *
      * @param v is the view of the remote control.
      */
     @SuppressLint("ClickableViewAccessibility")
@@ -303,7 +306,8 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     /**
      * This method observes the temperature of the robot, a variable stored in the ViewModel.
      * When a change in the temperature is observed, the value is set into the  progress bar of the view
-     * (termometer) and it's corresponding textView.
+     * (thermometer) and it's corresponding textView.
+     *
      * @param v is the view of the remote control.
      */
     private void observeTemperature(final View v){
@@ -323,6 +327,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
 
     /**
      * This methos observes the collision variables of the viewModel. Then it changes the status of the collision indicator.
+     *
      * @param v is the view.
      */
     private void observeCollisions(final View v){
@@ -355,7 +360,8 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     /**
      * This method observes the speed of the robot, a variable stored in the ViewModel.
      * When a change in the speed is observed, the value is set into the circular progress bar of the view
-     * (velocimeter) and it's corresponding textView.
+     * (speedometer) and it's corresponding textView.
+     *
      * @param v is the view of the remote control.
      */
     private void observeSpeed(final View v){
@@ -375,6 +381,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
 
     /**
      * This method is the listener for the pattern recognition zone.
+     *
      * @param v is the view of the model.
      */
     private void listenPatternRecognition(final View v){
@@ -406,7 +413,8 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     }
 
     /**
-     * This methos changes the color of the collision indicators depending of the parameters.
+     * This method changes the color of the collision indicators depending of the parameters.
+     *
      * @param indicator  must be 0 (Frontal Collision), 1 (Back right collision), 2 (Back left collision).
      * @param status must be 0(no collision), 1 (collision).
      */

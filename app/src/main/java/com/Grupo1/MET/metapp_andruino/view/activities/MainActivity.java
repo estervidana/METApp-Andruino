@@ -10,8 +10,8 @@ import com.Grupo1.MET.metapp_andruino.R;
  */
 
 public class MainActivity extends AppCompatActivity {
-
-    private String MAIN_FRAGMENT = "MAIN_FRAGMENT"; //Name of the fragment.
+    /** Constant used to create and recover the fragment.*/
+    private static final String MAIN_FRAGMENT = "MAIN_FRAGMENT";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
