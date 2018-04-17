@@ -2,15 +2,26 @@ package com.Grupo1.MET.metapp_andruino.debug;
 
 import android.util.Log;
 
-
+/**
+ * Class used to centralize writing logs. These logs should only be written when debugging the app.
+ */
 public class Debug {
-    public Debug(){}
-    //Class for debugging.
-    private static final boolean debugEnable = true; //If true all the logs will be displayed.
+    /**
+     * Private constructor to make sure no one instantiates a Debug object.
+     */
+    private Debug(){}
 
+    /** Indicates whether the app is running in debug mode or not.*/
+    private static final boolean debugEnable = true;
+
+    /**
+     * Shows logs if {@link #debugEnable} is true. If {@link #debugEnable} is false, it will do nothing.
+     *
+     * @param message The message to be displayed in Logcat.
+     */
     public static void showLog(String message){
         if(debugEnable) {
-            Log.d("------------> Mensaje:", message);
+            Log.d("----> DebugMessage: ", message);
         }
     }
 
