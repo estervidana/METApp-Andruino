@@ -17,19 +17,26 @@ import java.util.List;
  * Service -> Listener (Repository) -> Listener of Listeners
  */
 public class Repository implements CommunicationService.CommunicationServiceListener {
-    /**
-     *
-     */
+    /** List of the repository's listeners.*/
     private List<RepositoryListener> repositoryListeners;
-
+    /** Indicates if the {@link CommunicationService} has been bounded to. */
     private boolean serviceIsBound;
 
+    /** Instance of the {@link Repository}. Only one {@link Repository} can be active at a time.*/
     private static Repository instance = null;
 
+    /**
+     * Private constructor.
+     */
     private Repository() {
         repositoryListeners = new ArrayList<>();
     }
 
+    /**
+     * Static method to get the instance of the Repository. If no instance currently exists one is created.
+     *
+     * @return The instance of the {@link Repository}.
+     */
     public static Repository getInstance(){
         if(instance == null){
             instance = new Repository();
@@ -37,16 +44,31 @@ public class Repository implements CommunicationService.CommunicationServiceList
         return instance;
     }
 
+    /**
+     * Adds a listener to the class. Listeners will be a alerted when an action occurs.
+     *
+     * @param listener The listener to be added.
+     */
     public void addListener(RepositoryListener listener){
         repositoryListeners.add(listener);
     }
 
+    /**
+     * Starts the {@link CommunicationService}.
+     *
+     * @param context The context in which the Service will run.
+     */
     public void startService(Context context) {
         Intent intent = new Intent(context, CommunicationService.class);
         context.startService(intent);
         context.bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
     }
 
+    /**
+     * Stops the {@link CommunicationService}.
+     *
+     * @param context The context in which the Service is running.
+     */
     public void stopService(Context context) {
         if (serviceIsBound) {
             context.unbindService(serviceConnection);
