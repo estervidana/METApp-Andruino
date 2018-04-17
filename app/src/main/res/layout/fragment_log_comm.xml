@@ -6,6 +6,7 @@
     tools:context="com.Grupo1.MET.metapp_andruino.view.fragments.LogCommFragment">
 
     <LinearLayout
+        
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/log_margin_top"
