@@ -1,7 +1,9 @@
 package com.Grupo1.MET.metapp_andruino.view.fragments;
 
+import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,41 +73,59 @@ public class AccelFragment extends Fragment {
                 getActivity().onBackPressed();
             }
         });
+        observeXAccel(v);
+        observeYAccel(v);
+        observeZAccel(v);
     }
 
-    /**
-     * This method updates the printed value of X axis acceleration.
-     * @param xAccelValue The decimal value of X acceleration in m/s2.
-     */
-    public void updateXAccelText(double xAccelValue) {
-        String text = R.string.accel_x_accel_text + String.valueOf(xAccelValue);
-        xAccel.setText(text);
-        viewModel.setxAccel(xAccelValue);
-    }
 
-    /**
-     * This method updates the printed value of Y axis acceleration.
-     * @param yAccelValue The decimal value of Y acceleration in m/s2.
-     */
-    public void updateYAccelText(double yAccelValue) {
-        String text = R.string.accel_y_accel_text + String.valueOf(yAccelValue);
-        yAccel.setText(text);
-        viewModel.setyAccel(yAccelValue);
-    }
-
-    /**
-     * This method updates the printed value of Z axis acceleration.
-     * @param zAccelValue The decimal value of Z acceleration in m/s2.
-     */
-    public void updateZAccelText(double zAccelValue) {
-        String text = R.string.accel_z_accel_text + String.valueOf(zAccelValue);
-        zAccel.setText(text);
-        viewModel.setzAccel(zAccelValue);
-    }
 
     private void initViewModel(final View v){
         viewModel = ViewModelProviders.of(getActivity()).get(AccelViewModel.class);
     }
+
+    private void observeXAccel(final View v){
+        final Observer<Double> xAccelObserver = new Observer<Double>() {
+            @Override
+            public void onChanged(@Nullable Double aDouble) {
+                //Update the view
+                String auxX = aDouble.toString() + " m/s2";
+                xAccel.setText(auxX);
+            }
+        };
+        //Declaring which variable is observed:
+        viewModel.getXAccel().observe(this,xAccelObserver);
+    }
+
+    private void observeYAccel(final View v){
+        final Observer<Double> yAccelObserver = new Observer<Double>() {
+            @Override
+            public void onChanged(@Nullable Double aDouble) {
+                //Update the view
+                String auxY = aDouble.toString() + " m/s2";
+                yAccel.setText(auxY);
+            }
+        };
+        //Declaring which variable is observed:
+        viewModel.getYAccel().observe(this,yAccelObserver);
+    }
+
+    private void observeZAccel(final View v){
+        final Observer<Double> zAccelObserver = new Observer<Double>() {
+            @Override
+            public void onChanged(@Nullable Double aDouble) {
+                //Update the view
+                String auxZ = aDouble.toString() + " m/s2";
+                zAccel.setText(auxZ);
+            }
+        };
+        //Declaring which variable is observed:
+        viewModel.getZAccel().observe(this,zAccelObserver);
+    }
+
+
+
+
 
     @Override
     public void onStop(){

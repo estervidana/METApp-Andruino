@@ -1,15 +1,21 @@
 package com.Grupo1.MET.metapp_andruino.viewModel;
 
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
+
+import com.Grupo1.MET.metapp_andruino.data.communication.MessageType;
+import com.Grupo1.MET.metapp_andruino.data.repository.Repository;
+import com.Grupo1.MET.metapp_andruino.debug.Debug;
 
 /**
  * This is the viewModel of the accelerometer.
  */
-public class AccelViewModel extends ViewModel {
+public class AccelViewModel extends ViewModel implements Repository.RepositoryListener{
 
-    private static double xAccel; //Acceleration in x axis.
-    private static double yAccel; //Acceleration in y axis.
-    private static double zAccel; //Acceleration in z axis.
+    //private static double xAccel; //Acceleration in x axis.
+    //private static double yAccel; //Acceleration in y axis.
+    //private static double zAccel; //Acceleration in z axis.
+    private MutableLiveData<Double> xAccel, yAccel, zAccel;
 
     /**
      * The constructor of the class.
@@ -21,47 +27,60 @@ public class AccelViewModel extends ViewModel {
      * getter of the variable xAccel.
      * @return the value of xAccel.
      */
-    public double getxAccel() {
+    public MutableLiveData<Double> getXAccel() {
+        if (xAccel == null) {
+            xAccel = new MutableLiveData<>();
+        }
         return xAccel;
     }
 
-    /**
-     * setter of the value xAccel.
-     * @param xAccel is the acceleration in the x axis.
-     */
-    public void setxAccel(double xAccel) {
-        AccelViewModel.xAccel = xAccel;
-    }
-
-    /**
-     * getter of the variable yAccel.
-     * @return the value of yAccel.
-     */
-    public double getyAccel() {
+    public MutableLiveData<Double> getYAccel() {
+        if (yAccel == null) {
+            yAccel = new MutableLiveData<>();
+        }
         return yAccel;
     }
 
-    /**
-     * setter of the variable yAccel.
-     * @param yAccel is the acceleration in the y axis.
-     */
-    public void setyAccel(double yAccel) {
-        AccelViewModel.yAccel = yAccel;
-    }
-
-    /**
-     * getter of the variable zAccel.
-     * @return the value of zAccel.
-     */
-    public double getzAccel() {
+    public MutableLiveData<Double> getZAccel() {
+        if (zAccel == null) {
+            zAccel = new MutableLiveData<>();
+        }
         return zAccel;
     }
 
-    /**
-     * setter of the variable zAccel.
-     * @param zAccel is the acceleration in the z axis.
-     */
-    public void setzAccel(double zAccel) {
-        AccelViewModel.zAccel = zAccel;
+    private void setXAccel(Double xAccelReceived) {
+        xAccel.postValue(xAccelReceived);
+    }
+    private void setYAccel(Double yAccelReceived) {
+        yAccel.postValue(yAccelReceived);
+    }
+    private void setZAccel(Double zAccelReceived) {
+        zAccel.postValue(zAccelReceived);
+    }
+
+
+    @Override
+    public void onMessageReceived(String message) {
+        //When receiving a message, we need to process the string.
+        //In this case only the accelerations are checked.
+        String msg[] =message.split(";");
+        String msgHeader[] =msg[0].split(":");
+        Debug.showLog(msgHeader[0]);
+        String msgParameters[] = msgHeader[1].split(",");
+        Debug.showLog(String.valueOf(MessageType.ACCEL.ordinal()));
+        if (Integer.parseInt(msgHeader[0]) == MessageType.ACCEL.ordinal()){
+            if (msgParameters[0].equals("XACCEL")){
+                xAccel.postValue(Double.parseDouble(msgParameters[1]));
+            }else if (msgParameters[0].equals("YACCEL")){
+                yAccel.postValue(Double.parseDouble(msgParameters[1]));
+            }else if (msgParameters[0].equals("ZACCEL")) {
+                zAccel.postValue(Double.parseDouble(msgParameters[1]));
+            }
+        }
+    }
+
+    @Override
+    public void onServiceStopped() {
+
     }
 }

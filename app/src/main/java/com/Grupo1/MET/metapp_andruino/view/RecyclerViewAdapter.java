@@ -1,4 +1,4 @@
-package com.Grupo1.MET.metapp_andruino.viewModel;
+package com.Grupo1.MET.metapp_andruino.view;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

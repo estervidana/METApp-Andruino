@@ -13,9 +13,9 @@ import android.widget.ImageView;
 
 import com.Grupo1.MET.metapp_andruino.R;
 import com.Grupo1.MET.metapp_andruino.debug.Debug;
+import com.Grupo1.MET.metapp_andruino.view.RecyclerViewAdapter;
 import com.Grupo1.MET.metapp_andruino.viewModel.LabyrinthSection;
 import com.Grupo1.MET.metapp_andruino.viewModel.LabyrinthSectionState;
-import com.Grupo1.MET.metapp_andruino.viewModel.RecyclerViewAdapter;
 
 /**
  * This class represents the labyrinth fragment that displays its view items.

@@ -69,13 +69,7 @@
                 android:background="@mipmap/ic_gas"
                 android:id="@+id/image_button_gas"
                 />
-            <ImageButton
-                android:contentDescription="@string/allclasses_content_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@mipmap/ic_brake"
-                android:id="@+id/image_button_brake"
-                />
+
         </LinearLayout>
     </LinearLayout>
 
