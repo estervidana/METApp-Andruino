@@ -16,7 +16,7 @@ public class UdpCommunicator implements Communicator {
     private static final int PORT_SEND = 31338;
     // TODO set actual robot IP.
     /** The IP to which the Communicator will send.*/
-    private static final String ROBOT_IP = "192.168.1.100";
+    private static final String ROBOT_IP = "192.168.127.";
 
     // protocol:
     // option:param1,param2,...,paramN;

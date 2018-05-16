@@ -19,10 +19,10 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
         Repository.getInstance().addListener(this);
     }
     //Variables of the class:
-    private int gear = 0;
-    private final int MAXGEAR = 3;
-    private final int MINGEAR = -3;
-    private final int MAXTIME = 500;
+    private int gear = 0; //the current value of the gear
+    private final int MAXGEAR = 3; //Constant value: maximun gear.
+    private final int MINGEAR = -3; //Constant value: minimum gear.
+    private final int MAXTIME = 500; //Constant value: query time for the internal accelerometer .
 
     private boolean gas = false;
     private boolean brake = false;
@@ -209,7 +209,6 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
             Debug.showLog("entro");
             if (msgParameters[0].equals("FRONT")){
                 if (msgParameters[1].equals("ON")) {
-                    Debug.showLog("kjgskdfg");
                     collisionFront.postValue(1);
                 }else collisionFront.postValue(0);
             }else if (msgParameters[0].equals("LEFT")){
