@@ -199,14 +199,13 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
     @Override
     public void onMessageReceived(String message) {
         //When receiving a message, we need to process the string.
-        //In this case only the collisions are cheked.
+        //In this case only the collisions are checked.
         String msg[] =message.split(";");
         String msgHeader[] =msg[0].split(":");
         Debug.showLog(msgHeader[0]);
         String msgParameters[] = msgHeader[1].split(",");
         Debug.showLog(String.valueOf(MessageType.COLLISION.ordinal()));
         if (Integer.parseInt(msgHeader[0]) == MessageType.COLLISION.ordinal()){
-            Debug.showLog("entro");
             if (msgParameters[0].equals("FRONT")){
                 if (msgParameters[1].equals("ON")) {
                     collisionFront.postValue(1);
@@ -235,11 +234,11 @@ public class CtrlRemotoViewModel extends ViewModel implements Repository.Reposit
      */
     public void sendPolygonOrder (Prediction prediction) {
         if (prediction.name.equals("Circle")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a CIRCLE 40 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, do a CIRCLE!");
         } else if (prediction.name.equals("Triangle")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a TRIANGLE 40 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, do a TRIANGLE!");
         } else if (prediction.name.equals("Square")) {
-            Debug.showLog("::::::::::::::::::: Arduino, Do a SQUARE 40 cm RADIUS!");
+            Debug.showLog("::::::::::::::::::: Arduino, do a SQUARE!");
         }
     }
 }

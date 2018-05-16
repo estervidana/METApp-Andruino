@@ -117,7 +117,7 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
         listenManualModeSwitch(v);
         listenButtonsGear(v);
         listenCanvas(v);
-        listenButtonsGasBrake(v);
+        listenButtonGas(v);
         observeTemperature(v);
         observeSpeed(v);
         observeCollisions(v);
@@ -252,14 +252,14 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
     }
 
     /**
-     * This method is a listener for the GAS and BRAKE buttons.
+     * This method is a listener for the GAS button.
      * It sets the status of the corresponding variables of the view model to
      * false/true and send a debugging message.
      *
      * @param v is the view of the remote control.
      */
     @SuppressLint("ClickableViewAccessibility")
-    private void listenButtonsGasBrake(final View v){
+    private void listenButtonGas(final View v){
         final ImageButton ibGas = v.findViewById(R.id.image_button_gas);
         ibGas.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -277,23 +277,6 @@ public class CtrlRemotoFragment extends Fragment implements SensorEventListener 
                 return true;
             }
 
-        });
-
-        ImageButton ibBrake = v.findViewById(R.id.image_button_brake);
-        ibBrake.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if(event.getAction() == MotionEvent.ACTION_DOWN) {
-                    Debug.showLog("Aprieto el BRAKE!");
-                    Toast.makeText(getActivity().getApplicationContext(), "Brake pressed", Toast.LENGTH_LONG).show();
-                    viewModel.setBrake(false);
-                } else if (event.getAction() == MotionEvent.ACTION_UP) {
-                    Debug.showLog("Dejo ir el BRAKE!");
-                    Toast.makeText(getActivity().getApplicationContext(), "Brake released", Toast.LENGTH_LONG).show();
-                    viewModel.setBrake(false);
-                }
-                return true;
-            }
         });
 
         ImageButton ibBack = v.findViewById(R.id.image_button_back_ctrl_remoto);
